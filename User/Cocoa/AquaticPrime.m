@@ -7,12 +7,12 @@
 //
 // Redistribution and use in source and binary forms, with or without modification,
 // are permitted provided that the following conditions are met:
-//	¥Redistributions of source code must retain the above copyright notice,
+//	ï¾¥Redistributions of source code must retain the above copyright notice,
 //	 this list of conditions and the following disclaimer.
-//	¥Redistributions in binary form must reproduce the above copyright notice,
+//	ï¾¥Redistributions in binary form must reproduce the above copyright notice,
 //	 this list of conditions and the following disclaimer in the documentation and/or
 //	 other materials provided with the distribution.
-//	¥Neither the name of Aquatic nor the names of its contributors may be used to 
+//	ï¾¥Neither the name of Aquatic nor the names of its contributors may be used to 
 //	 endorse or promote products derived from this software without specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
@@ -310,6 +310,75 @@
 	}
 	
 	return [NSDictionary dictionaryWithDictionary:licenseDict];
+}
+
+- (NSData*)signatureForLicenseData:(NSData *)data
+{	
+	// Make sure public key is set up
+	if (!rsaKey || !rsaKey->n) {
+		[self _setError:@"RSA key is invalid"];
+		return nil;
+	}
+	
+	// Create a dictionary from the data
+	NSPropertyListFormat format;
+	NSString *error;
+	NSMutableDictionary *licenseDict = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&error];
+	if (error)
+		return nil;
+	
+	NSData *signature = [licenseDict objectForKey:@"Signature"];
+	if (!signature)
+		return nil;
+	
+	// Decrypt the signature - should get 20 bytes back
+	unsigned char checkDigest[20];
+	if (RSA_public_decrypt([signature length], [signature bytes], checkDigest, rsaKey, RSA_PKCS1_PADDING) != 20)
+		return nil;
+	
+	// Make sure the license hash isn't on the blacklist
+	NSMutableString *hashCheck = [NSMutableString string];
+	int hashIndex;
+	for (hashIndex = 0; hashIndex < 20; hashIndex++)
+		[hashCheck appendFormat:@"%02x", checkDigest[hashIndex]];
+	
+	// Store the license hash in case we need it later
+	[self setHash:hashCheck];
+	
+	if (blacklist && [blacklist containsObject:hashCheck])
+		return nil;
+	
+	// Remove the signature element
+	[licenseDict removeObjectForKey:@"Signature"];
+	
+	// Grab all values from the dictionary
+	NSMutableArray *keyArray = [NSMutableArray arrayWithArray:[licenseDict allKeys]];
+	NSMutableData *dictData = [NSMutableData data];
+	
+	// Sort the keys so we always have a uniform order
+	[keyArray sortUsingSelector:@selector(caseInsensitiveCompare:)];
+	
+	int objectIndex;
+	for (objectIndex = 0; objectIndex < [keyArray count]; objectIndex++)
+	{
+		id currentValue = [licenseDict objectForKey:[keyArray objectAtIndex:objectIndex]];
+		char *description = (char *)[[currentValue description] UTF8String];
+		// We use strlen instead of [string length] so we can get all the bytes of accented characters
+		[dictData appendBytes:description length:strlen(description)];
+	}
+	
+	// Hash the data
+	unsigned char digest[20];
+	SHA1([dictData bytes], [dictData length], digest);
+	
+	// Check if the signature is a match	
+	int checkIndex;
+	for (checkIndex = 0; checkIndex < 20; checkIndex++) {
+		if (checkDigest[checkIndex] ^ digest[checkIndex])
+			return nil;
+	}
+	
+	return signature;
 }
 
 - (NSDictionary*)dictionaryForLicenseFile:(NSString *)path

@@ -7,12 +7,12 @@
 //
 // Redistribution and use in source and binary forms, with or without modification,
 // are permitted provided that the following conditions are met:
-//	¥Redistributions of source code must retain the above copyright notice,
+//	ï¾¥Redistributions of source code must retain the above copyright notice,
 //	 this list of conditions and the following disclaimer.
-//	¥Redistributions in binary form must reproduce the above copyright notice,
+//	ï¾¥Redistributions in binary form must reproduce the above copyright notice,
 //	 this list of conditions and the following disclaimer in the documentation and/or
 //	 other materials provided with the distribution.
-//	¥Neither the name of the Aquatic nor the names of its contributors may be used to 
+//	ï¾¥Neither the name of the Aquatic nor the names of its contributors may be used to 
 //	 endorse or promote products derived from this software without specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
@@ -132,7 +132,9 @@
 	NSDictionary *templateDict = [NSDictionary dictionaryWithObjectsAndKeys:keyArray, @"Keys", 
 																			valueArray, @"Values", 
 																			[licenseExtensionField stringValue], @"Extension",
-																			[saveDirectoryField stringValue], @"Save Directory", nil];
+																			[saveDirectoryField stringValue], @"Save Directory", 
+																			emailKey, @"EmailKey",
+								  nil];
 	
 	// The ~/Library/Application Support/Aquatic/ folder doesn't exist yet
 	if (![fm fileExistsAtPath:supportDir isDirectory:&isDir])
@@ -184,10 +186,25 @@
 	valueArray = [[NSMutableArray arrayWithArray:[templateDict objectForKey:@"Values"]] retain];
 	[licenseExtensionField setStringValue:[templateDict objectForKey:@"Extension"]];
 	[saveDirectoryField setStringValue:[templateDict objectForKey:@"Save Directory"]];
+	application = [valueArray objectAtIndex:[keyArray indexOfObject:@"Application"]];
+	emailKey = [templateDict objectForKey:@"EmailKey"];
+	if ([emailKey length]) 
+		emailAddress = [valueArray objectAtIndex:[keyArray indexOfObject:emailKey]];
+	else {
+		emailAddress = @"";
+		emailKey = @"";
+	}
+
+	[licenseEmailField setStringValue:emailKey];
+	
+	
 	
 	if (![keyArray count])
 		[generateLicenseButton setEnabled:NO];
-	
+	if ([emailAddress length])
+		[emailButton setEnabled:YES];
+	else
+		[emailButton setEnabled:NO];
 	return YES;
 }
 
@@ -220,9 +237,11 @@
 		[generateLicenseButton setEnabled:NO];
 		[editExtensionButton setEnabled:NO];
 		[editSaveDirectoryButton setEnabled:NO];
+		[emailButton setEnabled:NO];
 		
 		[licenseExtensionField setStringValue:@""];
 		[saveDirectoryField setStringValue:@""];
+		[licenseEmailField setStringValue:@""];
 		
 		keyArray = [[NSMutableArray array] retain];
 		valueArray = [[NSMutableArray array] retain];
@@ -246,6 +265,7 @@
 	NSOpenPanel *selectPanel = [NSOpenPanel openPanel];
 	[selectPanel setCanChooseFiles:NO];
 	[selectPanel setCanChooseDirectories:YES];
+	[selectPanel setCanCreateDirectories: YES];
 	[selectPanel setAllowsMultipleSelection:NO];
 	[selectPanel setPrompt:@"Select"];
 	[selectPanel setTitle:@"Select Directory"];
@@ -349,4 +369,37 @@
 		[removeButton setEnabled:YES];
 }
 
+- (IBAction)emailLicense:(id)sender;
+{
+	if ([emailAddress length] != 0) {
+		NSString *mutt = [NSString stringWithFormat: @"mutt -s \"%@ License\" -a %@/%@.%@ -b \"davec@polymicrosystems.com\" %@ < %@/../license.html", 
+						  application, [saveDirectoryField stringValue], emailAddress, [licenseExtensionField stringValue], emailAddress, [saveDirectoryField stringValue]  ];
+		int result = system([mutt UTF8String]);
+		if (result)
+			NSLog(@"mutt: %x", result);
+	}
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)aNotification
+{
+	NSTextView * tv = [[aNotification userInfo] objectForKey: @"NSFieldEditor"];
+	NSString *tvs = [tv string];
+	NSRange r = [tvs rangeOfString:@"@"];
+	if ([tvs length] != 0) {
+		if (r.location == NSNotFound) { // email textField does not have an address, look for a key
+			id key = [keyArray containsObject:tvs];
+			if (key) {
+				emailKey = tvs;
+				emailAddress = [valueArray objectAtIndex:[keyArray indexOfObject:tvs]];
+			} 
+		} else {
+			emailAddress = tvs;
+		}
+	}
+	if ([emailAddress length])
+		[emailButton setEnabled:YES];
+	else
+		[emailButton setEnabled:NO];
+	
+}
 @end
