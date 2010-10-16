@@ -48,7 +48,7 @@
 	NSString *emailKey;
 	NSString *emailAddress;
 	NSString *application;
-	
+	NSMutableDictionary *licenseDictionary;
 	AquaticPrime *licenseMaker;
 	
 	IBOutlet id keyController;
@@ -65,3 +65,4 @@
 - (IBAction)emailLicense:(id)sender;
   
 @end
+

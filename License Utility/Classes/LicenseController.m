@@ -94,7 +94,7 @@
 		[fm createDirectoryAtPath:licenseDir attributes:nil];
 	}
 	
-	NSMutableDictionary *licenseDict = [NSMutableDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+	licenseDictionary = [NSMutableDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
 	
 	NSString *publicKey = [keyController publicKey];
 	NSString *privateKey = [keyController privateKey];
@@ -106,8 +106,8 @@
 	
 	NSString *path = [NSString stringWithFormat:@"%@/%@.%@", [saveDirectoryField stringValue], [valueArray objectAtIndex:0], [licenseExtensionField stringValue]];
 	NSString *backupPath = [NSString stringWithFormat:@"%@/%@.%@", licenseDir, [valueArray objectAtIndex:0], [licenseExtensionField stringValue]];
-	[licenseMaker writeLicenseFileForDictionary:licenseDict toPath:path];
-	[licenseMaker writeLicenseFileForDictionary:licenseDict toPath:backupPath];
+	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:path];
+	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:backupPath];
 	[statusController setStatus:[NSString stringWithFormat:@"Wrote license to %@", path] duration:2.5];
 }
  
@@ -371,22 +371,60 @@
 
 - (IBAction)emailLicense:(id)sender;
 {
-	if ([emailAddress length] != 0) {
-		NSString *mutt = [NSString stringWithFormat: @"mutt -s \"%@ License\" -a %@/%@.%@ -b \"davec@polymicrosystems.com\" %@ < %@/../license.html", 
-						  application, [saveDirectoryField stringValue], emailAddress, [licenseExtensionField stringValue], emailAddress, [saveDirectoryField stringValue]  ];
-		int result = system([mutt UTF8String]);
-		if (result)
-			NSLog(@"mutt: %x", result);
+	NSString *mailTo;
+	NSString *licenseName;
+	NSString *tvs = [licenseEmailField stringValue];
+	NSRange r = [tvs rangeOfString:@"@"];	// look for an @ in the email
+	if ([tvs length] != 0) {
+		if (r.location == NSNotFound) { // email textField does not have an address, look for emailAddressntainsObject:tvs];
+			id key = [keyArray containsObject:tvs];
+			if (key) {
+				emailKey = tvs;
+				licenseName = mailTo = [valueArray objectAtIndex:[keyArray indexOfObject:tvs]];
+			} 
+		} else {
+			mailTo = tvs;
+			licenseName = [valueArray objectAtIndex:0];
+		}
+	}
+	if ([mailTo length] != 0) {
+		// Do we have all the pieces
+		NSFileManager *fm = [NSFileManager defaultManager];
+		NSString *s;
+		s = [NSString stringWithFormat: @"%@/%@.%@", [saveDirectoryField stringValue], licenseName, [licenseExtensionField stringValue]];
+		BOOL licenseFileExists = [fm isReadableFileAtPath: s];
+		if (!licenseFileExists) {
+			[self generateLicense:sender];
+			licenseFileExists = [fm isReadableFileAtPath: s];
+		}
+		if (licenseFileExists) {
+			s = [NSString stringWithFormat: @"%@/../Attachments/license.html", [saveDirectoryField stringValue]];
+			BOOL textFileExists = [fm isReadableFileAtPath: s];
+			s = [NSString stringWithFormat: @"%@/../Attachments/license.png", [saveDirectoryField stringValue]];
+			BOOL attachmentFileExists = [fm isReadableFileAtPath: s];
+			attachmentFileExists = YES; // for now until I figure out how to make the multi-part mime type
+			if (licenseFileExists && textFileExists && attachmentFileExists) {
+				NSString *mutt = [NSString stringWithFormat: @"mutt -s \"%@ License\" -a %@/%@.%@ -b \"davec@polymicrosystems.com\" %@ < %@/../Attachments/license.html", 
+								  application, [saveDirectoryField stringValue], licenseName, [licenseExtensionField stringValue], mailTo, [saveDirectoryField stringValue]  ];
+				int result = system([mutt UTF8String]);
+				if (result)
+					NSLog(@"mutt: %x", result);
+			}
+		} else {
+			NSString * errorString = @"Please assign at least one key-value pair in order to generate and email a license!";
+			NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
+			return;
+		}
 	}
 }
 
-- (void)controlTextDidEndEditing:(NSNotification *)aNotification
+- (void)NOTTecontrolTextDidEndEditing:(NSNotification *)aNotification
 {
 	NSTextView * tv = [[aNotification userInfo] objectForKey: @"NSFieldEditor"];
-	NSString *tvs = [tv string];
-	NSRange r = [tvs rangeOfString:@"@"];
+	NSString *tvs = [licenseEmailField stringValue];
+	NSRange r = [tvs rangeOfString:@"@"];	// look for an @ in the email
 	if ([tvs length] != 0) {
-		if (r.location == NSNotFound) { // email textField does not have an address, look for a key
+		if (r.location == NSNotFound) { // email texemailAddressField does not have an address, look for a key
 			id key = [keyArray containsObject:tvs];
 			if (key) {
 				emailKey = tvs;
@@ -400,6 +438,5 @@
 		[emailButton setEnabled:YES];
 	else
 		[emailButton setEnabled:NO];
-	
 }
 @end
