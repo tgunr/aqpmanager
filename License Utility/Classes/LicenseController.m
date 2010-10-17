@@ -277,6 +277,37 @@
 		return;
 	
 	[saveDirectoryField setStringValue:[[selectPanel filenames] objectAtIndex:0]];
+	
+	NSString *mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Attachments", [saveDirectoryField stringValue]];
+	int result = system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
+
+	mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Licenses", [saveDirectoryField stringValue]];
+	result = system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
+
+	mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Blacklist", [saveDirectoryField stringValue]];
+	result = system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
+	
+//	APPKIT_EXTERN void NSBeginInformationalAlertSheet(NSString *title, 
+//													  NSString *defaultButton, 
+//													  NSString *alternateButton, 
+//													  NSString *otherButton, 
+//													  NSWindow *docWindow, 
+//													  id modalDelegate, 
+//													  SEL didEndSelector, 
+//													  SEL didDismissSelector, 
+//													  void *contextInfo, 
+//													  NSString *msgFormat, ...);
+	NSBeginInformationalAlertSheet(@"Storage folder created",
+								   @"OK",
+								   nil,
+								   nil,
+								   [sender window],               // window sheet is attached to
+								   self,                   // we'll be our own delegate
+								   nil,
+								   nil,                   // no need for did-dismiss selector
+								   nil,
+								   @"The auxiliary folders Attachments, Licenses, and Blacklist have been created"
+								   );                   // no parameters in message
 }
 
 - (IBAction)sheetOK:(id)sender
