@@ -26,12 +26,72 @@
 		3DD108F40881725A00C4C6B4 /* About.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD108F30881725A00C4C6B4 /* About.nib */; };
 		3DD108F80881726E00C4C6B4 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108F60881726E00C4C6B4 /* AboutController.m */; };
 		3DF60B9E085CE0BD004C50F2 /* remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DF60B9D085CE0BD004C50F2 /* remove.tiff */; };
+		75275E38126A0B7900DC2A8D /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E36126A0B7900DC2A8D /* Database.icns */; };
+		75275E39126A0B7900DC2A8D /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
+		753FBEEB126A36F700B26B65 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 753FBEEA126A36F700B26B65 /* Sparkle.framework */; };
+		753FBEEC126A371600B26B65 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75CFDBCC126A213B002BA6E7 /* Sparkle.framework */; };
+		758E42331269FA77008E173A /* advancedpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42281269FA77008E173A /* advancedpref.icns */; };
+		758E42351269FA77008E173A /* generalpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422A1269FA77008E173A /* generalpref.icns */; };
+		758E42361269FA77008E173A /* minus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422B1269FA77008E173A /* minus.icns */; };
+		758E42381269FA77008E173A /* plus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422D1269FA77008E173A /* plus.icns */; };
+		758E42391269FA77008E173A /* sidebarpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422E1269FA77008E173A /* sidebarpref.icns */; };
+		758E423A1269FA77008E173A /* SmartFolder.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422F1269FA77008E173A /* SmartFolder.icns */; };
+		758E423B1269FA77008E173A /* success.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42301269FA77008E173A /* success.icns */; };
+		758E423C1269FA77008E173A /* ToolbarInfo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42311269FA77008E173A /* ToolbarInfo.icns */; };
+		758E423D1269FA77008E173A /* update.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42321269FA77008E173A /* update.icns */; };
+		75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDB96126A10B5002BA6E7 /* PreferencesController.m */; };
+		75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */; };
 		E804BCA70833AAFD00512005 /* KeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = E804BCA60833AAFD00512005 /* KeyController.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		75CFDBBE126A1EEF002BA6E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Sparkle;
+		};
+		75CFDBC0126A1EEF002BA6E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 61B5F90209C4CEE200B25A18;
+			remoteInfo = "Sparkle Test App";
+		};
+		75CFDBC2126A1EEF002BA6E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DAAEFC960DA571DF0051E0D0;
+			remoteInfo = "relaunch tool";
+		};
+		75CFDBC4126A1EEF002BA6E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 612279D90DB5470200AB99EA;
+			remoteInfo = "Sparkle Unit Tests";
+		};
+		75CFDBC6126A1EEF002BA6E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D06E8D00FD68C7C005AE3F6;
+			remoteInfo = BinaryDelta;
+		};
+		75CFDBCA126A1F44002BA6E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = Sparkle;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		A0BFCA2509A3F240005C04A5 /* CopyFiles */ = {
@@ -40,6 +100,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				753FBEEC126A371600B26B65 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,10 +122,10 @@
 		3D1605FF089D3DBC00526ED8 /* OAGradientTableView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OAGradientTableView.h; sourceTree = "<group>"; };
 		3D1606A2089D41C100526ED8 /* AQTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AQTextFieldCell.m; sourceTree = "<group>"; };
 		3D1606A3089D41C100526ED8 /* AQTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AQTextFieldCell.h; sourceTree = "<group>"; };
-		3D4458EA08971CEC002901EB /* aquatic.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = aquatic.icns; path = Images/aquatic.icns; sourceTree = "<group>"; };
+		3D4458EA08971CEC002901EB /* aquatic.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = aquatic.icns; path = ../Images/aquatic.icns; sourceTree = "<group>"; };
 		3D9364010856724F006F1864 /* LicenseController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LicenseController.h; sourceTree = "<group>"; };
 		3D9364020856724F006F1864 /* LicenseController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LicenseController.m; sourceTree = "<group>"; };
-		3DA8074B08A694CE006C1C9F /* badge.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = badge.icns; path = Images/badge.icns; sourceTree = "<group>"; };
+		3DA8074B08A694CE006C1C9F /* badge.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = badge.icns; path = ../Images/badge.icns; sourceTree = "<group>"; };
 		3DB12C9E08803F0300160861 /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
 		3DB12C9F08803F0300160861 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		3DB12CFB0880423A00160861 /* LicenseInfo.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = LicenseInfo.nib; path = Nibs/LicenseInfo.nib; sourceTree = "<group>"; };
@@ -81,8 +142,26 @@
 		3DD108F50881726E00C4C6B4 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		3DD108F60881726E00C4C6B4 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		3DF60B9D085CE0BD004C50F2 /* remove.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = remove.tiff; sourceTree = "<group>"; };
+		75275E36126A0B7900DC2A8D /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
+		75275E37126A0B7900DC2A8D /* mailto.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = mailto.icns; sourceTree = "<group>"; };
+		753FBEEA126A36F700B26B65 /* Sparkle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Sparkle.framework; path = /Volumes/leopard/Sources/GIT/Sparkle/build/Release/Sparkle.framework; sourceTree = "<absolute>"; };
+		758E42281269FA77008E173A /* advancedpref.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = advancedpref.icns; sourceTree = "<group>"; };
+		758E422A1269FA77008E173A /* generalpref.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = generalpref.icns; sourceTree = "<group>"; };
+		758E422B1269FA77008E173A /* minus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = minus.icns; sourceTree = "<group>"; };
+		758E422D1269FA77008E173A /* plus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = plus.icns; sourceTree = "<group>"; };
+		758E422E1269FA77008E173A /* sidebarpref.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = sidebarpref.icns; sourceTree = "<group>"; };
+		758E422F1269FA77008E173A /* SmartFolder.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SmartFolder.icns; sourceTree = "<group>"; };
+		758E42301269FA77008E173A /* success.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = success.icns; sourceTree = "<group>"; };
+		758E42311269FA77008E173A /* ToolbarInfo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ToolbarInfo.icns; sourceTree = "<group>"; };
+		758E42321269FA77008E173A /* update.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = update.icns; sourceTree = "<group>"; };
+		75CFDB95126A10B5002BA6E7 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
+		75CFDB96126A10B5002BA6E7 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
+		75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = /Volumes/leopard/Sources/GIT/Sparkle/Sparkle.xcodeproj; sourceTree = "<absolute>"; };
+		75CFDBCC126A213B002BA6E7 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = /Volumes/leopard/Sources/GIT/Sparkle/build/Release/Sparkle.framework; sourceTree = "<absolute>"; };
+		75CFDBCE126A2E37002BA6E7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* AquaticPrime Developer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AquaticPrime Developer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* AquaticPrime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AquaticPrime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		E804BCA50833AAFD00512005 /* KeyController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeyController.h; sourceTree = "<group>"; };
 		E804BCA60833AAFD00512005 /* KeyController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = KeyController.m; sourceTree = "<group>"; };
@@ -93,7 +172,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				753FBEEB126A36F700B26B65 /* Sparkle.framework in Frameworks */,
 				A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */,
+				75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +184,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				75275E57126A101B00DC2A8D /* Perferences Controller */,
 				25C22E68108E661700D1D72F /* Cocoa */,
 				3DB12D8E088046A600160861 /* Main Controller */,
 				3DB12C2808803BE900160861 /* Key Controller */,
@@ -119,7 +201,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* AquaticPrime Developer.app */,
+				8D1107320486CEB800E47090 /* AquaticPrime.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,10 +219,12 @@
 		29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */ = {
 			isa = PBXGroup;
 			children = (
+				753FBEEA126A36F700B26B65 /* Sparkle.framework */,
+				75CFDBCE126A2E37002BA6E7 /* AudioToolbox.framework */,
+				75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				3D12D149085206240035BA78 /* Images */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -159,8 +243,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3DA8074B08A694CE006C1C9F /* badge.icns */,
-				3D4458EA08971CEC002901EB /* aquatic.icns */,
+				758E42271269FA77008E173A /* Icons */,
+				3D12D149085206240035BA78 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				3DB12D280880431600160861 /* Nibs */,
@@ -171,6 +255,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */,
+				75CFDBCC126A213B002BA6E7 /* Sparkle.framework */,
 				A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -292,6 +378,47 @@
 			name = About;
 			sourceTree = "<group>";
 		};
+		75275E57126A101B00DC2A8D /* Perferences Controller */ = {
+			isa = PBXGroup;
+			children = (
+				75CFDB95126A10B5002BA6E7 /* PreferencesController.h */,
+				75CFDB96126A10B5002BA6E7 /* PreferencesController.m */,
+			);
+			name = "Perferences Controller";
+			sourceTree = "<group>";
+		};
+		758E42271269FA77008E173A /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				3DA8074B08A694CE006C1C9F /* badge.icns */,
+				3D4458EA08971CEC002901EB /* aquatic.icns */,
+				75275E36126A0B7900DC2A8D /* Database.icns */,
+				75275E37126A0B7900DC2A8D /* mailto.icns */,
+				758E42281269FA77008E173A /* advancedpref.icns */,
+				758E422A1269FA77008E173A /* generalpref.icns */,
+				758E422B1269FA77008E173A /* minus.icns */,
+				758E422D1269FA77008E173A /* plus.icns */,
+				758E422E1269FA77008E173A /* sidebarpref.icns */,
+				758E422F1269FA77008E173A /* SmartFolder.icns */,
+				758E42301269FA77008E173A /* success.icns */,
+				758E42311269FA77008E173A /* ToolbarInfo.icns */,
+				758E42321269FA77008E173A /* update.icns */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
+		75CFDBB6126A1EEE002BA6E7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				75CFDBBF126A1EEF002BA6E7 /* Sparkle.framework */,
+				75CFDBC1126A1EEF002BA6E7 /* Sparkle Test App.app */,
+				75CFDBC3126A1EEF002BA6E7 /* relaunch */,
+				75CFDBC5126A1EEF002BA6E7 /* Sparkle Unit Tests.octest */,
+				75CFDBC7126A1EEF002BA6E7 /* BinaryDelta */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -307,11 +434,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				75CFDBCB126A1F44002BA6E7 /* PBXTargetDependency */,
 			);
 			name = AquaticPrimeDeveloper;
 			productInstallPath = "$(HOME)/Applications";
 			productName = AquaticPrimeDeveloper;
-			productReference = 8D1107320486CEB800E47090 /* AquaticPrime Developer.app */;
+			productReference = 8D1107320486CEB800E47090 /* AquaticPrime.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -331,12 +459,56 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 75CFDBB6126A1EEE002BA6E7 /* Products */;
+					ProjectRef = 75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* AquaticPrimeDeveloper */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		75CFDBBF126A1EEF002BA6E7 /* Sparkle.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Sparkle.framework;
+			remoteRef = 75CFDBBE126A1EEF002BA6E7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75CFDBC1126A1EEF002BA6E7 /* Sparkle Test App.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Sparkle Test App.app";
+			remoteRef = 75CFDBC0126A1EEF002BA6E7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75CFDBC3126A1EEF002BA6E7 /* relaunch */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = relaunch;
+			remoteRef = 75CFDBC2126A1EEF002BA6E7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75CFDBC5126A1EEF002BA6E7 /* Sparkle Unit Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Sparkle Unit Tests.octest";
+			remoteRef = 75CFDBC4126A1EEF002BA6E7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75CFDBC7126A1EEF002BA6E7 /* BinaryDelta */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = BinaryDelta;
+			remoteRef = 75CFDBC6126A1EEF002BA6E7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -352,6 +524,17 @@
 				3DC1B057088183B10007C7E0 /* aboutbox.png in Resources */,
 				3D4458EB08971CEC002901EB /* aquatic.icns in Resources */,
 				3DA8074C08A694CF006C1C9F /* badge.icns in Resources */,
+				758E42331269FA77008E173A /* advancedpref.icns in Resources */,
+				758E42351269FA77008E173A /* generalpref.icns in Resources */,
+				758E42361269FA77008E173A /* minus.icns in Resources */,
+				758E42381269FA77008E173A /* plus.icns in Resources */,
+				758E42391269FA77008E173A /* sidebarpref.icns in Resources */,
+				758E423A1269FA77008E173A /* SmartFolder.icns in Resources */,
+				758E423B1269FA77008E173A /* success.icns in Resources */,
+				758E423C1269FA77008E173A /* ToolbarInfo.icns in Resources */,
+				758E423D1269FA77008E173A /* update.icns in Resources */,
+				75275E38126A0B7900DC2A8D /* Database.icns in Resources */,
+				75275E39126A0B7900DC2A8D /* mailto.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,10 +559,19 @@
 				3D160600089D3DBC00526ED8 /* OAGradientTableView.m in Sources */,
 				3D1606A4089D41C100526ED8 /* AQTextFieldCell.m in Sources */,
 				25C22E76108E664700D1D72F /* AquaticPrime.m in Sources */,
+				75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		75CFDBCB126A1F44002BA6E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sparkle;
+			targetProxy = 75CFDBCA126A1F44002BA6E7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
@@ -411,7 +603,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
-					"$(SRCROOT)",
+					"\"$(SRCROOT)/../../../../GIT/Sparkle/build/Release\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -431,7 +623,6 @@
 					Cocoa,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = "AquaticPrime Developer";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -447,7 +638,7 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
-					"$(SRCROOT)",
+					"\"$(SRCROOT)/../../../../GIT/Sparkle/build/Release\"",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -469,7 +660,6 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-lcrypto";
 				PREBINDING = YES;
-				PRODUCT_NAME = "AquaticPrime Developer";
 				WARNING_CFLAGS = "-Wno-unused";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -485,7 +675,7 @@
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
-					"$(SRCROOT)",
+					"\"$(SRCROOT)/../../../../GIT/Sparkle/build/Release\"",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -501,7 +691,6 @@
 					"-framework",
 					Cocoa,
 				);
-				PRODUCT_NAME = "AquaticPrime Developer";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -516,6 +705,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = AquaticPrime;
 				SDKROOT = macosx10.5;
 			};
 			name = Development;
@@ -529,6 +719,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = AquaticPrime;
 				SDKROOT = macosx10.5;
 			};
 			name = Deployment;
@@ -542,6 +733,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = AquaticPrime;
 				SDKROOT = macosx10.5;
 			};
 			name = Default;

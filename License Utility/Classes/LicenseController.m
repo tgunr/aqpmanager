@@ -25,6 +25,7 @@
 // OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "LicenseController.h"
+#import "MainController.h"
 #import "KeyController.h"
 #import "StatusController.h"
 #import "ProductController.h"
@@ -55,6 +56,9 @@
 	[super dealloc];
 }
 
+- (void)awakeFromNib {
+
+}
 #pragma mark License Generation
 
 - (IBAction)generateLicense:(id)sender
@@ -371,10 +375,34 @@
 
 - (IBAction)emailLicense:(id)sender;
 {
+	NSRange r;
+	NSString *subjectHeaderLine;
+	NSString *mailSubject = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailSubject"];
+	if ([mailSubject length] != 0) {
+		r = [mailSubject rangeOfString:@"&P"];	// look for an &P for product name
+		if (r.location == NSNotFound) { // email textField does not want to use the product name
+			subjectHeaderLine = mailSubject;
+		} else {
+			subjectHeaderLine = [mailSubject stringByReplacingCharactersInRange:r withString:application];
+		}
+	} else {
+		subjectHeaderLine = [NSString stringWithFormat:@"%@ License", application];
+	}
+	
+	NSString *mailFrom = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailFromAddress"];
+	NSString *mailBCC = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailBCCAddress"];
+	NSString *mailBBCTo = @"";
+	if ([mailBCC length] != 0)
+		mailBBCTo = [NSString stringWithFormat: @"-b %@", mailBCC];
+
+	NSString *licenseTextFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseTextFile"];
+	NSString *licenseImageFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseImageFile"];
+	NSString *licenseOtherFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseOtherFile"];
+
 	NSString *mailTo;
 	NSString *licenseName;
 	NSString *tvs = [licenseEmailField stringValue];
-	NSRange r = [tvs rangeOfString:@"@"];	// look for an @ in the email
+	r = [tvs rangeOfString:@"@"];	// look for an @ in the email
 	if ([tvs length] != 0) {
 		if (r.location == NSNotFound) { // email textField does not have an address, look for emailAddressntainsObject:tvs];
 			id key = [keyArray containsObject:tvs];
@@ -390,30 +418,62 @@
 	if ([mailTo length] != 0) {
 		// Do we have all the pieces
 		NSFileManager *fm = [NSFileManager defaultManager];
-		NSString *s;
-		s = [NSString stringWithFormat: @"%@/%@.%@", [saveDirectoryField stringValue], licenseName, [licenseExtensionField stringValue]];
-		BOOL licenseFileExists = [fm isReadableFileAtPath: s];
+		NSString *licenseFilePath;
+		NSString *licenseFileString;
+		NSString *textFileString;
+		licenseFilePath = [NSString stringWithFormat: @"%@/%@.%@", [saveDirectoryField stringValue], licenseName, [licenseExtensionField stringValue]];
+		BOOL licenseFileExists = [fm isReadableFileAtPath: licenseFilePath];
 		if (!licenseFileExists) {
 			[self generateLicense:sender];
-			licenseFileExists = [fm isReadableFileAtPath: s];
+			licenseFileExists = [fm isReadableFileAtPath: licenseFilePath];
 		}
 		if (licenseFileExists) {
-			s = [NSString stringWithFormat: @"%@/../Attachments/license.html", [saveDirectoryField stringValue]];
-			BOOL textFileExists = [fm isReadableFileAtPath: s];
-			s = [NSString stringWithFormat: @"%@/../Attachments/license.png", [saveDirectoryField stringValue]];
-			BOOL attachmentFileExists = [fm isReadableFileAtPath: s];
-			attachmentFileExists = YES; // for now until I figure out how to make the multi-part mime type
-			if (licenseFileExists && textFileExists && attachmentFileExists) {
-				NSString *mutt = [NSString stringWithFormat: @"mutt -s \"%@ License\" -a %@/%@.%@ -b \"davec@polymicrosystems.com\" %@ < %@/../Attachments/license.html", 
-								  application, [saveDirectoryField stringValue], licenseName, [licenseExtensionField stringValue], mailTo, [saveDirectoryField stringValue]  ];
+			licenseFileString = [NSString stringWithFormat:@"%@", licenseFilePath];
+
+			NSString *licenseTextFilePath = [NSString stringWithFormat: @"%@/../Attachments/%@", [saveDirectoryField stringValue], licenseTextFile];
+			BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
+
+			if (textFileExists) { // Have to have at least these two
+				textFileString = [NSString stringWithFormat:@"%@", licenseTextFilePath];
+
+				NSString *licenseImageFilePath = [NSString stringWithFormat: @"%@/../Attachments/%@", [saveDirectoryField stringValue], licenseImageFile];
+				BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
+				NSString *imageFileString;
+				if (imageFileExists) 
+					imageFileString = [NSString stringWithFormat:@"-a %@", licenseImageFilePath];
+				else
+					imageFileString = @"";
+			
+				NSString *licenseOtherFilePath = [NSString stringWithFormat: @"%@/../Attachments/%@", [saveDirectoryField stringValue], licenseOtherFile];
+				BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
+				NSString *otherFileString;
+				if (otherFileExists) 
+					otherFileString = [NSString stringWithFormat:@"-a %@", licenseOtherFilePath];
+				else
+					otherFileString = @"";
+
+				NSString *mutt = [NSString stringWithFormat: @"mutt -s \"%@\" \"%@\" \"%@\" \"%@\" \"%@\" < \"%@\"", 
+								  subjectHeaderLine, 
+								  licenseFileString,
+								  mailBBCTo, 
+								  otherFileString,
+								  mailTo, 
+								  textFileString  
+								  ];
 				int result = system([mutt UTF8String]);
-				if (result)
+				if (result) {
+					[MainController playUISoundForBOOL: NO];
 					NSLog(@"mutt: %x", result);
+				} else 
+					[MainController playUISoundForBOOL: YES];
+			} else {
+				NSString * errorString = @"Please assign a text file for the eamil body in the preference panel";
+				//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
+				NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
 			}
 		} else {
 			NSString * errorString = @"Please assign at least one key-value pair in order to generate and email a license!";
 			NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
-			return;
 		}
 	}
 }
