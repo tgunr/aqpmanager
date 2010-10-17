@@ -263,6 +263,74 @@
 		   modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
 
+- (BOOL) foldersExist: (id)sender {
+	BOOL aDir;
+	BOOL folderExists;
+	int result = 0; // if this is ever non zero, something went haywire
+	NSString *mkdirString;
+	NSString *folderPath;
+	
+	NSFileManager *fm = [NSFileManager defaultManager];
+
+	folderPath = [NSString stringWithFormat: @"%@", [saveDirectoryField stringValue]];
+	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
+	if (!folderExists) {
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@", [saveDirectoryField stringValue]];
+		result = system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
+	}
+
+	folderPath = [NSString stringWithFormat: @"%@/Attachments", [saveDirectoryField stringValue]];
+	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
+	if (!folderExists) {
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Attachments", [saveDirectoryField stringValue]];
+		result += system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
+	}
+
+	folderPath = [NSString stringWithFormat: @"%@/Licenses", [saveDirectoryField stringValue]];
+	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
+	if (!folderExists) {
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Licenses", [saveDirectoryField stringValue]];
+		result += system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
+	}
+	folderPath = [NSString stringWithFormat: @"%@/Blacklist", [saveDirectoryField stringValue]];
+	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
+	if (!folderExists) {
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Blacklist", [saveDirectoryField stringValue]];
+		result += system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
+	}
+	
+	if (result == 0) 
+		NSBeginInformationalAlertSheet(@"Storage folders",
+									   @"OK",
+									   nil,
+									   nil,
+									   [sender window],               // window sheet is attached to
+									   self,                   // we'll be our own delegate
+									   nil,
+									   nil,                   // no need for did-dismiss selector
+									   nil,
+									   @"The auxiliary folders Attachments, Licenses, and Blacklist have been created at \n%@",
+									   [saveDirectoryField stringValue]
+									   );                   // no parameters in message
+	else {
+		NSBeginCriticalAlertSheet(@"Storage folders",
+									   @"OK",
+									   nil,
+									   nil,
+									   [sender window],               // window sheet is attached to
+									   self,                   // we'll be our own delegate
+									   nil,
+									   nil,                   // no need for did-dismiss selector
+									   nil,
+									   @"One of auxiliary folders Attachments, Licenses, or Blacklist has NOT been created at \n%@\n Check for correct permissions or other problems that may casue a failure to create folders.",
+									   [saveDirectoryField stringValue]
+									   );                   // no parameters in message
+		[saveDirectoryField setStringValue:@"ERROR! Folders not created"];
+
+	}
+	return result == 0;
+}
+
 - (IBAction)editSaveDirectory:(id)sender
 {
 	// Run the selection panel
@@ -278,15 +346,7 @@
 	
 	[saveDirectoryField setStringValue:[[selectPanel filenames] objectAtIndex:0]];
 	
-	NSString *mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Attachments", [saveDirectoryField stringValue]];
-	int result = system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
-
-	mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Licenses", [saveDirectoryField stringValue]];
-	result = system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
-
-	mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Blacklist", [saveDirectoryField stringValue]];
-	result = system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
-	
+	[self foldersExist: sender];
 //	APPKIT_EXTERN void NSBeginInformationalAlertSheet(NSString *title, 
 //													  NSString *defaultButton, 
 //													  NSString *alternateButton, 
@@ -297,17 +357,6 @@
 //													  SEL didDismissSelector, 
 //													  void *contextInfo, 
 //													  NSString *msgFormat, ...);
-	NSBeginInformationalAlertSheet(@"Storage folder created",
-								   @"OK",
-								   nil,
-								   nil,
-								   [sender window],               // window sheet is attached to
-								   self,                   // we'll be our own delegate
-								   nil,
-								   nil,                   // no need for did-dismiss selector
-								   nil,
-								   @"The auxiliary folders Attachments, Licenses, and Blacklist have been created"
-								   );                   // no parameters in message
 }
 
 - (IBAction)sheetOK:(id)sender
