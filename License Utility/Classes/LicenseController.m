@@ -43,7 +43,7 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductSelected) name:@"ProductSelected" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveLicenseTemplate:) name:@"ProductWillBeSelected" object:nil];
-
+	
 	return [super init];
 }
  
@@ -59,7 +59,17 @@
 - (void)awakeFromNib {
 
 }
+
 #pragma mark License Generation
+
+- (void) completeTableEntry 
+{
+	// If a column is selected ensure it is completed
+	NSInteger sr = [keyValueTable selectedRow];
+	if (sr != -1) {
+		[keyValueTable deselectRow:sr];
+	}
+}
 
 - (IBAction)generateLicense:(id)sender
 {
@@ -106,17 +116,19 @@
 	if (!publicKey || !privateKey)
 		return;
 	
+	[self completeTableEntry];
+
 	licenseMaker = [AquaticPrime aquaticPrimeWithKey:publicKey privateKey:privateKey];
 	
 	NSString *path = [NSString stringWithFormat:@"%@/Licenses/%@.%@", [saveDirectoryField stringValue], [valueArray objectAtIndex:0], [licenseExtensionField stringValue]];
 	NSString *backupPath = [NSString stringWithFormat:@"%@/%@.%@", licenseDir, [valueArray objectAtIndex:0], [licenseExtensionField stringValue]];
 	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:path];
 	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:backupPath];
-	[statusController setStatus:[NSString stringWithFormat:@"Wrote license to %@", path] duration:2.5];
+	[statusController setStatus:[NSString stringWithFormat:@"Wrote license to %@", path] duration:5.0];
 	
-	BOOL useMySQL = [[NSUserDefaults standardUserDefaults] objectForKey:@"MYSQLUse"];
-	if (useMySQL)
-		[self insertMySQL: sender];
+	//	BOOL useMySQL = [[NSUserDefaults standardUserDefaults] objectForKey:@"MYSQLUse"];
+	//	if (useMySQL)
+	//		[self insertMySQL: sender];
 
 }
  
@@ -461,6 +473,9 @@
 
 - (IBAction)emailLicense:(id)sender;
 {
+
+	[self completeTableEntry];
+	
 	NSRange r;
 	NSString *subjectHeaderLine;
 	NSString *mailSubject = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailSubject"];
@@ -479,7 +494,7 @@
 	NSString *mailBCC = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailBCCAddress"];
 	NSString *mailBBCTo = @"";
 	if ([mailBCC length] != 0)
-		mailBBCTo = [NSString stringWithFormat: @"-b %@", mailBCC];
+		mailBBCTo = [NSString stringWithFormat: @"-b \"%@\"", mailBCC];
 
 	NSString *licenseTextFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseTextFile"];
 	NSString *licenseImageFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseImageFile"];
@@ -514,7 +529,7 @@
 			licenseFileExists = [fm isReadableFileAtPath: licenseFilePath];
 		}
 		if (licenseFileExists) {
-			licenseFileString = [NSString stringWithFormat:@"-a \"%@\"", licenseFilePath];
+			licenseFileString = [NSString stringWithFormat:@"\"%@\"", licenseFilePath];
 
 			NSString *licenseTextFilePath = [NSString stringWithFormat: @"%@/Attachments/%@", [saveDirectoryField stringValue], licenseTextFile];
 			BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
@@ -526,7 +541,7 @@
 				BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
 				NSString *imageFileString;
 				if (imageFileExists) 
-					imageFileString = [NSString stringWithFormat:@"-a \"%@\"", licenseImageFilePath];
+					imageFileString = [NSString stringWithFormat:@"\"%@\"", licenseImageFilePath];
 				else
 					imageFileString = @"";
 			
@@ -534,15 +549,24 @@
 				BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
 				NSString *otherFileString;
 				if (otherFileExists) 
-					otherFileString = [NSString stringWithFormat:@"-a \"%@\"", licenseOtherFilePath];
+					otherFileString = [NSString stringWithFormat:@"\"%@\"", licenseOtherFilePath];
 				else
 					otherFileString = @"";
 
-				NSString *mutt = [NSString stringWithFormat: @"mutt -s \"%@\" %@ %@ %@ \"%@\" < %@", 
+				NSBundle *mb = [NSBundle mainBundle];
+				NSString *ex = [mb executablePath];
+				NSMutableArray *muttComponents = [NSMutableArray arrayWithCapacity:1];
+				[muttComponents addObjectsFromArray:[ex pathComponents]];
+				[muttComponents removeLastObject];
+				[muttComponents addObject:@"mutt"];
+				NSString *muttFilePath = [NSString pathWithComponents:muttComponents];
+				NSString *mutt = [NSString stringWithFormat: @"\"%@\" -s \"%@\" -a %@ %@ %@ -- %@ %@ < %@", 
+								  muttFilePath,
 								  subjectHeaderLine, 
 								  licenseFileString,
-								  mailBBCTo, 
 								  otherFileString,
+								  imageFileString,
+								  mailBBCTo, 
 								  mailTo, 
 								  textFileString  
 								  ];
