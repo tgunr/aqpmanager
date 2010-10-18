@@ -28,6 +28,7 @@
 		3DF60B9E085CE0BD004C50F2 /* remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DF60B9D085CE0BD004C50F2 /* remove.tiff */; };
 		75275E38126A0B7900DC2A8D /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E36126A0B7900DC2A8D /* Database.icns */; };
 		75275E39126A0B7900DC2A8D /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
+		756F2E9B126CBE5500BC87E3 /* mutt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 756F2E9A126CBE5500BC87E3 /* mutt */; };
 		758E42331269FA77008E173A /* advancedpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42281269FA77008E173A /* advancedpref.icns */; };
 		758E42351269FA77008E173A /* generalpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422A1269FA77008E173A /* generalpref.icns */; };
 		758E42361269FA77008E173A /* minus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422B1269FA77008E173A /* minus.icns */; };
@@ -49,6 +50,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		756F2E9C126CBF1400BC87E3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 756F2E92126CBDE400BC87E3 /* mutt.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 75D4CD5F126CB33300E60EF9;
+			remoteInfo = mutt;
+		};
 		7572A8D5126B8F8E00B41790 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */;
@@ -136,6 +144,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		756F2E99126CBE2F00BC87E3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				756F2E9B126CBE5500BC87E3 /* mutt in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A0BFCA2509A3F240005C04A5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,6 +204,8 @@
 		3DF60B9D085CE0BD004C50F2 /* remove.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = remove.tiff; sourceTree = "<group>"; };
 		75275E36126A0B7900DC2A8D /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
 		75275E37126A0B7900DC2A8D /* mailto.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = mailto.icns; sourceTree = "<group>"; };
+		756F2E92126CBDE400BC87E3 /* mutt.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mutt.xcodeproj; path = mutt/mutt.xcodeproj; sourceTree = "<group>"; };
+		756F2E9A126CBE5500BC87E3 /* mutt */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = mutt; path = mutt/mutt; sourceTree = "<group>"; };
 		7572A925126B9B1A00B41790 /* libmysql.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysql.dylib; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysql.dylib"; sourceTree = SOURCE_ROOT; };
 		7572A926126B9B1A00B41790 /* libmysqlclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmysqlclient.a; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysqlclient.a"; sourceTree = SOURCE_ROOT; };
 		758E42281269FA77008E173A /* advancedpref.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = advancedpref.icns; sourceTree = "<group>"; };
@@ -263,6 +283,8 @@
 		29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */ = {
 			isa = PBXGroup;
 			children = (
+				756F2E9A126CBE5500BC87E3 /* mutt */,
+				756F2E92126CBDE400BC87E3 /* mutt.xcodeproj */,
 				75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */,
 				75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -433,6 +455,13 @@
 			name = "Perferences Controller";
 			sourceTree = "<group>";
 		};
+		756F2E93126CBDE400BC87E3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		758E42271269FA77008E173A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,10 +517,12 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				A0BFCA2509A3F240005C04A5 /* CopyFiles */,
+				756F2E99126CBE2F00BC87E3 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				756F2E9D126CBF1400BC87E3 /* PBXTargetDependency */,
 				7572A8D6126B8F8E00B41790 /* PBXTargetDependency */,
 				7572A8D8126B8F8E00B41790 /* PBXTargetDependency */,
 			);
@@ -519,6 +550,10 @@
 			mainGroup = 29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 756F2E93126CBDE400BC87E3 /* Products */;
+					ProjectRef = 756F2E92126CBDE400BC87E3 /* mutt.xcodeproj */;
+				},
 				{
 					ProductGroup = 75D4CD02126B8EC100E60EF9 /* Products */;
 					ProjectRef = 75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */;
@@ -664,6 +699,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		756F2E9D126CBF1400BC87E3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = mutt;
+			targetProxy = 756F2E9C126CBF1400BC87E3 /* PBXContainerItemProxy */;
+		};
 		7572A8D6126B8F8E00B41790 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SMySQL_bundled;
@@ -723,6 +763,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				OTHER_LDFLAGS = (
@@ -769,6 +810,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				OTHER_CFLAGS = "";
@@ -804,6 +846,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				OTHER_LDFLAGS = (
