@@ -49,6 +49,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7572A8D5126B8F8E00B41790 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 93C8C6890DA5D8CE00B2391A;
+			remoteInfo = SMySQL_bundled;
+		};
+		7572A8D7126B8F8E00B41790 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = Sparkle;
+		};
 		75CBF26C126AD8D000573AFD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */;
@@ -83,6 +97,41 @@
 			proxyType = 2;
 			remoteGlobalIDString = 5D06E8D00FD68C7C005AE3F6;
 			remoteInfo = BinaryDelta;
+		};
+		75D4CD0C126B8EC200E60EF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 93C8C6600DA5D8CE00B2391A;
+			remoteInfo = SMySQL;
+		};
+		75D4CD0E126B8EC200E60EF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 93C8C6880DA5D8CE00B2391A;
+			remoteInfo = SMySQL_static;
+		};
+		75D4CD10126B8EC200E60EF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 93C8C6B00DA5D8CE00B2391A;
+			remoteInfo = SMySQL_bundled;
+		};
+		75D4CD12126B8EC200E60EF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 93C8C6C10DA5D8CE00B2391A;
+			remoteInfo = CLI_Test;
+		};
+		75D4CD14126B8EC200E60EF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 93C8C6DB0DA5D8CE00B2391A;
+			remoteInfo = Prepare_Distributions;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -137,6 +186,8 @@
 		3DF60B9D085CE0BD004C50F2 /* remove.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = remove.tiff; sourceTree = "<group>"; };
 		75275E36126A0B7900DC2A8D /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
 		75275E37126A0B7900DC2A8D /* mailto.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = mailto.icns; sourceTree = "<group>"; };
+		7572A925126B9B1A00B41790 /* libmysql.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysql.dylib; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysql.dylib"; sourceTree = SOURCE_ROOT; };
+		7572A926126B9B1A00B41790 /* libmysqlclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmysqlclient.a; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysqlclient.a"; sourceTree = SOURCE_ROOT; };
 		758E42281269FA77008E173A /* advancedpref.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = advancedpref.icns; sourceTree = "<group>"; };
 		758E422A1269FA77008E173A /* generalpref.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = generalpref.icns; sourceTree = "<group>"; };
 		758E422B1269FA77008E173A /* minus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = minus.icns; sourceTree = "<group>"; };
@@ -146,10 +197,13 @@
 		758E42301269FA77008E173A /* success.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = success.icns; sourceTree = "<group>"; };
 		758E42311269FA77008E173A /* ToolbarInfo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ToolbarInfo.icns; sourceTree = "<group>"; };
 		758E42321269FA77008E173A /* update.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = update.icns; sourceTree = "<group>"; };
+		75ACA575126B9C580046F460 /* libmysql.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysql.16.dylib; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysql.16.dylib"; sourceTree = SOURCE_ROOT; };
 		75CFDB95126A10B5002BA6E7 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		75CFDB96126A10B5002BA6E7 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = ../../../../GIT/Sparkle/Sparkle.xcodeproj; sourceTree = SOURCE_ROOT; };
 		75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SMySQL.xcodeproj; path = "/Volumes/leopard/Sources/GIT/mysql-cocoa-framework/SMySQL.xcodeproj"; sourceTree = "<absolute>"; };
+		75D4CD37126B908B00E60EF9 /* SMySQL_bundled.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SMySQL_bundled.framework; path = "/Volumes/leopard/Sources/GIT/mysql-cocoa-framework/build/Deployment/SMySQL_bundled.framework"; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* AquaticPrime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AquaticPrime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -209,6 +263,7 @@
 		29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */ = {
 			isa = PBXGroup;
 			children = (
+				75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */,
 				75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -243,6 +298,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75ACA575126B9C580046F460 /* libmysql.16.dylib */,
+				7572A925126B9B1A00B41790 /* libmysql.dylib */,
+				7572A926126B9B1A00B41790 /* libmysqlclient.a */,
+				75D4CD37126B908B00E60EF9 /* SMySQL_bundled.framework */,
 				75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */,
 				A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */,
 			);
@@ -406,6 +465,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		75D4CD02126B8EC100E60EF9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				75D4CD0D126B8EC200E60EF9 /* SMySQL.framework */,
+				75D4CD0F126B8EC200E60EF9 /* SMySQL_static.framework */,
+				75D4CD11126B8EC200E60EF9 /* SMySQL_bundled.framework */,
+				75D4CD13126B8EC200E60EF9 /* CLI_Test */,
+				75D4CD15126B8EC200E60EF9 /* Prepare_Distributions.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -421,6 +492,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				7572A8D6126B8F8E00B41790 /* PBXTargetDependency */,
+				7572A8D8126B8F8E00B41790 /* PBXTargetDependency */,
 			);
 			name = AquaticPrimeDeveloper;
 			productInstallPath = "$(HOME)/Applications";
@@ -435,7 +508,6 @@
 			isa = PBXProject;
 			buildConfigurationList = 3D9363D608565C58006F1864 /* Build configuration list for PBXProject "AquaticPrime Developer" */;
 			compatibilityVersion = "Xcode 3.0";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -446,6 +518,10 @@
 			mainGroup = 29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 75D4CD02126B8EC100E60EF9 /* Products */;
+					ProjectRef = 75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */;
+				},
 				{
 					ProductGroup = 75CBF265126AD8D000573AFD /* Products */;
 					ProjectRef = 75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */;
@@ -492,6 +568,41 @@
 			fileType = "compiled.mach-o.executable";
 			path = BinaryDelta;
 			remoteRef = 75CBF274126AD8D000573AFD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75D4CD0D126B8EC200E60EF9 /* SMySQL.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SMySQL.framework;
+			remoteRef = 75D4CD0C126B8EC200E60EF9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75D4CD0F126B8EC200E60EF9 /* SMySQL_static.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SMySQL_static.framework;
+			remoteRef = 75D4CD0E126B8EC200E60EF9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75D4CD11126B8EC200E60EF9 /* SMySQL_bundled.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SMySQL_bundled.framework;
+			remoteRef = 75D4CD10126B8EC200E60EF9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75D4CD13126B8EC200E60EF9 /* CLI_Test */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = CLI_Test;
+			remoteRef = 75D4CD12126B8EC200E60EF9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75D4CD15126B8EC200E60EF9 /* Prepare_Distributions.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Prepare_Distributions.bundle;
+			remoteRef = 75D4CD14126B8EC200E60EF9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -551,6 +662,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7572A8D6126B8F8E00B41790 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SMySQL_bundled;
+			targetProxy = 7572A8D5126B8F8E00B41790 /* PBXContainerItemProxy */;
+		};
+		7572A8D8126B8F8E00B41790 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sparkle;
+			targetProxy = 7572A8D7126B8F8E00B41790 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -579,7 +703,11 @@
 					i386,
 				);
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(FRAMEWORK_SEARCH_PATHS)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(FRAMEWORK_SEARCH_PATHS)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/build/Deployment\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -590,6 +718,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				OTHER_LDFLAGS = (
@@ -614,6 +746,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"\"$(SRCROOT)/../../../../GIT/Sparkle/build/Release\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/build/Deployment\"",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -630,6 +764,10 @@
 				GENERATE_PKGINFO_FILE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				OTHER_CFLAGS = "";
@@ -651,6 +789,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"\"$(SRCROOT)/../../../../GIT/Sparkle/build/Release\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/build/Deployment\"",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -659,6 +799,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				OTHER_LDFLAGS = (

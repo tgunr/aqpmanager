@@ -108,11 +108,16 @@
 	
 	licenseMaker = [AquaticPrime aquaticPrimeWithKey:publicKey privateKey:privateKey];
 	
-	NSString *path = [NSString stringWithFormat:@"%@/%@.%@", [saveDirectoryField stringValue], [valueArray objectAtIndex:0], [licenseExtensionField stringValue]];
+	NSString *path = [NSString stringWithFormat:@"%@/Licenses/%@.%@", [saveDirectoryField stringValue], [valueArray objectAtIndex:0], [licenseExtensionField stringValue]];
 	NSString *backupPath = [NSString stringWithFormat:@"%@/%@.%@", licenseDir, [valueArray objectAtIndex:0], [licenseExtensionField stringValue]];
 	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:path];
 	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:backupPath];
 	[statusController setStatus:[NSString stringWithFormat:@"Wrote license to %@", path] duration:2.5];
+	
+	BOOL useMySQL = [[NSUserDefaults standardUserDefaults] objectForKey:@"MYSQLUse"];
+	if (useMySQL)
+		[self insertMySQL: sender];
+
 }
  
 #pragma mark Saving & Loading License Templates
@@ -344,7 +349,8 @@
 	if ([selectPanel runModal] == NSFileHandlingPanelCancelButton)
 		return;
 	
-	[saveDirectoryField setStringValue:[[selectPanel filenames] objectAtIndex:0]];
+	NSString *saveFolder = [[selectPanel filenames] objectAtIndex:0];
+	[saveDirectoryField setStringValue:saveFolder];
 	
 	[self foldersExist: sender];
 //	APPKIT_EXTERN void NSBeginInformationalAlertSheet(NSString *title, 
@@ -501,38 +507,38 @@
 		NSString *licenseFilePath;
 		NSString *licenseFileString;
 		NSString *textFileString;
-		licenseFilePath = [NSString stringWithFormat: @"%@/%@.%@", [saveDirectoryField stringValue], licenseName, [licenseExtensionField stringValue]];
+		licenseFilePath = [NSString stringWithFormat: @"%@/Licenses/%@.%@", [saveDirectoryField stringValue], licenseName, [licenseExtensionField stringValue]];
 		BOOL licenseFileExists = [fm isReadableFileAtPath: licenseFilePath];
 		if (!licenseFileExists) {
 			[self generateLicense:sender];
 			licenseFileExists = [fm isReadableFileAtPath: licenseFilePath];
 		}
 		if (licenseFileExists) {
-			licenseFileString = [NSString stringWithFormat:@"%@", licenseFilePath];
+			licenseFileString = [NSString stringWithFormat:@"-a \"%@\"", licenseFilePath];
 
-			NSString *licenseTextFilePath = [NSString stringWithFormat: @"%@/../Attachments/%@", [saveDirectoryField stringValue], licenseTextFile];
+			NSString *licenseTextFilePath = [NSString stringWithFormat: @"%@/Attachments/%@", [saveDirectoryField stringValue], licenseTextFile];
 			BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
 
 			if (textFileExists) { // Have to have at least these two
-				textFileString = [NSString stringWithFormat:@"%@", licenseTextFilePath];
+				textFileString = [NSString stringWithFormat:@"\"%@\"", licenseTextFilePath];
 
-				NSString *licenseImageFilePath = [NSString stringWithFormat: @"%@/../Attachments/%@", [saveDirectoryField stringValue], licenseImageFile];
+				NSString *licenseImageFilePath = [NSString stringWithFormat: @"%@/Attachments/%@", [saveDirectoryField stringValue], licenseImageFile];
 				BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
 				NSString *imageFileString;
 				if (imageFileExists) 
-					imageFileString = [NSString stringWithFormat:@"-a %@", licenseImageFilePath];
+					imageFileString = [NSString stringWithFormat:@"-a \"%@\"", licenseImageFilePath];
 				else
 					imageFileString = @"";
 			
-				NSString *licenseOtherFilePath = [NSString stringWithFormat: @"%@/../Attachments/%@", [saveDirectoryField stringValue], licenseOtherFile];
+				NSString *licenseOtherFilePath = [NSString stringWithFormat: @"%@/Attachments/%@", [saveDirectoryField stringValue], licenseOtherFile];
 				BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
 				NSString *otherFileString;
 				if (otherFileExists) 
-					otherFileString = [NSString stringWithFormat:@"-a %@", licenseOtherFilePath];
+					otherFileString = [NSString stringWithFormat:@"-a \"%@\"", licenseOtherFilePath];
 				else
 					otherFileString = @"";
 
-				NSString *mutt = [NSString stringWithFormat: @"mutt -s \"%@\" \"%@\" \"%@\" \"%@\" \"%@\" < \"%@\"", 
+				NSString *mutt = [NSString stringWithFormat: @"mutt -s \"%@\" %@ %@ %@ \"%@\" < %@", 
 								  subjectHeaderLine, 
 								  licenseFileString,
 								  mailBBCTo, 
