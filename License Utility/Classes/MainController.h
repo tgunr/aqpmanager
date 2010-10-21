@@ -6,10 +6,12 @@
 
 @interface MainController : NSObject
 {
-	NSWindow *mainWindow;
+	IBOutlet NSWindow *mainWindow;
 	InfoController *infoController;
 	AboutController *aboutController;
 }
+
+@property (retain) 	IBOutlet NSWindow *mainWindow;
 
 - (IBAction)showLicenseInfoWindow:(id)sender;
 - (IBAction)closeWindow:(id)sender;

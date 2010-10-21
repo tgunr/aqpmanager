@@ -6,6 +6,7 @@
 #define PREFS_VERSION	(const char*)"0.1"
 
 @implementation MainController
+@synthesize mainWindow;
 
 static MainController *shared;
 
