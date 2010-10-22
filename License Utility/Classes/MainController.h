@@ -21,4 +21,5 @@
 + (void)playUISoundForResult:(kern_return_t)theResult;
 + (void)playUISoundForBOOL:(BOOL)wasSuccess;
 - (void)initPreferences;
+- (IBAction) showAbout:(id) sender;
 @end

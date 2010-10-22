@@ -161,4 +161,9 @@ static MainController *shared;
 	
 }
 
+- (IBAction) showAbout:(id) sender {
+	[[NSApplication sharedApplication] orderFrontStandardAboutPanel: self];
+}
+
+
 @end
