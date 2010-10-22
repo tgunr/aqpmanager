@@ -38,12 +38,12 @@
 		758E423B1269FA77008E173A /* success.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42301269FA77008E173A /* success.icns */; };
 		758E423C1269FA77008E173A /* ToolbarInfo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42311269FA77008E173A /* ToolbarInfo.icns */; };
 		758E423D1269FA77008E173A /* update.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42321269FA77008E173A /* update.icns */; };
+		75C60018127103E100A66201 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 75C60016127103E100A66201 /* dsa_pub.pem */; };
 		75CBF28D126AD95500573AFD /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CBF26D126AD8D000573AFD /* Sparkle.framework */; };
 		75CBF28E126AD95D00573AFD /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75CBF26D126AD8D000573AFD /* Sparkle.framework */; };
 		75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDB96126A10B5002BA6E7 /* PreferencesController.m */; };
 		75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
-		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */; };
 		E804BCA70833AAFD00512005 /* KeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = E804BCA60833AAFD00512005 /* KeyController.m */; };
@@ -54,7 +54,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 756F2E92126CBDE400BC87E3 /* mutt.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 75D4CD5F126CB33300E60EF9;
+			remoteGlobalIDString = 75C6F8221270C46A00A66201 /* mutt */;
 			remoteInfo = mutt;
 		};
 		7572A8D5126B8F8E00B41790 /* PBXContainerItemProxy */ = {
@@ -167,7 +167,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		25C22E74108E664700D1D72F /* AquaticPrime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AquaticPrime.h; sourceTree = "<group>"; };
 		25C22E75108E664700D1D72F /* AquaticPrime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AquaticPrime.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -218,6 +217,15 @@
 		758E42311269FA77008E173A /* ToolbarInfo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ToolbarInfo.icns; sourceTree = "<group>"; };
 		758E42321269FA77008E173A /* update.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = update.icns; sourceTree = "<group>"; };
 		75ACA575126B9C580046F460 /* libmysql.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysql.16.dylib; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysql.16.dylib"; sourceTree = SOURCE_ROOT; };
+		75C600111271036300A66201 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		75C60016127103E100A66201 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
+		75C6FF581270EE8D00A66201 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
+		75C6FF591270EE8D00A66201 /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
+		75C6FF5A1270EE8D00A66201 /* stage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = stage.xcconfig; sourceTree = "<group>"; };
+		75C6FF5C1270EEA800A66201 /* inc_build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = inc_build.sh; sourceTree = "<group>"; };
+		75C6FF5D1270EEA800A66201 /* release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = release.sh; sourceTree = "<group>"; };
+		75C6FF5E1270EEA800A66201 /* stage.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = stage.sh; sourceTree = "<group>"; };
+		75C6FF5F1270EEA800A66201 /* debufprefs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = debufprefs.sh; sourceTree = "<group>"; };
 		75CFDB95126A10B5002BA6E7 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		75CFDB96126A10B5002BA6E7 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = ../../../../GIT/Sparkle/Sparkle.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -287,6 +295,7 @@
 				756F2E92126CBDE400BC87E3 /* mutt.xcodeproj */,
 				75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */,
 				75CFDBB5126A1EEE002BA6E7 /* Sparkle.xcodeproj */,
+				75C6FF571270EE6300A66201 /* Misc */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -308,10 +317,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				75C60016127103E100A66201 /* dsa_pub.pem */,
+				75C600111271036300A66201 /* Credits.rtf */,
 				758E42271269FA77008E173A /* Icons */,
 				3D12D149085206240035BA78 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				3DB12D280880431600160861 /* Nibs */,
 			);
 			name = Resources;
@@ -482,6 +492,28 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
+		75C6FF571270EE6300A66201 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				75C6FF5B1270EEA800A66201 /* scripts */,
+				75C6FF581270EE8D00A66201 /* debug.xcconfig */,
+				75C6FF591270EE8D00A66201 /* release.xcconfig */,
+				75C6FF5A1270EE8D00A66201 /* stage.xcconfig */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
+		75C6FF5B1270EEA800A66201 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				75C6FF5C1270EEA800A66201 /* inc_build.sh */,
+				75C6FF5D1270EEA800A66201 /* release.sh */,
+				75C6FF5E1270EEA800A66201 /* stage.sh */,
+				75C6FF5F1270EEA800A66201 /* debufprefs.sh */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
 		75CBF265126AD8D000573AFD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -518,6 +550,7 @@
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				A0BFCA2509A3F240005C04A5 /* CopyFiles */,
 				756F2E99126CBE2F00BC87E3 /* CopyFiles */,
+				75C6FF891270F1C600A66201 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -648,7 +681,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
-				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				3D12D14B085206240035BA78 /* add.tiff in Resources */,
 				3DF60B9E085CE0BD004C50F2 /* remove.tiff in Resources */,
 				3DB12CFC0880423A00160861 /* LicenseInfo.nib in Resources */,
@@ -667,10 +699,27 @@
 				758E423D1269FA77008E173A /* update.icns in Resources */,
 				75275E38126A0B7900DC2A8D /* Database.icns in Resources */,
 				75275E39126A0B7900DC2A8D /* mailto.icns in Resources */,
+				75C60018127103E100A66201 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		75C6FF891270F1C600A66201 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"$SRCROOT/Misc/scripts/debufprefs.sh\"\nsource \"$SRCROOT/Misc/scripts/debufprefs.sh\"\n\necho \"$SRCROOT/Misc/scripts/inc_build.sh\"\nsource \"$SRCROOT/Misc/scripts/inc_build.sh\"\n\necho \"$SRCROOT/Misc/scripts/stage.sh\"\nsource \"$SRCROOT/Misc/scripts/stage.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D11072C0486CEB800E47090 /* Sources */ = {
@@ -716,14 +765,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				089C165DFE840E0CC02AAC07 /* English */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -860,6 +901,7 @@
 		};
 		3D9363D708565C58006F1864 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -874,6 +916,7 @@
 		};
 		3D9363D808565C58006F1864 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF5A1270EE8D00A66201 /* stage.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
