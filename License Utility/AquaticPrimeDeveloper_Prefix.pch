@@ -1,0 +1,24 @@
+//
+// Prefix header for all source files of the 'AquaticPrime' target in the 'AquaticPrime' project.
+//
+
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+
+#if __LP64__
+typedef long NSInteger;
+typedef unsigned long NSUInteger;
+
+#else
+typedef int NSInteger;
+typedef unsigned int NSUInteger;
+#endif
+
+// System sound ids
+#define kASSystemSoundDoink		1
+#define kASSystemSoundShred		13
+#define kASSystemSoundPoof		15
+#define kASSystemSoundTrash		16
+#define kASSystemSoundSuccess	22
+
+#endif
