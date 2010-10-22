@@ -207,7 +207,12 @@
 	valueArray = [[NSMutableArray arrayWithArray:[templateDict objectForKey:@"Values"]] retain];
 	[licenseExtensionField setStringValue:[templateDict objectForKey:@"Extension"]];
 	[saveDirectoryField setStringValue:[templateDict objectForKey:@"Save Directory"]];
-	application = [valueArray objectAtIndex:[keyArray indexOfObject:@"Application"]];
+	NSUInteger keyIndex = [keyArray indexOfObject:@"Application"];
+	if (keyIndex != NSNotFound)
+		application = [valueArray objectAtIndex:keyIndex];
+	else
+		application = @"Untitled";
+	
 	emailKey = [templateDict objectForKey:@"EmailKey"];
 	if ([emailKey length]) 
 		emailAddress = [valueArray objectAtIndex:[keyArray indexOfObject:emailKey]];
@@ -326,7 +331,7 @@
 									   nil,
 									   nil,                   // no need for did-dismiss selector
 									   nil,
-									   @"The auxiliary folders Attachments, Licenses, and Blacklist have been created at \n%@",
+									   @"The auxiliary folders Attachments, Licenses, and Blacklist exist at \n%@",
 									   [saveDirectoryField stringValue]
 									   );                   // no parameters in message
 	else {
