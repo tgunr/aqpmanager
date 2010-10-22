@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>PDFGarden</title>
+        <link>http://updates.pdfgarden.com</link>
+        <description>PDFGarden Software Update</description>
+        <generator>Feeder 2.1.4(1358); Mac OS X Version 10.6.4 (Build 10F569) http://reinventedsoftware.com/feeder/</generator>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <language>en</language>
+        <pubDate>Mon, 11 Oct 2010 17:42:16 -0700</pubDate>
+        <lastBuildDate>Mon, 11 Oct 2010 17:42:16 -0700</lastBuildDate>
+        <atom:link href="http://updates.pdfgarden.com/updates.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title>PDFGarden_3.1.2_559</title>
+            <link>http://updates.pdfgarden.com/support/releasenotes/PDFGarden_3.1.2_559.html</link>
+            <description><![CDATA[<p>PDFGarden Version 3.1.2 Build 559 
+<br />	</p>
+<p><ul>		</p>
+<li>Added new dual license code</li>
+<li>Corrected Sparkle auto update code</li>
+<li>Changed auto update time to once a day</li>
+<li>Turned on Preference panel</li>
+</ul>]]></description>
+            <pubDate>Mon, 11 Oct 2010 17:03:20 -0700</pubDate>
+            <enclosure url="http://mp.polymicro.net/sites/pdfgarden.com/updates/archives/PDFGarden_3.1.2_559.zip" length="1983493" type="application/zip" sparkle:version="559" sparkle:shortVersionString="3.1.2" sparkle:dsaSignature="MEUCIQC4LdM7cIflaKNM1L2jja8mnd81wySaYncgziGUKMGHpAIgAKqLEfKAOl1J
+oSKIqgQmlY6r4jTvM8s4MKIGF64E7Ec=" sparkle:md5sum="edc32b8552935f8ebb6c2f802cf1d2ad"/>
+            <guid isPermaLink="false">pdfgarden312559</guid>
+            <sparkle:releaseNotesLink>http://updates.pdfgarden.com/support/releasenotes/PDFGarden_3.1.2_559.html</sparkle:releaseNotesLink>
+        </item>
+        <item>
+            <title>PDFGarden_3.1.2_377</title>
+            <pubDate>Thu, 30 Sep 2010 08:17:01 -0700</pubDate>
+            <enclosure url="http://updates.pdfgarden.com/archives/pdfgarden_3.1.2_377.zip" length="2075878" type="application/zip" sparkle:dsaSignature="MEQCIB0Nrs+lXiI5mdBVIUS206ifcSNVM4ZbIdStlGPs1mbDAiAF6GaIapD8wg0K NHdkHcBDRdDh1F2a2gTEPnS8QiuhVw=="/>
+            <guid isPermaLink="false">pdfgarden313435</guid>
+            <sparkle:releaseNotesLink>http://updates.pdfgarden.com/support/releasenotes/pdfgarden_3.1.2_377.html</sparkle:releaseNotesLink>
+        </item>
+    </channel>
+</rss>
