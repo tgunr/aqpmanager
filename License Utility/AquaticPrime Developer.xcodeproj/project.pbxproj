@@ -54,7 +54,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 756F2E92126CBDE400BC87E3 /* mutt.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 75C6F8221270C46A00A66201 /* mutt */;
+			remoteGlobalIDString = 75C6F8221270C46A00A66201;
 			remoteInfo = mutt;
 		};
 		7572A8D5126B8F8E00B41790 /* PBXContainerItemProxy */ = {
@@ -572,6 +572,7 @@
 			isa = PBXProject;
 			buildConfigurationList = 3D9363D608565C58006F1864 /* Build configuration list for PBXProject "AquaticPrime Developer" */;
 			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,

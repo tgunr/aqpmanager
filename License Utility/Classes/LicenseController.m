@@ -138,8 +138,12 @@
 {	
 	// Make sure the object is a tableView
 	int index;
-	if ([anObject respondsToSelector:@selector(object)] && [[anObject object] respondsToSelector:@selector(selectedRow)])
+	if ([anObject respondsToSelector:@selector(object)] && [[anObject object] respondsToSelector:@selector(selectedRow)]) {
 		index = [[anObject object] selectedRow];
+		if (index == -1) {
+			return;	
+		}		
+	}
 	else
 		return;
 	
@@ -150,11 +154,13 @@
 	BOOL isDir;
 	
 	// Save this way to preserve the order of items
-	NSDictionary *templateDict = [NSDictionary dictionaryWithObjectsAndKeys:keyArray, @"Keys", 
-																			valueArray, @"Values", 
-																			[licenseExtensionField stringValue], @"Extension",
-																			[saveDirectoryField stringValue], @"Save Directory", 
-																			emailKey, @"EmailKey",
+	NSDictionary *templateDict = [NSDictionary dictionaryWithObjectsAndKeys:
+								  [productController productAtIndex:index], @"Product",
+								  keyArray, @"Keys", 
+								  valueArray, @"Values", 
+								  [licenseExtensionField stringValue], @"Extension",
+								  [saveDirectoryField stringValue], @"Save Directory", 
+								  emailKey, @"EmailKey",
 								  nil];
 	
 	// The ~/Library/Application Support/Aquatic/ folder doesn't exist yet
@@ -203,15 +209,11 @@
 	}
 	
 	NSDictionary *templateDict = [NSDictionary dictionaryWithContentsOfFile:productPath];
+	application = [[templateDict objectForKey:@"Product"] retain];
 	keyArray = [[NSMutableArray arrayWithArray:[templateDict objectForKey:@"Keys"]] retain];
 	valueArray = [[NSMutableArray arrayWithArray:[templateDict objectForKey:@"Values"]] retain];
 	[licenseExtensionField setStringValue:[templateDict objectForKey:@"Extension"]];
 	[saveDirectoryField setStringValue:[templateDict objectForKey:@"Save Directory"]];
-	NSUInteger keyIndex = [keyArray indexOfObject:@"Application"];
-	if (keyIndex != NSNotFound)
-		application = [valueArray objectAtIndex:keyIndex];
-	else
-		application = @"Untitled";
 	
 	emailKey = [templateDict objectForKey:@"EmailKey"];
 	if ([emailKey length]) 
@@ -565,15 +567,15 @@
 				[muttComponents removeLastObject];
 				[muttComponents addObject:@"mutt"];
 				NSString *muttFilePath = [NSString pathWithComponents:muttComponents];
-				NSString *mutt = [NSString stringWithFormat: @"\"%@\" -s \"%@\" -a %@ %@ %@ -- %@ %@ < %@", 
+				NSString *mutt = [NSString stringWithFormat: @"\"%@\" -s \"%@\" %@ -a %@ %@ %@ -- %@ < %@", 
 								  muttFilePath,
 								  subjectHeaderLine, 
+								  mailBBCTo, 
 								  licenseFileString,
 								  otherFileString,
 								  imageFileString,
-								  mailBBCTo, 
 								  mailTo, 
-								  textFileString  
+								  textFileString
 								  ];
 				int result = system([mutt UTF8String]);
 				if (result) {
@@ -593,7 +595,7 @@
 	}
 }
 
-- (void)NOTTecontrolTextDidEndEditing:(NSNotification *)aNotification
+- (void)controlTextDidEndEditing:(NSNotification *)aNotification
 {
 	NSTextView * tv = [[aNotification userInfo] objectForKey: @"NSFieldEditor"];
 	NSString *tvs = [licenseEmailField stringValue];
