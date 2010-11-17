@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -56,13 +56,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 75C6F8221270C46A00A66201;
 			remoteInfo = mutt;
-		};
-		7572A8D5126B8F8E00B41790 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 75D4CD01126B8EC100E60EF9 /* SMySQL.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 93C8C6890DA5D8CE00B2391A;
-			remoteInfo = SMySQL_bundled;
 		};
 		7572A8D7126B8F8E00B41790 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -556,7 +549,6 @@
 			);
 			dependencies = (
 				756F2E9D126CBF1400BC87E3 /* PBXTargetDependency */,
-				7572A8D6126B8F8E00B41790 /* PBXTargetDependency */,
 				7572A8D8126B8F8E00B41790 /* PBXTargetDependency */,
 			);
 			name = AquaticPrimeDeveloper;
@@ -753,11 +745,6 @@
 			name = mutt;
 			targetProxy = 756F2E9C126CBF1400BC87E3 /* PBXContainerItemProxy */;
 		};
-		7572A8D6126B8F8E00B41790 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SMySQL_bundled;
-			targetProxy = 7572A8D5126B8F8E00B41790 /* PBXContainerItemProxy */;
-		};
 		7572A8D8126B8F8E00B41790 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Sparkle;
@@ -825,6 +812,7 @@
 					ppc,
 					i386,
 				);
+				CODE_SIGN_IDENTITY = "Don't Code Sign";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
@@ -911,7 +899,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = AquaticPrime;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = macosx10.5;
 			};
 			name = Development;
 		};
@@ -919,16 +907,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75C6FF5A1270EE8D00A66201 /* stage.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = PolyMicro;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = AquaticPrime;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = macosx10.5;
 			};
 			name = Deployment;
 		};
@@ -942,7 +930,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = AquaticPrime;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = macosx10.5;
 			};
 			name = Default;
 		};

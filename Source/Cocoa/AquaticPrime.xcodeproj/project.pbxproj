@@ -150,7 +150,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 3D9364660856794A006F1864 /* Build configuration list for PBXProject "AquaticPrime" */;
 			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* AquaticPrime */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
