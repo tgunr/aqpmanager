@@ -37,19 +37,37 @@
 	IBOutlet NSButton *editExtensionButton;
 	IBOutlet NSButton *editSaveDirectoryButton;
 	IBOutlet NSTextField *licenseExtensionField;
-	IBOutlet NSTextField *saveDirectoryField;
+	IBOutlet NSPathControl *saveDirectoryPathControl;
 	IBOutlet NSTextField *licenseExtensionEditField;
 	IBOutlet NSPanel *licenseExtensionSheet;
 	IBOutlet NSTextField *licenseEmailField;
 	IBOutlet NSButton *emailButton;
+
+    // Licenses Tab
+    IBOutlet NSSearchField  *searchLicenseField;
+    IBOutlet NSButton *searchLicenseBtn;
+    IBOutlet NSTableView *licenseTable;
+    IBOutlet NSButton *mailButton;
+    IBOutlet NSButton *blackListButton;
+	
+    // Blacklist Tab
+    IBOutlet NSSearchField  *searchBlackListField;
+    IBOutlet NSButton *searchBlackListBtn;
+    IBOutlet NSTableView *blackListTable;
+    IBOutlet NSButton *restoreButton;
 	
 	NSMutableArray *keyArray;
 	NSMutableArray *valueArray;
+	NSMutableArray *licenseArray;
+	NSMutableArray *blackListArray;
 	NSString *emailKey;
 	NSString *emailAddress;
 	NSString *application;
 	NSMutableDictionary *licenseDictionary;
 	AquaticPrime *licenseMaker;
+	
+	NSString *supportDir;
+	NSString *licenseDir;
 	
 	IBOutlet id keyController;
 	IBOutlet id statusController;
@@ -64,5 +82,13 @@
 - (IBAction)editSaveDirectory:(id)sender;
 - (IBAction)emailLicense:(id)sender;
   
+- (IBAction)searchForLicense:(id)sender;
+- (IBAction)emailLicense:(id)sender;
+- (IBAction)blackListLicense:(id)sender;
+
+- (IBAction)searchForBlackList:(id)sender;
+- (IBAction)restoreLicense:(id)sender;
+
+- (void)CreateSupportDir;
 @end
 
