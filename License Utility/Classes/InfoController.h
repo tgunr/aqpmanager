@@ -1,6 +1,7 @@
 /* InfoController */
 
 #import <Cocoa/Cocoa.h>
+@class LicenseFile;
 
 @interface InfoController : NSWindowController
 {
@@ -10,13 +11,8 @@
 	IBOutlet NSTextField *licenseValidField;
 	IBOutlet NSTextField *hashField;
 	
-	NSMutableArray *keyInfoArray;
-	NSMutableArray *valueInfoArray;
-	BOOL isLicenseValid;
-	NSString *licenseValidForProduct;
-	NSString *hash;
+	LicenseFile *licenseFile;
+	
 }
-
-- (BOOL)readLicenseAtPath:(NSString*)licensePath;
 
 @end

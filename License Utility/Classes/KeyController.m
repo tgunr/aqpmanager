@@ -223,7 +223,7 @@ static KeyController *sharedInstance = nil;
 	[self saveKeysForProduct:productName];
 	
 	// Notify about the new key
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"NewKeyGenerated" object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"NewKeyGenerated" object:productName];
 }
 
 #pragma mark Loading and Saving

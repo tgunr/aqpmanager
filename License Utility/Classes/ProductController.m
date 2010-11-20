@@ -26,9 +26,12 @@
 
 #import "ProductController.h"
 #import "KeyController.h"
+#import "LicenseController.h"
 #import "AQTableView.h"
 
 @implementation ProductController
+
+@synthesize productArray;
 
 #pragma mark Init
 
@@ -71,7 +74,8 @@
 
 - (void)loadProducts
 {
-	NSString *keyDir = [@"~/Library/Application Support/Aquatic/Product Keys" stringByExpandingTildeInPath];
+	NSString *mySupportDir = [licenseController supportDir];
+	NSString *keyDir = [mySupportDir stringByAppendingString:@"/Product Keys"];
 	NSString *curPath;
 	NSMutableArray *possibleproductArray = [NSMutableArray array];
 	NSDirectoryEnumerator *pathEnum = [[NSFileManager defaultManager] enumeratorAtPath:keyDir];

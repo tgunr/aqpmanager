@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,7 @@
 		3DF60B9E085CE0BD004C50F2 /* remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DF60B9D085CE0BD004C50F2 /* remove.tiff */; };
 		75275E38126A0B7900DC2A8D /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E36126A0B7900DC2A8D /* Database.icns */; };
 		75275E39126A0B7900DC2A8D /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
+		752D9F3B1297B25300448E37 /* LicenseFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 752D9F3A1297B25300448E37 /* LicenseFile.m */; };
 		756F2E9B126CBE5500BC87E3 /* mutt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 756F2E9A126CBE5500BC87E3 /* mutt */; };
 		758E42331269FA77008E173A /* advancedpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42281269FA77008E173A /* advancedpref.icns */; };
 		758E42351269FA77008E173A /* generalpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422A1269FA77008E173A /* generalpref.icns */; };
@@ -196,6 +197,8 @@
 		3DF60B9D085CE0BD004C50F2 /* remove.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = remove.tiff; sourceTree = "<group>"; };
 		75275E36126A0B7900DC2A8D /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
 		75275E37126A0B7900DC2A8D /* mailto.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = mailto.icns; sourceTree = "<group>"; };
+		752D9F391297B25300448E37 /* LicenseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseFile.h; sourceTree = "<group>"; };
+		752D9F3A1297B25300448E37 /* LicenseFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseFile.m; sourceTree = "<group>"; };
 		756F2E92126CBDE400BC87E3 /* mutt.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mutt.xcodeproj; path = mutt/mutt.xcodeproj; sourceTree = "<group>"; };
 		756F2E9A126CBE5500BC87E3 /* mutt */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = mutt; path = mutt/mutt; sourceTree = "<group>"; };
 		7572A925126B9B1A00B41790 /* libmysql.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysql.dylib; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysql.dylib"; sourceTree = SOURCE_ROOT; };
@@ -348,6 +351,8 @@
 			children = (
 				3DB12D050880427F00160861 /* InfoController.h */,
 				3DB12D060880427F00160861 /* InfoController.m */,
+				752D9F391297B25300448E37 /* LicenseFile.h */,
+				752D9F3A1297B25300448E37 /* LicenseFile.m */,
 			);
 			name = "License Info";
 			sourceTree = "<group>";
@@ -562,8 +567,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "PolyMicro Systems";
+			};
 			buildConfigurationList = 3D9363D608565C58006F1864 /* Build configuration list for PBXProject "AquaticPrime Developer" */;
-			compatibilityVersion = "Xcode 3.0";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -734,6 +742,7 @@
 				3D1606A4089D41C100526ED8 /* AQTextFieldCell.m in Sources */,
 				25C22E76108E664700D1D72F /* AquaticPrime.m in Sources */,
 				75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */,
+				752D9F3B1297B25300448E37 /* LicenseFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,6 +775,7 @@
 /* Begin XCBuildConfiguration section */
 		3D9363D308565C58006F1864 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					ppc,
@@ -786,14 +796,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				OTHER_LDFLAGS = (
 					"-lcrypto",
 					"-framework",
@@ -896,7 +902,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = AquaticPrime;
 				SDKROOT = macosx10.5;

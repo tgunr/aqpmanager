@@ -27,9 +27,15 @@
 #import <Cocoa/Cocoa.h>
 @class AQTableView;
 @class AquaticPrime;
+@class InfoController;
+@class LicenseFile;
 
 @interface LicenseController : NSObject
 {
+	IBOutlet NSTabView *tabView;
+	IBOutlet NSDrawer *infoDrawer;
+	
+	// Generate Licenses Tab
     IBOutlet AQTableView *keyValueTable;
 	IBOutlet NSButton *addButton;
 	IBOutlet NSButton *removeButton;
@@ -49,12 +55,14 @@
     IBOutlet NSTableView *licenseTable;
     IBOutlet NSButton *mailButton;
     IBOutlet NSButton *blackListButton;
+	IBOutlet NSTextField *numberLicenses;
 	
     // Blacklist Tab
     IBOutlet NSSearchField  *searchBlackListField;
     IBOutlet NSButton *searchBlackListBtn;
     IBOutlet NSTableView *blackListTable;
     IBOutlet NSButton *restoreButton;
+	IBOutlet NSTextField *numberBlackListed;
 	
 	NSMutableArray *keyArray;
 	NSMutableArray *valueArray;
@@ -72,7 +80,13 @@
 	IBOutlet id keyController;
 	IBOutlet id statusController;
 	IBOutlet id productController;
+	IBOutlet id infoController;
 }
+
+@property (retain) 	NSString *supportDir;
+@property (retain) 	NSString *licenseDir;
+
++ (LicenseController *)sharedInstance;
 
 - (IBAction)generateLicense:(id)sender;
 - (void)saveLicenseTemplate:(id)table;
@@ -90,5 +104,6 @@
 - (IBAction)restoreLicense:(id)sender;
 
 - (void)CreateSupportDir;
+- (void) reloadLicenses: (NSString *)extension;
 @end
 

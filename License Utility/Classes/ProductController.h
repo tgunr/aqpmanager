@@ -41,7 +41,9 @@
 	NSMutableArray *productArray;
 	
 	IBOutlet id keyController;
+	IBOutlet id licenseController;
 }
+@property (retain) 	NSMutableArray *productArray;
 
 - (void)loadProducts;
 - (IBAction)addNewProduct:(id)sender;

@@ -1,0 +1,92 @@
+//
+//  LicenseFile.m
+//  AquaticPrime Developer
+//
+//  Created by Dave Carlton on 11/19/10.
+//  Copyright 2010 PolyMicro Systems. All rights reserved.
+//
+
+#import "LicenseFile.h"
+#import "KeyController.h"
+#import "AquaticPrime.h"
+#import "LicenseController.h"
+
+@implementation LicenseFile
+@synthesize name;
+@synthesize keyInfoArray;
+@synthesize valueInfoArray;
+@synthesize isLicenseValid;
+@synthesize licenseValidForProduct;
+@synthesize hash;
+
+
+- (id) init
+{
+	self = [super init];
+	if (self != nil) {
+		keyInfoArray = [[NSMutableArray alloc] init];
+		valueInfoArray = [[NSMutableArray alloc] init];
+	}
+	return self;
+}
+
+- (NSString *)pathToName: (NSString *)fileName 
+{
+	return [[[LicenseController sharedInstance] licenseDir] stringByAppendingString: [NSString stringWithFormat:@"/%@", fileName]];
+}
+
++ (LicenseFile *)initWithName: (NSString *)licenseFileName
+{
+	LicenseFile *licenseFile = [[[LicenseFile alloc] init] retain];
+	BOOL result = [licenseFile readLicenseAtPath:[licenseFile pathToName: licenseFileName]];
+	return licenseFile;
+}
+
+- (BOOL)readLicenseAtPath:(NSString*)licensePath
+{	
+	NSDictionary *licenseDictionary;
+	
+	// If it doesn't have a signature, don't accept the drop
+	if (![[NSDictionary dictionaryWithContentsOfFile:licensePath] objectForKey:@"Signature"])
+		return NO;
+	
+	name = [[licensePath lastPathComponent]retain];
+
+	// Grab all the product keys that we have
+	NSDictionary *productKeyDictionary = [[KeyController sharedInstance] allPublicKeys];
+	NSArray *productArray = [productKeyDictionary allKeys];
+	
+	// Determine if the license is valid for any of the products
+	int productIndex;
+	for (productIndex = 0; productIndex < [productArray count]; productIndex++)
+	{
+		NSString *currentProduct = [productArray objectAtIndex:productIndex];
+		NSData *publicKey = [productKeyDictionary objectForKey:currentProduct];
+		NSMutableString *publicKeyString = [NSMutableString stringWithString:[publicKey description]];
+		[publicKeyString replaceOccurrencesOfString:@" " withString:@"" options:nil range:NSMakeRange(0, [publicKeyString length])];
+		[publicKeyString replaceOccurrencesOfString:@"<" withString:@"" options:nil range:NSMakeRange(0, [publicKeyString length])];
+		[publicKeyString replaceOccurrencesOfString:@">" withString:@"" options:nil range:NSMakeRange(0, [publicKeyString length])];
+		
+		AquaticPrime *licenseChecker = [AquaticPrime aquaticPrimeWithKey:[NSString stringWithFormat:@"0x%@", publicKeyString]];
+		licenseDictionary = [licenseChecker dictionaryForLicenseFile:licensePath];
+		
+		if (licenseDictionary) {
+			keyInfoArray = [[licenseDictionary allKeys] retain];
+			valueInfoArray = [[licenseDictionary allValues] retain];
+			hash = (NSString *)[licenseChecker hash];
+			isLicenseValid = YES;
+			licenseValidForProduct = [currentProduct retain];
+			return YES;
+		}
+	}
+	
+	// At this point, the license is invalid, but we show the key-value pairs anyway
+	NSMutableDictionary *badLicenseDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:licensePath];
+	[badLicenseDictionary removeObjectForKey:@"Signature"];
+	keyInfoArray = [[NSMutableArray arrayWithArray:[badLicenseDictionary allKeys]] retain];
+	valueInfoArray = [[NSMutableArray arrayWithArray:[badLicenseDictionary allValues]] retain];
+	
+	return YES;
+}
+
+@end

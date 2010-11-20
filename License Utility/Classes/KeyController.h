@@ -40,6 +40,7 @@
 	
 	IBOutlet id productController;
 	IBOutlet id statusController;
+	IBOutlet id LicenseController;
 }
 
 + (KeyController *)sharedInstance;
