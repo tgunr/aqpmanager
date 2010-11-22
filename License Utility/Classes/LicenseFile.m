@@ -12,7 +12,7 @@
 #import "LicenseController.h"
 
 @implementation LicenseFile
-@synthesize name;
+@synthesize fileName;
 @synthesize keyInfoArray;
 @synthesize valueInfoArray;
 @synthesize isLicenseValid;
@@ -30,27 +30,29 @@
 	return self;
 }
 
-- (NSString *)pathToName: (NSString *)fileName 
+- (NSString *)pathToName: (NSString *)fName 
 {
-	return [[[LicenseController sharedInstance] licenseDir] stringByAppendingString: [NSString stringWithFormat:@"/%@", fileName]];
+	return [[[LicenseController sharedInstance] licenseDir] stringByAppendingString: [NSString stringWithFormat:@"/%@", fName]];
 }
 
 + (LicenseFile *)initWithName: (NSString *)licenseFileName
 {
 	LicenseFile *licenseFile = [[[LicenseFile alloc] init] retain];
-	BOOL result = [licenseFile readLicenseAtPath:[licenseFile pathToName: licenseFileName]];
+	[licenseFile readLicenseAtPath:[licenseFile pathToName: licenseFileName]];
+
 	return licenseFile;
 }
 
 - (BOOL)readLicenseAtPath:(NSString*)licensePath
 {	
-	NSDictionary *licenseDictionary;
+	BOOL result = NO;
+    NSDictionary *licenseDictionary = [NSDictionary dictionaryWithContentsOfFile:licensePath];
 	
 	// If it doesn't have a signature, don't accept the drop
-	if (![[NSDictionary dictionaryWithContentsOfFile:licensePath] objectForKey:@"Signature"])
-		return NO;
+	if (![licenseDictionary objectForKey:@"Signature"])
+		return result;
 	
-	name = [[licensePath lastPathComponent]retain];
+	fileName = [[licensePath lastPathComponent]retain];
 
 	// Grab all the product keys that we have
 	NSDictionary *productKeyDictionary = [[KeyController sharedInstance] allPublicKeys];
@@ -63,11 +65,12 @@
 		NSString *currentProduct = [productArray objectAtIndex:productIndex];
 		NSData *publicKey = [productKeyDictionary objectForKey:currentProduct];
 		NSMutableString *publicKeyString = [NSMutableString stringWithString:[publicKey description]];
-		[publicKeyString replaceOccurrencesOfString:@" " withString:@"" options:nil range:NSMakeRange(0, [publicKeyString length])];
-		[publicKeyString replaceOccurrencesOfString:@"<" withString:@"" options:nil range:NSMakeRange(0, [publicKeyString length])];
-		[publicKeyString replaceOccurrencesOfString:@">" withString:@"" options:nil range:NSMakeRange(0, [publicKeyString length])];
+		[publicKeyString replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [publicKeyString length])];
+		[publicKeyString replaceOccurrencesOfString:@"<" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [publicKeyString length])];
+		[publicKeyString replaceOccurrencesOfString:@">" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [publicKeyString length])];
 		
 		AquaticPrime *licenseChecker = [AquaticPrime aquaticPrimeWithKey:[NSString stringWithFormat:@"0x%@", publicKeyString]];
+        [licenseDictionary release];
 		licenseDictionary = [licenseChecker dictionaryForLicenseFile:licensePath];
 		
 		if (licenseDictionary) {
@@ -76,7 +79,7 @@
 			hash = (NSString *)[licenseChecker hash];
 			isLicenseValid = YES;
 			licenseValidForProduct = [currentProduct retain];
-			return YES;
+			result = YES;
 		}
 	}
 	
@@ -86,7 +89,7 @@
 	keyInfoArray = [[NSMutableArray arrayWithArray:[badLicenseDictionary allKeys]] retain];
 	valueInfoArray = [[NSMutableArray arrayWithArray:[badLicenseDictionary allValues]] retain];
 	
-	return YES;
+	return result;
 }
 
 @end

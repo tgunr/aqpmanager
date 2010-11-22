@@ -27,6 +27,7 @@
 #import "KeyController.h"
 #import "ProductController.h"
 #import "StatusController.h"
+#import "LicenseController.h"
 
 @implementation KeyController
 
@@ -65,7 +66,7 @@ static KeyController *sharedInstance = nil;
 
 + (KeyController *)sharedInstance
 {
-    return sharedInstance ? sharedInstance : [[self alloc] init];
+    return sharedInstance ? sharedInstance : [[[self alloc] init] autorelease];
 }
 
 #pragma mark Getting Keys
@@ -232,8 +233,8 @@ static KeyController *sharedInstance = nil;
 - (BOOL)loadKeysForProduct:(NSString *)productName
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *productPath = [[@"~/Library/Application Support/Aquatic/Product Keys" stringByExpandingTildeInPath] 
-								stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", productName]];
+    NSString *supportDir = [[LicenseController sharedInstance] supportDir];
+	NSString *productPath = [supportDir stringByAppendingString:[NSString stringWithFormat:@"/Product Keys/%@.plist", productName]];
 
 	// Generate a key if it doesn't exist
 	if (![fm fileExistsAtPath:productPath]) {

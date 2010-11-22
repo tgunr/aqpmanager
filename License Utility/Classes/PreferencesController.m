@@ -160,6 +160,7 @@ static PreferencesController *shared;
 	CFURLRef	launchURL;
 	
 	LSOpenCFURLRef( feedbackURL, &launchURL );
+    CFRelease(feedbackURL);
 }
 
 @end

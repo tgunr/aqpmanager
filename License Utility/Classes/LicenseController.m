@@ -54,8 +54,9 @@ static LicenseController *sharedInstance = nil;
 	keyArray = [[NSMutableArray array] retain];
 	valueArray = [[NSMutableArray array] retain];
 	licenseArray = [[NSMutableArray array] retain];
-	[self setSupportDir:[[NSString string] retain]];
-	[self setLicenseDir:[[NSString string] retain]];
+    supportDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
+	licenseDir = [[supportDir stringByAppendingString:@"/Generated Licenses"] retain];
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductCreated) name:@"NewKeyGenerated" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductSelected) name:@"ProductSelected" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveLicenseTemplate:) name:@"ProductWillBeSelected" object:nil];
@@ -69,7 +70,7 @@ static LicenseController *sharedInstance = nil;
 
 + (LicenseController *)sharedInstance
 {
-    return sharedInstance ? sharedInstance : [[self alloc] init];
+    return sharedInstance ? sharedInstance : [[[self alloc] init ]autorelease];
 }
 
 - (void)dealloc
@@ -88,7 +89,7 @@ static LicenseController *sharedInstance = nil;
 - (void)awakeFromNib 
 {
 	[self CreateSupportDir];
-	[self reloadLicenses: @""];
+	[self reloadLicenses: @"*"];
 	
 	NSURL *url = [[NSURL alloc] init];
 	[saveDirectoryPathControl setURL:url];
@@ -113,19 +114,19 @@ static LicenseController *sharedInstance = nil;
 		NSFileManager *fm = [NSFileManager defaultManager];		
 		NSDirectoryEnumerator *dirEnum = [fm enumeratorAtPath:licenseDir];
 		
-		NSString *file;
+		NSString *fName;
 		LicenseFile *lFile;
 		
-		while (file = [dirEnum nextObject]) {
+		while (fName = [dirEnum nextObject]) {
 			if ([extension isEqualToString: @"*"]) {
-				if ([[file pathExtension] hasSuffix:@"license"]) {
-					lFile = [LicenseFile initWithName: file];
+				if ([[fName pathExtension] hasSuffix:@"license"]) {
+					lFile = [LicenseFile initWithName: fName];
 					[licenseArray addObject:lFile];
 				}
 			} else {
-				if ([[file pathExtension] isEqualToString:extension]) {
-					lFile = [LicenseFile initWithName: file];
-					[licenseArray addObject:file];
+				if ([[fName pathExtension] isEqualToString:extension]) {
+					lFile = [LicenseFile initWithName: fName];
+					[licenseArray addObject:lFile];
 				}
 			}
 		}
@@ -142,8 +143,8 @@ static LicenseController *sharedInstance = nil;
 	id aLicenseFile;
 	while (aLicenseFile = [enumerator nextObject]) {
 		
-		NSArray *valueArray = [aLicenseFile valueInfoArray];
-		NSEnumerator *valueEnumerator = [valueArray objectEnumerator];
+		NSArray *vArrary = [aLicenseFile valueInfoArray];
+		NSEnumerator *valueEnumerator = [vArrary objectEnumerator];
 		
 		id aValue;
 		while (aValue = [valueEnumerator nextObject]) {
@@ -177,8 +178,6 @@ static LicenseController *sharedInstance = nil;
 - (void)CreateSupportDir {
  
 	NSFileManager *fm = [NSFileManager defaultManager];
-	[self setSupportDir:[@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath]];
-	[self setLicenseDir: [supportDir stringByAppendingString:@"/Generated Licenses"]];
 	BOOL isDir;
 	
 	// The ~/Library/Application Support/Aquatic/ folder doesn't exist yet
@@ -614,9 +613,11 @@ static LicenseController *sharedInstance = nil;
 				return [valueArray objectAtIndex:row];
 			break;
 			
-		case 2:
-				return [[licenseArray objectAtIndex:row] name];
+		case 2: {
+			LicenseFile *lFile = [licenseArray objectAtIndex:row];
+				return [lFile fileName];
 			break;
+		}
 			
 		default:
 			return 0;
@@ -650,7 +651,6 @@ static LicenseController *sharedInstance = nil;
 			break;
 			
 		default:
-			return 0;
 			break;
 	}
 	
@@ -683,7 +683,7 @@ static LicenseController *sharedInstance = nil;
 		subjectHeaderLine = [NSString stringWithFormat:@"%@ License", application];
 	}
 	
-	NSString *mailFrom = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailFromAddress"];
+    //	NSString *mailFrom = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailFromAddress"];
 	NSString *mailBCC = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailBCCAddress"];
 	NSString *mailBBCTo = @"";
 	if ([mailBCC length] != 0)
@@ -699,8 +699,8 @@ static LicenseController *sharedInstance = nil;
 	r = [tvs rangeOfString:@"@"];	// look for an @ in the email
 	if ([tvs length] != 0) {
 		if (r.location == NSNotFound) { // email textField does not have an address, look for emailAddressntainsObject:tvs];
-			id key = [keyArray containsObject:tvs];
-			if (key) {
+			BOOL keyResult = [keyArray containsObject:tvs];
+			if (keyResult) {
 				emailKey = tvs;
 				licenseName = mailTo = [valueArray objectAtIndex:[keyArray indexOfObject:tvs]];
 			} 
@@ -787,13 +787,13 @@ static LicenseController *sharedInstance = nil;
 	NSInteger tableTag = [[tab identifier] integerValue];
 	switch (tableTag) {
 		case 1: {
-			NSTextView * tv = [[aNotification userInfo] objectForKey: @"NSFieldEditor"];
+            //			NSTextView * tv = [[aNotification userInfo] objectForKey: @"NSFieldEditor"];
 			NSString *tvs = [licenseEmailField stringValue];
 			NSRange r = [tvs rangeOfString:@"@"];	// look for an @ in the email
 			if ([tvs length] != 0) {
 				if (r.location == NSNotFound) { // email texemailAddressField does not have an address, look for a key
-					id key = [keyArray containsObject:tvs];
-					if (key) {
+					BOOL keyResult = [keyArray containsObject:tvs];
+					if (keyResult) {
 						emailKey = tvs;
 						emailAddress = [valueArray objectAtIndex:[keyArray indexOfObject:tvs]];
 					} 
@@ -814,13 +814,31 @@ static LicenseController *sharedInstance = nil;
 			break;
 		}
 		case 4:
-			return [blackListArray count];
 			break;
 			
 		default:
-			return 0;
 			break;
 	}
 	
+}
+
+- (IBAction)searchForLicense:(id)sender
+{
+    
+}
+
+- (IBAction)blackListLicense:(id)sender
+{
+    
+}
+
+- (IBAction)searchForBlackList:(id)sender
+{
+    
+}
+
+- (IBAction)restoreLicense:(id)sender 
+{
+    
 }
 @end
