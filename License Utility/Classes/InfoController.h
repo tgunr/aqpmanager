@@ -15,4 +15,6 @@
 	
 }
 
++ (InfoController *)sharedInstance;
+- (void)setLicense:(LicenseFile *)license;
 @end

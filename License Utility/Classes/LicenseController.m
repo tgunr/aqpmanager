@@ -62,7 +62,7 @@ static LicenseController *sharedInstance = nil;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveLicenseTemplate:) name:@"ProductWillBeSelected" object:nil];
 	
 	if (!infoController) {
-		infoController = [[InfoController alloc] init];
+		infoController = [InfoController sharedInstance];
 	}	
 	
 	return sharedInstance;
@@ -226,7 +226,8 @@ static LicenseController *sharedInstance = nil;
 	licenseMaker = [AquaticPrime aquaticPrimeWithKey:publicKey privateKey:privateKey];
 
 	NSString *extension = [licenseExtensionField stringValue];
-	NSString *path = [NSString stringWithFormat:@"%@/Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], [valueArray objectAtIndex:0], extension];
+	NSURL *pathURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], [valueArray objectAtIndex:0], extension]];
+	NSString *path = [pathURL path];
 	NSString *backupPath = [NSString stringWithFormat:@"%@/%@.%@", licenseDir, [valueArray objectAtIndex:0], extension];
 	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:path];
 	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:backupPath];
@@ -658,10 +659,29 @@ static LicenseController *sharedInstance = nil;
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-	if ([keyValueTable selectedRow] == -1)
-		[removeButton setEnabled:NO];
-	else
-		[removeButton setEnabled:YES];
+    NSTableView *nTV = [aNotification object];
+	NSInteger tableTag = [nTV tag];
+	switch (tableTag) {
+		case 1:
+            if ([keyValueTable selectedRow] == -1)
+                [removeButton setEnabled:NO];
+            else
+                [removeButton setEnabled:YES];
+			break;
+			
+		case 2: {
+            NSInteger selectedRow = [licenseTable selectedRow];
+            if (selectedRow != -1) {
+                [[InfoController sharedInstance] setLicense:[licenseArray objectAtIndex:selectedRow]];
+                [infoDrawer open];
+            } else {
+                [infoDrawer close];
+            }
+			break;
+        }
+		default:
+			break;
+	}
 }
 
 - (IBAction)emailLicense:(id)sender;
@@ -712,10 +732,11 @@ static LicenseController *sharedInstance = nil;
 	if ([mailTo length] != 0) {
 		// Do we have all the pieces
 		NSFileManager *fm = [NSFileManager defaultManager];
-		NSString *licenseFilePath;
 		NSString *licenseFileString;
 		NSString *textFileString;
-		licenseFilePath = [NSString stringWithFormat: @"%@/Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], licenseName, [licenseExtensionField stringValue]];
+		NSURL *licenseFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], licenseName, [licenseExtensionField stringValue]]];
+		BOOL r = [licenseFileURL isFileURL];
+		NSString *licenseFilePath = [licenseFileURL path];
 		BOOL licenseFileExists = [fm isReadableFileAtPath: licenseFilePath];
 		if (!licenseFileExists) {
 			[self generateLicense:sender];
@@ -724,13 +745,15 @@ static LicenseController *sharedInstance = nil;
 		if (licenseFileExists) {
 			licenseFileString = [NSString stringWithFormat:@"\"%@\"", licenseFilePath];
 
-			NSString *licenseTextFilePath = [NSString stringWithFormat: @"%@/Attachments/%@", [saveDirectoryPathControl stringValue], licenseTextFile];
+			NSString *licenseTextFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@Attachments/%@", [saveDirectoryPathControl stringValue], licenseTextFile]];
+			NSString *licenseTextFilePath = [licenseTextFileURL path];
 			BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
 
 			if (textFileExists) { // Have to have at least these two
 				textFileString = [NSString stringWithFormat:@"\"%@\"", licenseTextFilePath];
 
-				NSString *licenseImageFilePath = [NSString stringWithFormat: @"%@/Attachments/%@", [saveDirectoryPathControl stringValue], licenseImageFile];
+				NSString *licenseImageFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@Attachments/%@", [saveDirectoryPathControl stringValue], licenseImageFile]];
+				NSString *licenseImageFilePath = [licenseImageFileURL path];
 				BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
 				NSString *imageFileString;
 				if (imageFileExists) 
@@ -738,7 +761,8 @@ static LicenseController *sharedInstance = nil;
 				else
 					imageFileString = @"";
 			
-				NSString *licenseOtherFilePath = [NSString stringWithFormat: @"%@/Attachments/%@", [saveDirectoryPathControl stringValue], licenseOtherFile];
+				NSString *licenseOtherFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@Attachments/%@", [saveDirectoryPathControl stringValue], licenseOtherFile]];
+				NSString *licenseOtherFilePath = [licenseOtherFileURL path];
 				BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
 				NSString *otherFileString;
 				if (otherFileExists) 
@@ -841,4 +865,7 @@ static LicenseController *sharedInstance = nil;
 {
     
 }
+
+#pragma TableView Actions
+
 @end

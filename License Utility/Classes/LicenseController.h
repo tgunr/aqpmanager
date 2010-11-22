@@ -50,7 +50,7 @@
 	IBOutlet NSButton *emailButton;
 
     // Licenses Tab
-    IBOutlet NSSearchField  *searchLicenseField;
+    IBOutlet NSSearchField *searchLicenseField;
     IBOutlet NSButton *searchLicenseBtn;
     IBOutlet NSTableView *licenseTable;
     IBOutlet NSButton *mailButton;
@@ -105,5 +105,7 @@
 
 - (void)CreateSupportDir;
 - (void) reloadLicenses: (NSString *)extension;
+
+
 @end
 

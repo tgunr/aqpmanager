@@ -31,11 +31,24 @@
 
 @implementation InfoController
 
+static InfoController *sharedInstance = nil;
+
 - (id)init
 {
+	if (sharedInstance) {
+        [self dealloc];
+    } else {
+        sharedInstance = [super init];
+    }	
 	self = [super initWithWindowNibName:@"LicenseInfo"];
-	return self;
+	return sharedInstance;
 }
+
++ (InfoController *)sharedInstance
+{
+    return sharedInstance ? sharedInstance : [[[self alloc] init] autorelease];
+}
+
 
 - (void)awakeFromNib
 {
@@ -64,6 +77,19 @@
 - (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
 {
 	return YES;
+}
+
+- (void)setLicense:(LicenseFile *)license
+{
+    if (licenseFile)
+        [licenseFile release];
+    licenseFile = [license retain];
+	[licenseWindow setTitle:[license fileName]];
+	NSString *valid = [licenseFile isLicenseValid] ? [NSString stringWithFormat:@"This license is valid for %@", [licenseFile licenseValidForProduct]] 
+    : @"This license is invalid";
+	[licenseValidField setStringValue:valid];
+	[hashField setStringValue:[NSString stringWithFormat:@"License Hash: %@", [licenseFile hash]]]; 
+    [keyValueInfoTable reloadData];
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
