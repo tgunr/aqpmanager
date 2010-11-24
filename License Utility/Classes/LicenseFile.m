@@ -12,13 +12,13 @@
 #import "LicenseController.h"
 
 @implementation LicenseFile
-@synthesize fileName;
+@synthesize fileNamePath;
 @synthesize keyInfoArray;
 @synthesize valueInfoArray;
 @synthesize isLicenseValid;
 @synthesize licenseValidForProduct;
 @synthesize hash;
-
+@synthesize HTo;
 
 - (id) init
 {
@@ -35,25 +35,42 @@
 	return [[[LicenseController sharedInstance] licenseDir] stringByAppendingString: [NSString stringWithFormat:@"/%@", fName]];
 }
 
-+ (LicenseFile *)initWithName: (NSString *)licenseFileName
++ (LicenseFile *)initWithPath: (NSString *)licenseFilePath
 {
 	LicenseFile *licenseFile = [[[LicenseFile alloc] init] retain];
-	[licenseFile readLicenseAtPath:[licenseFile pathToName: licenseFileName]];
+	[licenseFile readLicenseAtPath: licenseFilePath];
 
 	return licenseFile;
 }
 
-- (BOOL)readLicenseAtPath:(NSString*)licensePath
+- (NSString *)fileName
+{
+	return [fileNamePath lastPathComponent];
+	
+}
+
+- (NSString *)path
+{
+	NSMutableArray * components = [NSMutableArray arrayWithArray:[fileNamePath pathComponents]	];
+	NSString *first = [components objectAtIndex:0];
+	if ([first isEqual:@"/"]) {
+		[components removeObjectAtIndex:0];
+	}
+	[components removeLastObject];
+	NSString *path = [@"/" stringByAppendingString: [components componentsJoinedByString:@"/"]];
+	return [path retain];
+}
+
+- (BOOL)readLicenseAtPath:(NSString*)licenseNamePath
 {	
 	BOOL result = NO;
-    NSDictionary *licenseDictionary = [NSDictionary dictionaryWithContentsOfFile:licensePath];
+	fileNamePath = licenseNamePath;
+    NSDictionary *licenseDictionary = [NSDictionary dictionaryWithContentsOfFile:fileNamePath];
 	
 	// If it doesn't have a signature, don't accept the drop
 	if (![licenseDictionary objectForKey:@"Signature"])
 		return result;
 	
-	fileName = [[licensePath lastPathComponent]retain];
-
 	// Grab all the product keys that we have
 	NSDictionary *productKeyDictionary = [[KeyController sharedInstance] allPublicKeys];
 	NSArray *productArray = [productKeyDictionary allKeys];
@@ -71,7 +88,7 @@
 		
 		AquaticPrime *licenseChecker = [AquaticPrime aquaticPrimeWithKey:[NSString stringWithFormat:@"0x%@", publicKeyString]];
         [licenseDictionary release];
-		licenseDictionary = [licenseChecker dictionaryForLicenseFile:licensePath];
+		licenseDictionary = [licenseChecker dictionaryForLicenseFile:fileNamePath];
 		
 		if (licenseDictionary) {
 			keyInfoArray = [[licenseDictionary allKeys] retain];
@@ -79,12 +96,16 @@
 			hash = (NSString *)[licenseChecker hash];
 			isLicenseValid = YES;
 			licenseValidForProduct = [currentProduct retain];
+			NSUInteger emailKey = [keyInfoArray indexOfObject:@"Email"];
+			if (emailKey) {
+				HTo = [valueInfoArray objectAtIndex:emailKey];
+			}
 			result = YES;
 		}
 	}
 	
 	// At this point, the license is invalid, but we show the key-value pairs anyway
-	NSMutableDictionary *badLicenseDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:licensePath];
+	NSMutableDictionary *badLicenseDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:fileNamePath];
 	[badLicenseDictionary removeObjectForKey:@"Signature"];
 	keyInfoArray = [[NSMutableArray arrayWithArray:[badLicenseDictionary allKeys]] retain];
 	valueInfoArray = [[NSMutableArray arrayWithArray:[badLicenseDictionary allValues]] retain];

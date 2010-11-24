@@ -31,6 +31,13 @@
 		75275E38126A0B7900DC2A8D /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E36126A0B7900DC2A8D /* Database.icns */; };
 		75275E39126A0B7900DC2A8D /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
 		752D9F3B1297B25300448E37 /* LicenseFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 752D9F3A1297B25300448E37 /* LicenseFile.m */; };
+		7566AD1A129C54F700EF8ADC /* PMMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD19129C54F700EF8ADC /* PMMail.m */; };
+		7566AD60129C72F400EF8ADC /* NSApplication_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD59129C72F400EF8ADC /* NSApplication_Extensions.m */; };
+		7566AD61129C72F400EF8ADC /* NSArray_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5B129C72F400EF8ADC /* NSArray_Extensions.m */; };
+		7566AD62129C72F400EF8ADC /* NSData_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5D129C72F400EF8ADC /* NSData_Extensions.m */; };
+		7566AD63129C72F400EF8ADC /* NSString_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5F129C72F400EF8ADC /* NSString_Extensions.m */; };
+		7566ADA3129C780F00EF8ADC /* pmsCFUtility.c in Sources */ = {isa = PBXBuildFile; fileRef = 7566ADA2129C780F00EF8ADC /* pmsCFUtility.c */; };
+		7566ADBC129C79BC00EF8ADC /* PMUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566ADBB129C79BC00EF8ADC /* PMUtility.m */; };
 		758E42331269FA77008E173A /* advancedpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42281269FA77008E173A /* advancedpref.icns */; };
 		758E42351269FA77008E173A /* generalpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422A1269FA77008E173A /* generalpref.icns */; };
 		758E42361269FA77008E173A /* minus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422B1269FA77008E173A /* minus.icns */; };
@@ -113,6 +120,20 @@
 		75275E37126A0B7900DC2A8D /* mailto.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = mailto.icns; sourceTree = "<group>"; };
 		752D9F391297B25300448E37 /* LicenseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseFile.h; sourceTree = "<group>"; };
 		752D9F3A1297B25300448E37 /* LicenseFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseFile.m; sourceTree = "<group>"; };
+		7566AD18129C54F700EF8ADC /* PMMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMail.h; sourceTree = "<group>"; };
+		7566AD19129C54F700EF8ADC /* PMMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMMail.m; sourceTree = "<group>"; };
+		7566AD58129C72F400EF8ADC /* NSApplication_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSApplication_Extensions.h; path = "../../../../../Projects/PickADisk/Sources/PickADisk/Sources/Cocoa Extensions/NSApplication_Extensions.h"; sourceTree = SOURCE_ROOT; };
+		7566AD59129C72F400EF8ADC /* NSApplication_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSApplication_Extensions.m; path = "../../../../../Projects/PickADisk/Sources/PickADisk/Sources/Cocoa Extensions/NSApplication_Extensions.m"; sourceTree = SOURCE_ROOT; };
+		7566AD5A129C72F400EF8ADC /* NSArray_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSArray_Extensions.h; path = "../../../../../Projects/PickADisk/Sources/PickADisk/Sources/Cocoa Extensions/NSArray_Extensions.h"; sourceTree = SOURCE_ROOT; };
+		7566AD5B129C72F400EF8ADC /* NSArray_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSArray_Extensions.m; path = "../../../../../Projects/PickADisk/Sources/PickADisk/Sources/Cocoa Extensions/NSArray_Extensions.m"; sourceTree = SOURCE_ROOT; };
+		7566AD5C129C72F400EF8ADC /* NSData_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSData_Extensions.h; path = "../../../../../Projects/PickADisk/Sources/PickADisk/Sources/Cocoa Extensions/NSData_Extensions.h"; sourceTree = SOURCE_ROOT; };
+		7566AD5D129C72F400EF8ADC /* NSData_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSData_Extensions.m; path = "../../../../../Projects/PickADisk/Sources/PickADisk/Sources/Cocoa Extensions/NSData_Extensions.m"; sourceTree = SOURCE_ROOT; };
+		7566AD5E129C72F400EF8ADC /* NSString_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSString_Extensions.h; path = "../../../../../Projects/PickADisk/Sources/PickADisk/Sources/Cocoa Extensions/NSString_Extensions.h"; sourceTree = SOURCE_ROOT; };
+		7566AD5F129C72F400EF8ADC /* NSString_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSString_Extensions.m; path = "../../../../../Projects/PickADisk/Sources/PickADisk/Sources/Cocoa Extensions/NSString_Extensions.m"; sourceTree = SOURCE_ROOT; };
+		7566ADA1129C780F00EF8ADC /* pmsCFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pmsCFUtility.h; path = ../../../../../Projects/PickADisk/Sources/pmssource/pmsutility/pmsCFUtility.h; sourceTree = SOURCE_ROOT; };
+		7566ADA2129C780F00EF8ADC /* pmsCFUtility.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pmsCFUtility.c; path = ../../../../../Projects/PickADisk/Sources/pmssource/pmsutility/pmsCFUtility.c; sourceTree = SOURCE_ROOT; };
+		7566ADBA129C79BC00EF8ADC /* PMUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PMUtility.h; path = ../../../../../Projects/PickADisk/Sources/pmssource/pmsutility/PMUtility.h; sourceTree = SOURCE_ROOT; };
+		7566ADBB129C79BC00EF8ADC /* PMUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PMUtility.m; path = ../../../../../Projects/PickADisk/Sources/pmssource/pmsutility/PMUtility.m; sourceTree = SOURCE_ROOT; };
 		7572A925126B9B1A00B41790 /* libmysql.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysql.dylib; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysql.dylib"; sourceTree = SOURCE_ROOT; };
 		7572A926126B9B1A00B41790 /* libmysqlclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmysqlclient.a; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysqlclient.a"; sourceTree = SOURCE_ROOT; };
 		758E42281269FA77008E173A /* advancedpref.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = advancedpref.icns; sourceTree = "<group>"; };
@@ -186,8 +207,22 @@
 		25C22E68108E661700D1D72F /* Cocoa */ = {
 			isa = PBXGroup;
 			children = (
+				7566AD58129C72F400EF8ADC /* NSApplication_Extensions.h */,
+				7566AD59129C72F400EF8ADC /* NSApplication_Extensions.m */,
+				7566AD5A129C72F400EF8ADC /* NSArray_Extensions.h */,
+				7566AD5B129C72F400EF8ADC /* NSArray_Extensions.m */,
+				7566AD5C129C72F400EF8ADC /* NSData_Extensions.h */,
+				7566AD5D129C72F400EF8ADC /* NSData_Extensions.m */,
+				7566AD5E129C72F400EF8ADC /* NSString_Extensions.h */,
+				7566AD5F129C72F400EF8ADC /* NSString_Extensions.m */,
+				7566ADBA129C79BC00EF8ADC /* PMUtility.h */,
+				7566ADBB129C79BC00EF8ADC /* PMUtility.m */,
+				7566ADA1129C780F00EF8ADC /* pmsCFUtility.h */,
+				7566ADA2129C780F00EF8ADC /* pmsCFUtility.c */,
 				25C22E74108E664700D1D72F /* AquaticPrime.h */,
 				25C22E75108E664700D1D72F /* AquaticPrime.m */,
+				7566AD18129C54F700EF8ADC /* PMMail.h */,
+				7566AD19129C54F700EF8ADC /* PMMail.m */,
 			);
 			name = Cocoa;
 			path = ../Source/Cocoa;
@@ -530,6 +565,13 @@
 				25C22E76108E664700D1D72F /* AquaticPrime.m in Sources */,
 				75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */,
 				752D9F3B1297B25300448E37 /* LicenseFile.m in Sources */,
+				7566AD1A129C54F700EF8ADC /* PMMail.m in Sources */,
+				7566AD60129C72F400EF8ADC /* NSApplication_Extensions.m in Sources */,
+				7566AD61129C72F400EF8ADC /* NSArray_Extensions.m in Sources */,
+				7566AD62129C72F400EF8ADC /* NSData_Extensions.m in Sources */,
+				7566AD63129C72F400EF8ADC /* NSString_Extensions.m in Sources */,
+				7566ADA3129C780F00EF8ADC /* pmsCFUtility.c in Sources */,
+				7566ADBC129C79BC00EF8ADC /* PMUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

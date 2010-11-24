@@ -10,23 +10,29 @@
 
 
 @interface LicenseFile : NSObject {
-	NSString *fileName;
+	NSString *fileNamePath;
 	NSMutableArray *keyInfoArray;
 	NSMutableArray *valueInfoArray;
 	BOOL isLicenseValid;
 	NSString *licenseValidForProduct;
 	NSString *hash;
+	NSString *HFrom;
+	NSString *HTo;
+	NSString *HSubject;
+	NSString *HBody;
 }
 
-@property (retain) 	NSString *fileName;
+@property (retain) 	NSString *fileNamePath;
 @property (retain) 	NSMutableArray *keyInfoArray;
 @property (retain) 	NSMutableArray *valueInfoArray;
 @property (assign) 	BOOL isLicenseValid;
 @property (retain) 	NSString *licenseValidForProduct;
 @property (retain) 	NSString *hash;
+@property (retain) 	NSString *HTo;
 
-+ (LicenseFile *)initWithName: (NSString *)licenseFileName;
-- (NSString *)pathToName: (NSString *)fileName;
++ (LicenseFile *)initWithPath: (NSString *)licenseFilePath;
+- (NSString *)pathToName: (NSString *)fileNamePath;
 - (BOOL)readLicenseAtPath:(NSString*)licensePath;
-
+- (NSString *)fileName;
+- (NSString *)path;
 @end

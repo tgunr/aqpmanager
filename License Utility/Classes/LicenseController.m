@@ -33,6 +33,7 @@
 #import "AQTableView.h"
 #import "InfoController.h"
 #import "LicenseFile.h"
+#import "PMMail.h"
 
 @implementation LicenseController
 
@@ -88,7 +89,7 @@ static LicenseController *sharedInstance = nil;
 
 - (void)awakeFromNib 
 {
-	[self CreateSupportDir];
+	[self createSupportDir];
 	[self reloadLicenses: @"*"];
 	
 	NSURL *url = [[NSURL alloc] init];
@@ -118,14 +119,15 @@ static LicenseController *sharedInstance = nil;
 		LicenseFile *lFile;
 		
 		while (fName = [dirEnum nextObject]) {
+			NSString *licensePathName = [NSString stringWithFormat: @"%@/%@", licenseDir, fName];
 			if ([extension isEqualToString: @"*"]) {
 				if ([[fName pathExtension] hasSuffix:@"license"]) {
-					lFile = [LicenseFile initWithName: fName];
+					lFile = [LicenseFile initWithPath: licensePathName];
 					[licenseArray addObject:lFile];
 				}
 			} else {
 				if ([[fName pathExtension] isEqualToString:extension]) {
-					lFile = [LicenseFile initWithName: fName];
+					lFile = [LicenseFile initWithPath: licensePathName];
 					[licenseArray addObject:lFile];
 				}
 			}
@@ -149,6 +151,7 @@ static LicenseController *sharedInstance = nil;
 		id aValue;
 		while (aValue = [valueEnumerator nextObject]) {
 			NSRange range = [aValue rangeOfString:info options:NSCaseInsensitiveSearch];
+			
 			if( range.location != NSNotFound ) {
 				if (![foundLicenses containsObject:aLicenseFile]) {
 					[foundLicenses addObject:aLicenseFile];
@@ -175,7 +178,7 @@ static LicenseController *sharedInstance = nil;
 	}
 }
 
-- (void)CreateSupportDir {
+- (void)createSupportDir {
  
 	NSFileManager *fm = [NSFileManager defaultManager];
 	BOOL isDir;
@@ -582,18 +585,18 @@ static LicenseController *sharedInstance = nil;
 {
 	NSInteger tableTag = [tableView tag];
 	switch (tableTag) {
-		case 1:
+		case 11:
 			if ([keyArray count] <= [valueArray count])
 				return [keyArray count];
 			else
 				return [valueArray count];
 			break;
 			
-		case 2:
+		case 12:
 			return [licenseArray count];
 			break;
 			
-		case 3:
+		case 13:
 			return [blackListArray count];
 			break;
 			
@@ -607,14 +610,14 @@ static LicenseController *sharedInstance = nil;
 {
 	NSInteger tableTag = [tableView tag];
 	switch (tableTag) {
-		case 1:
+		case 11:
 			if ([[tableColumn identifier] isEqualToString:@"keyColumn"])
 				return [keyArray objectAtIndex:row];
 			else
 				return [valueArray objectAtIndex:row];
 			break;
 			
-		case 2: {
+		case 12: {
 			LicenseFile *lFile = [licenseArray objectAtIndex:row];
 				return [lFile fileName];
 			break;
@@ -634,7 +637,7 @@ static LicenseController *sharedInstance = nil;
 		return;
 	NSInteger tableTag = [tableView tag];
 	switch (tableTag) {
-		case 1:
+		case 11:
 			if ([[tableColumn identifier] isEqualToString:@"keyColumn"] && [object isEqualToString:@"Signature"]) {
 				NSRunAlertPanel(@"Signature is a reserved key-value pair", @"Please choose another key name.", @"OK", nil, nil);
 				return;
@@ -642,13 +645,24 @@ static LicenseController *sharedInstance = nil;
 			
 			if ([[tableColumn identifier] isEqualToString:@"keyColumn"])
 				[keyArray replaceObjectAtIndex:row withObject:object];
-			else
-				[valueArray replaceObjectAtIndex:row withObject:object];
-			
+			else {
+				NSString *key = [keyArray objectAtIndex:row];
+				NSRange r = [key rangeOfString:@"email" options: NSCaseInsensitiveSearch];
+				if (r.location == NSNotFound) { // key for this row does not contain "Email"
+					NSString *columnValue = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+					columnValue = [columnValue stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+					columnValue = [columnValue stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
+					[valueArray replaceObjectAtIndex:row withObject:columnValue];
+				} else {
+					PMMail *email = [PMMail initWithEmailAddress: object];
+					NSString *mailtoString = [email emailAddress];
+					[valueArray replaceObjectAtIndex:row withObject:mailtoString];
+				}
+			}
 			[keyValueTable reloadData];
 			break;
 			
-		case 2:
+		case 12:
 			break;
 			
 		default:
@@ -662,14 +676,14 @@ static LicenseController *sharedInstance = nil;
     NSTableView *nTV = [aNotification object];
 	NSInteger tableTag = [nTV tag];
 	switch (tableTag) {
-		case 1:
+		case 11:
             if ([keyValueTable selectedRow] == -1)
                 [removeButton setEnabled:NO];
             else
                 [removeButton setEnabled:YES];
 			break;
 			
-		case 2: {
+		case 12: {
             NSInteger selectedRow = [licenseTable selectedRow];
             if (selectedRow != -1) {
                 [[InfoController sharedInstance] setLicense:[licenseArray objectAtIndex:selectedRow]];
@@ -684,35 +698,103 @@ static LicenseController *sharedInstance = nil;
 	}
 }
 
+- (NSString *) emailSubjectLine: (NSString *)product {
+  NSRange r;
+  NSString *subjectHeaderLine;
+  NSString *mailSubject = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailSubject"];
+	if ([mailSubject length] != 0) {
+		r = [mailSubject rangeOfString:@"&P"];	// look for an &P for product name
+		if (r.location == NSNotFound) { // email textField does not want to use the product name
+			subjectHeaderLine = mailSubject;
+		} else {
+			subjectHeaderLine = [mailSubject stringByReplacingCharactersInRange:r withString:product];
+		}
+	} else {
+		subjectHeaderLine = [NSString stringWithFormat:@"%@ License", product];
+	}
+  return subjectHeaderLine;
+}
+
+- (void) emailLicenseFile: (LicenseFile *) licenseFile
+{
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSString *licenseProduct = [licenseFile licenseValidForProduct];
+	NSString *subjectHeaderLine = [self emailSubjectLine: licenseProduct];
+	
+	//	NSString *mailFrom = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailFromAddress"];
+	NSString *mailBCC = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailBCCAddress"];
+	NSString *mailBBCTo = @"";
+	if ([mailBCC length] != 0)
+		mailBBCTo = [NSString stringWithFormat: @"-b \"%@\"", mailBCC];
+	
+	NSString *licenseTextFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseTextFile"];
+	NSString *licenseImageFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseImageFile"];
+	NSString *licenseOtherFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseOtherFile"];
+	NSString *licenseFilePath = [licenseFile path];
+	NSString *licenseFileString = [NSString stringWithFormat:@"\"%@/%@\"", licenseFilePath, [licenseFile fileName]];
+	NSString *licenseSupport = [supportDir stringByAppendingFormat:@"/Licenses/%@", licenseProduct];
+	NSString *attachmentsPath = [NSString stringWithFormat: @"%@/Attachments/", licenseSupport, licenseFilePath];
+
+	NSString *textFileString;
+	NSString *licenseTextFilePath = [attachmentsPath stringByAppendingString:licenseTextFile];
+	BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
+	if (textFileExists) { // Have to have at least this one
+		textFileString = [NSString stringWithFormat:@"\"%@\"", licenseTextFilePath];
+		
+		NSString *imageFileString = @"";
+		if (licenseImageFile) {
+			NSString *licenseImageFilePath = [attachmentsPath stringByAppendingString:licenseImageFile];
+			BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
+			if (imageFileExists) 
+				imageFileString = [NSString stringWithFormat:@"\"%@\"", licenseImageFilePath];
+		}
+		
+		NSString *otherFileString = @"";
+		if (licenseOtherFile) {
+			NSString *licenseOtherFilePath = [attachmentsPath stringByAppendingString:licenseOtherFile];
+			BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
+			NSString *otherFileString;
+			if (otherFileExists) 
+				otherFileString = [NSString stringWithFormat:@"\"%@\"", licenseOtherFilePath];
+		}
+		
+		NSBundle *mb = [NSBundle mainBundle];
+		NSString *ex = [mb executablePath];
+		NSMutableArray *muttComponents = [NSMutableArray arrayWithCapacity:1];
+		[muttComponents addObjectsFromArray:[ex pathComponents]];
+		[muttComponents removeLastObject];
+		[muttComponents addObject:@"mutt"];
+		NSString *muttFilePath = [NSString pathWithComponents:muttComponents];
+		muttFilePath = @"/opt/local/bin/mutt";
+		NSString *mutt = [NSString stringWithFormat: @"\"%@\" -s \"%@\" %@ -a %@ %@ %@ -- %@ < %@", 
+						  muttFilePath,
+						  subjectHeaderLine, 
+						  mailBBCTo, 
+						  licenseFileString,
+						  otherFileString,
+						  imageFileString,
+						  [licenseFile HTo], 
+						  textFileString
+						  ];
+		int result = system([mutt UTF8String]);
+		if (result) {
+			[MainController playUISoundForBOOL: NO];
+			NSLog(@"mutt: %x", result);
+		} else 
+			[MainController playUISoundForBOOL: YES];
+	} else {
+		NSString * errorString = @"Please assign a text file for the eamil body in the preference panel";
+		//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
+		NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
+	}
+	
+}
 - (IBAction)emailLicense:(id)sender;
 {
 
 	[self completeTableEntry];
 	
 	NSRange r;
-	NSString *subjectHeaderLine;
-	NSString *mailSubject = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailSubject"];
-	if ([mailSubject length] != 0) {
-		r = [mailSubject rangeOfString:@"&P"];	// look for an &P for product name
-		if (r.location == NSNotFound) { // email textField does not want to use the product name
-			subjectHeaderLine = mailSubject;
-		} else {
-			subjectHeaderLine = [mailSubject stringByReplacingCharactersInRange:r withString:application];
-		}
-	} else {
-		subjectHeaderLine = [NSString stringWithFormat:@"%@ License", application];
-	}
-	
-    //	NSString *mailFrom = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailFromAddress"];
-	NSString *mailBCC = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailBCCAddress"];
-	NSString *mailBBCTo = @"";
-	if ([mailBCC length] != 0)
-		mailBBCTo = [NSString stringWithFormat: @"-b \"%@\"", mailBCC];
-
-	NSString *licenseTextFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseTextFile"];
-	NSString *licenseImageFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseImageFile"];
-	NSString *licenseOtherFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseOtherFile"];
-
 	NSString *mailTo;
 	NSString *licenseName;
 	NSString *tvs = [licenseEmailField stringValue];
@@ -733,9 +815,7 @@ static LicenseController *sharedInstance = nil;
 		// Do we have all the pieces
 		NSFileManager *fm = [NSFileManager defaultManager];
 		NSString *licenseFileString;
-		NSString *textFileString;
 		NSURL *licenseFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], licenseName, [licenseExtensionField stringValue]]];
-		BOOL r = [licenseFileURL isFileURL];
 		NSString *licenseFilePath = [licenseFileURL path];
 		BOOL licenseFileExists = [fm isReadableFileAtPath: licenseFilePath];
 		if (!licenseFileExists) {
@@ -745,64 +825,25 @@ static LicenseController *sharedInstance = nil;
 		if (licenseFileExists) {
 			licenseFileString = [NSString stringWithFormat:@"\"%@\"", licenseFilePath];
 
-			NSString *licenseTextFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@Attachments/%@", [saveDirectoryPathControl stringValue], licenseTextFile]];
-			NSString *licenseTextFilePath = [licenseTextFileURL path];
-			BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
-
-			if (textFileExists) { // Have to have at least these two
-				textFileString = [NSString stringWithFormat:@"\"%@\"", licenseTextFilePath];
-
-				NSString *licenseImageFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@Attachments/%@", [saveDirectoryPathControl stringValue], licenseImageFile]];
-				NSString *licenseImageFilePath = [licenseImageFileURL path];
-				BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
-				NSString *imageFileString;
-				if (imageFileExists) 
-					imageFileString = [NSString stringWithFormat:@"\"%@\"", licenseImageFilePath];
-				else
-					imageFileString = @"";
-			
-				NSString *licenseOtherFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@Attachments/%@", [saveDirectoryPathControl stringValue], licenseOtherFile]];
-				NSString *licenseOtherFilePath = [licenseOtherFileURL path];
-				BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
-				NSString *otherFileString;
-				if (otherFileExists) 
-					otherFileString = [NSString stringWithFormat:@"\"%@\"", licenseOtherFilePath];
-				else
-					otherFileString = @"";
-
-				NSBundle *mb = [NSBundle mainBundle];
-				NSString *ex = [mb executablePath];
-				NSMutableArray *muttComponents = [NSMutableArray arrayWithCapacity:1];
-				[muttComponents addObjectsFromArray:[ex pathComponents]];
-				[muttComponents removeLastObject];
-				[muttComponents addObject:@"mutt"];
-				NSString *muttFilePath = [NSString pathWithComponents:muttComponents];
-				NSString *mutt = [NSString stringWithFormat: @"\"%@\" -s \"%@\" %@ -a %@ %@ %@ -- %@ < %@", 
-								  muttFilePath,
-								  subjectHeaderLine, 
-								  mailBBCTo, 
-								  licenseFileString,
-								  otherFileString,
-								  imageFileString,
-								  mailTo, 
-								  textFileString
-								  ];
-				int result = system([mutt UTF8String]);
-				if (result) {
-					[MainController playUISoundForBOOL: NO];
-					NSLog(@"mutt: %x", result);
-				} else 
-					[MainController playUISoundForBOOL: YES];
-			} else {
-				NSString * errorString = @"Please assign a text file for the eamil body in the preference panel";
-				//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
-				NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
-			}
+			LicenseFile *licenseFile = [LicenseFile initWithPath:licenseFilePath];
+			[licenseFile setHTo:mailTo];
+			[self emailLicenseFile: licenseFile];
+			[licenseFile release];
 		} else {
 			NSString * errorString = @"Please assign at least one key-value pair in order to generate and email a license!";
 			NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
 		}
 	}
+}
+
+- (IBAction)sendLicenseFile:(id)sender
+{
+		NSInteger row = [licenseTable selectedRow];
+		if (row) {
+			LicenseFile *license = [licenseArray objectAtIndex:row];
+			[self emailLicenseFile:license];
+			[license release];
+		}
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)aNotification
@@ -811,19 +852,62 @@ static LicenseController *sharedInstance = nil;
 	NSInteger tableTag = [[tab identifier] integerValue];
 	switch (tableTag) {
 		case 1: {
-            //			NSTextView * tv = [[aNotification userInfo] objectForKey: @"NSFieldEditor"];
-			NSString *tvs = [licenseEmailField stringValue];
-			NSRange r = [tvs rangeOfString:@"@"];	// look for an @ in the email
-			if ([tvs length] != 0) {
-				if (r.location == NSNotFound) { // email texemailAddressField does not have an address, look for a key
-					BOOL keyResult = [keyArray containsObject:tvs];
-					if (keyResult) {
-						emailKey = tvs;
-						emailAddress = [valueArray objectAtIndex:[keyArray indexOfObject:tvs]];
-					} 
-				} else {
-					emailAddress = tvs;
+            id n = [aNotification object];
+			NSInteger tagID = [n tag];
+			id tv = [[aNotification userInfo] objectForKey: @"NSFieldEditor"];
+			NSInteger selectedRow = [keyValueTable selectedRow];
+			NSInteger selectedCol = [keyValueTable selectedColumn];
+			NSInteger keyCol = [keyValueTable columnWithIdentifier:@"keyColumn"];
+			NSString * c = [n stringValue];
+			switch (tagID) {
+				case 1: {
+					NSString *tvs = [licenseEmailField stringValue];
+					NSRange r = [tvs rangeOfString:@"@"];	// look for an @ in the email
+					if ([tvs length] != 0) {
+						if (r.location == NSNotFound) { // email texemailAddressField does not have an address, look for a key
+							BOOL keyResult = [keyArray containsObject:tvs];
+							if (keyResult) {
+								emailKey = tvs;
+								emailAddress = [valueArray objectAtIndex:[keyArray indexOfObject:tvs]];
+							} 
+						} else {
+							emailAddress = tvs;
+						}
+						PMMail *email = [PMMail initWithEmailAddress: emailAddress];
+						emailAddress = [email emailAddress];
+						break;
+					}
 				}
+				case 11: {
+					if (selectedRow != -1) {
+						
+						NSString *value = [valueArray objectAtIndex:selectedRow];
+						NSString *key = [keyArray objectAtIndex:selectedRow];
+						NSString *columnValue = [[tv string] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+						columnValue = [columnValue stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+						columnValue = [columnValue stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
+						
+						// Special check for the key named "Email"
+						if (selectedCol != keyCol) {
+							NSRange r = [key rangeOfString:@"email" options: NSCaseInsensitiveSearch];
+							
+							if (r.location == NSNotFound) { // key for this row does not contain "Email"
+								[valueArray replaceObjectAtIndex:selectedRow withObject:columnValue];
+							} else {
+								BOOL ok = [PMMail isEmail: columnValue];
+								PMMail *email = [PMMail initWithEmailAddress: columnValue];
+								NSString *mailtoString = [email emailAddress];
+								emailAddress = mailtoString;
+								[valueArray replaceObjectAtIndex:selectedRow withObject:mailtoString];
+							}
+						} else
+							[valueArray replaceObjectAtIndex:selectedRow withObject:columnValue];
+					}
+					break;
+				}
+			
+				default:
+					break;
 			}
 			if ([emailAddress length])
 				[emailButton setEnabled:YES];
@@ -832,18 +916,18 @@ static LicenseController *sharedInstance = nil;
 			break;
 		}
 			
-		case 3: {
+		case 2: {
 			NSString *searchText = [searchLicenseField stringValue];
 			[self searchForLicenses: searchText];
 			break;
 		}
-		case 4:
+		case 3:
 			break;
 			
 		default:
 			break;
 	}
-	
+	[keyValueTable reloadData];
 }
 
 - (IBAction)searchForLicense:(id)sender

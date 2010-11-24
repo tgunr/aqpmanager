@@ -97,13 +97,13 @@
 - (IBAction)emailLicense:(id)sender;
   
 - (IBAction)searchForLicense:(id)sender;
-- (IBAction)emailLicense:(id)sender;
+- (IBAction)sendLicenseFile:(id)sender;
 - (IBAction)blackListLicense:(id)sender;
 
 - (IBAction)searchForBlackList:(id)sender;
 - (IBAction)restoreLicense:(id)sender;
 
-- (void)CreateSupportDir;
+- (void)createSupportDir;
 - (void) reloadLicenses: (NSString *)extension;
 
 
