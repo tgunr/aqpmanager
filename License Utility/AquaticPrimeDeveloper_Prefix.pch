@@ -2,8 +2,11 @@
 // Prefix header for all source files of the 'AquaticPrime' target in the 'AquaticPrime' project.
 //
 
+
 #ifdef __OBJC__
 #import <Cocoa/Cocoa.h>
+#import <EDMessage/EDMessage.h>
+#import <EDCommon/EDCommon.h>
 
 #if __LP64__
 typedef long NSInteger;

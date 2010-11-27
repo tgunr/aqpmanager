@@ -30,6 +30,10 @@
 		75092C5312986E5200183042 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75092C5212986E5200183042 /* Sparkle.framework */; };
 		75275E38126A0B7900DC2A8D /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E36126A0B7900DC2A8D /* Database.icns */; };
 		75275E39126A0B7900DC2A8D /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
+		752AFF2B129EE9B70028C23D /* libAquaticPrime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFF2A129EE9B70028C23D /* libAquaticPrime.a */; };
+		752AFF2F129EE9F90028C23D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFF2E129EE9F90028C23D /* Security.framework */; };
+		752AFF45129EEB970028C23D /* EDMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFE9A129EE7230028C23D /* EDMessage.framework */; };
+		752AFF49129EEBB20028C23D /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFE99129EE7230028C23D /* EDCommon.framework */; };
 		752D9F3B1297B25300448E37 /* LicenseFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 752D9F3A1297B25300448E37 /* LicenseFile.m */; };
 		7566AD1A129C54F700EF8ADC /* PMMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD19129C54F700EF8ADC /* PMMail.m */; };
 		7566AD60129C72F400EF8ADC /* NSApplication_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD59129C72F400EF8ADC /* NSApplication_Extensions.m */; };
@@ -63,7 +67,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				75092C5312986E5200183042 /* Sparkle.framework in CopyFiles */,
 				75092C5112986D7A00183042 /* mutt in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,6 +77,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				75092C5312986E5200183042 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +122,11 @@
 		75092C5212986E5200183042 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = /Users/davec/Sources/GIT/Sparkle/build/Release/Sparkle.framework; sourceTree = "<absolute>"; };
 		75275E36126A0B7900DC2A8D /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
 		75275E37126A0B7900DC2A8D /* mailto.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = mailto.icns; sourceTree = "<group>"; };
+		752AFE99129EE7230028C23D /* EDCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EDCommon.framework; path = ../../../../Build/Development/EDCommon.framework; sourceTree = SOURCE_ROOT; };
+		752AFE9A129EE7230028C23D /* EDMessage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EDMessage.framework; path = ../../../../Build/Development/EDMessage.framework; sourceTree = SOURCE_ROOT; };
+		752AFF24129EE9030028C23D /* AquaticPrime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AquaticPrime.framework; path = ../Source/Cocoa/build/Development/AquaticPrime.framework; sourceTree = SOURCE_ROOT; };
+		752AFF2A129EE9B70028C23D /* libAquaticPrime.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAquaticPrime.a; path = ../Source/Cocoa/build/Development/libAquaticPrime.a; sourceTree = SOURCE_ROOT; };
+		752AFF2E129EE9F90028C23D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		752D9F391297B25300448E37 /* LicenseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseFile.h; sourceTree = "<group>"; };
 		752D9F3A1297B25300448E37 /* LicenseFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseFile.m; sourceTree = "<group>"; };
 		7566AD18129C54F700EF8ADC /* PMMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMail.h; sourceTree = "<group>"; };
@@ -171,8 +180,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				752AFF49129EEBB20028C23D /* EDCommon.framework in Frameworks */,
+				752AFF45129EEB970028C23D /* EDMessage.framework in Frameworks */,
 				A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */,
 				75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */,
+				752AFF2B129EE9B70028C23D /* libAquaticPrime.a in Frameworks */,
+				752AFF2F129EE9F90028C23D /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,12 +281,17 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				752AFF24129EE9030028C23D /* AquaticPrime.framework */,
+				752AFE99129EE7230028C23D /* EDCommon.framework */,
+				752AFE9A129EE7230028C23D /* EDMessage.framework */,
 				75ACA575126B9C580046F460 /* libmysql.16.dylib */,
 				7572A925126B9B1A00B41790 /* libmysql.dylib */,
+				752AFF2A129EE9B70028C23D /* libAquaticPrime.a */,
 				7572A926126B9B1A00B41790 /* libmysqlclient.a */,
 				75D4CD37126B908B00E60EF9 /* SMySQL_bundled.framework */,
 				75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */,
 				A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */,
+				752AFF2E129EE9F90028C23D /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -599,13 +617,17 @@
 				);
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(FRAMEWORK_SEARCH_PATHS)",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/build/Deployment\"",
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../GIT/EdCommon/build/Development\"",
+					"\"$(SRCROOT)/../../../../GIT/EdMessage/build/Development\"",
+					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
+					"\"$(SRCROOT)/../../../../Build/Development\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AquaticPrimeDeveloper_Prefix.pch;
@@ -614,12 +636,7 @@
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
-				);
-				OTHER_LDFLAGS = (
-					"-lcrypto",
-					"-framework",
-					Cocoa,
+					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
 				);
 				PREBINDING = NO;
 				WRAPPER_EXTENSION = app;
@@ -641,6 +658,10 @@
 					"\"$(SRCROOT)/../../../../GIT/Sparkle/build/Release\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/build/Deployment\"",
+					"\"$(SRCROOT)/../../../../GIT/EdCommon/build/Development\"",
+					"\"$(SRCROOT)/../../../../GIT/EdMessage/build/Development\"",
+					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
+					"\"$(SRCROOT)/../../../../Build/Development\"",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -660,6 +681,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
+					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-lcrypto";
@@ -682,6 +704,10 @@
 					"\"$(SRCROOT)/../../../../GIT/Sparkle/build/Release\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/build/Deployment\"",
+					"\"$(SRCROOT)/../../../../GIT/EdCommon/build/Development\"",
+					"\"$(SRCROOT)/../../../../GIT/EdMessage/build/Development\"",
+					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
+					"\"$(SRCROOT)/../../../../Build/Development\"",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -693,6 +719,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
+					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lcrypto",
@@ -708,13 +735,21 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/build/Debug\"",
+					"\"$(SRCROOT)/../../../../Build/Development/EDCommon.framework\"",
+					"\"$(SRCROOT)/../../../../Build/Development/EDMessage.framework\"",
+				);
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				LD_OPENMP_FLAGS = "-fopenmp";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = AquaticPrime;
 				SDKROOT = macosx10.5;
 			};
@@ -728,6 +763,10 @@
 				CODE_SIGN_IDENTITY = PolyMicro;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../../../GIT/EdMessage/build/Release (embedded)/\"",
+					"\"$(SRCROOT)/../../../../GIT/EdCommon/build/Release (embedded)/\"",
+				);
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;

@@ -727,62 +727,59 @@ static LicenseController *sharedInstance = nil;
 	if ([mailBCC length] != 0)
 		mailBBCTo = [NSString stringWithFormat: @"-b \"%@\"", mailBCC];
 	
-	NSString *licenseTextFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseTextFile"];
-	NSString *licenseImageFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseImageFile"];
-	NSString *licenseOtherFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseOtherFile"];
-	NSString *licenseFilePath = [licenseFile path];
-	NSString *licenseFileString = [NSString stringWithFormat:@"\"%@/%@\"", licenseFilePath, [licenseFile fileName]];
+	NSString *licenseTextFileName = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseTextFile"];
+	NSString *licenseImageFileName = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseImageFile"];
+	NSString *licenseOtherFileName = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseOtherFile"];
 	NSString *licenseSupport = [supportDir stringByAppendingFormat:@"/Licenses/%@", licenseProduct];
-	NSString *attachmentsPath = [NSString stringWithFormat: @"%@/Attachments/", licenseSupport, licenseFilePath];
+	NSString *attachmentsPath = [NSString stringWithFormat: @"%@/Attachments/", licenseSupport, [licenseFile path]];
 
-	NSString *textFileString;
-	NSString *licenseTextFilePath = [attachmentsPath stringByAppendingString:licenseTextFile];
+	NSString *licenseTextFilePath = [attachmentsPath stringByAppendingString:licenseTextFileName];
 	BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
-	if (textFileExists) { // Have to have at least this one
-		textFileString = [NSString stringWithFormat:@"\"%@\"", licenseTextFilePath];
-		
-		NSString *imageFileString = @"";
-		if (licenseImageFile) {
-			NSString *licenseImageFilePath = [attachmentsPath stringByAppendingString:licenseImageFile];
+	if (textFileExists) { // Have to have at least this one		
+		NSMutableArray *attachmentList = [NSMutableArray array]; 
+
+		if (licenseImageFileName) {
+			NSString *licenseImageFilePath = [attachmentsPath stringByAppendingString:licenseImageFileName];
 			BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
-			if (imageFileExists) 
-				imageFileString = [NSString stringWithFormat:@"\"%@\"", licenseImageFilePath];
+			if (imageFileExists) {
+				NSData *imageData = [NSData dataWithContentsOfFile: licenseImageFilePath];
+				[attachmentList addObject:[EDObjectPair pairWithObjects:imageData:licenseImageFileName]]; 
+			}
 		}
 		
-		NSString *otherFileString = @"";
-		if (licenseOtherFile) {
-			NSString *licenseOtherFilePath = [attachmentsPath stringByAppendingString:licenseOtherFile];
+		NSData *licenseFileData = [NSData dataWithContentsOfFile: [licenseFile fileNamePath]];
+		[attachmentList addObject:[EDObjectPair pairWithObjects:licenseFileData:[licenseFile fileName]]]; 
+		
+		if (licenseOtherFileName) {
+			NSString *licenseOtherFilePath = [attachmentsPath stringByAppendingString:licenseOtherFileName];
 			BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
-			NSString *otherFileString;
-			if (otherFileExists) 
-				otherFileString = [NSString stringWithFormat:@"\"%@\"", licenseOtherFilePath];
-		}
+			if (otherFileExists) {
+				NSData *otherData = [NSData dataWithContentsOfFile: licenseOtherFilePath];
+				[attachmentList addObject:[EDObjectPair pairWithObjects:otherData:licenseOtherFileName]]; 
+			}
+	}
 		
-		NSBundle *mb = [NSBundle mainBundle];
-		NSString *ex = [mb executablePath];
-		NSMutableArray *muttComponents = [NSMutableArray arrayWithCapacity:1];
-		[muttComponents addObjectsFromArray:[ex pathComponents]];
-		[muttComponents removeLastObject];
-		[muttComponents addObject:@"mutt"];
-		NSString *muttFilePath = [NSString pathWithComponents:muttComponents];
-		muttFilePath = @"/opt/local/bin/mutt";
-		NSString *mutt = [NSString stringWithFormat: @"\"%@\" -s \"%@\" %@ -a %@ %@ %@ -- %@ < %@", 
-						  muttFilePath,
-						  subjectHeaderLine, 
-						  mailBBCTo, 
-						  licenseFileString,
-						  otherFileString,
-						  imageFileString,
-						  [licenseFile HTo], 
-						  textFileString
-						  ];
-		int result = system([mutt UTF8String]);
-		if (result) {
-			[MainController playUISoundForBOOL: NO];
-			NSLog(@"mutt: %x", result);
-		} else 
-			[MainController playUISoundForBOOL: YES];
+		
+		NSMutableDictionary *headerFields = [NSMutableDictionary dictionary]; 
+		[headerFields setObject:@"support@polymicrosystems.com" forKey:@"From"]; 
+		[headerFields setObject:[licenseFile HTo] forKey:@"To"]; 
+		[headerFields setObject:mailBCC forKey:@"BCC"]; 
+		[headerFields setObject:subjectHeaderLine forKey:@"Subject"];
+		
+		NSString *bodyText = [NSString stringWithContentsOfFile:licenseTextFilePath];
+		
+		// Find Email accounts
+//		NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(																   NSLibraryDirectory, NSUserDomainMask, YES);
+//		NSString *libraryPath = [searchPaths objectAtIndex:0];
+//		NSString *mailPrefsPath = [[libraryPath stringByAppendingPathComponent:@"Preferences"] stringByAppendingPathComponent:@"com.apple.mail.plist"];
+//		NSDictionary *mailPreferences = [NSDictionary dictionaryWithContentsOfFile:mailPrefsPath];
+//		NSArray *accounts = [mailPreferences valueForKey:@"DeliveryAccounts"];
+
+		id mailAgent = [EDMailAgent mailAgentForRelayHostWithName:@"mp.polymicro.net"]; 
+		[mailAgent sendMailWithHeaders:headerFields body:bodyText andAttachments:attachmentList];
+		[MainController playUISoundForBOOL: YES];
 	} else {
+		[MainController playUISoundForBOOL: NO];
 		NSString * errorString = @"Please assign a text file for the eamil body in the preference panel";
 		//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
 		NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
