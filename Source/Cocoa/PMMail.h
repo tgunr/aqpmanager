@@ -13,8 +13,8 @@
 	NSString *emailAddress;
 	NSString *recipient;
 }
-@property NSString *emailAddress;
-@property NSString *recipient;
+@property (retain) 	NSString *emailAddress;
+@property (retain) 	NSString *recipient;
 
 +(PMMail *)initWithEmailAddress: (NSString *)email;
 +(BOOL) isEmail: (NSString *)inputEmail;

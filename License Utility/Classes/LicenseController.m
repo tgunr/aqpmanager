@@ -90,8 +90,9 @@ static LicenseController *sharedInstance = nil;
 - (void)awakeFromNib 
 {
 	[self createSupportDir];
+//	builtInKeywords = [NSMutableArray arrayWithCapacity:1];
 	[self reloadLicenses: @"*"];
-	
+	[[searchLicenseField cell ]setSendsWholeSearchString: YES];
 	NSURL *url = [[NSURL alloc] init];
 	[saveDirectoryPathControl setURL:url];
 }
@@ -110,6 +111,7 @@ static LicenseController *sharedInstance = nil;
 
 - (void) reloadLicenses: (NSString *)extension {
 	[licenseArray  removeAllObjects];
+//	[builtInKeywords removeAllObjects];
 	
 	if ([extension length]) {
 		NSFileManager *fm = [NSFileManager defaultManager];		
@@ -124,11 +126,13 @@ static LicenseController *sharedInstance = nil;
 				if ([[fName pathExtension] hasSuffix:@"license"]) {
 					lFile = [LicenseFile initWithPath: licensePathName];
 					[licenseArray addObject:lFile];
+//					[builtInKeywords addUniqueObjectsFromArray:[lFile valueInfoArray]];
 				}
 			} else {
 				if ([[fName pathExtension] isEqualToString:extension]) {
 					lFile = [LicenseFile initWithPath: licensePathName];
 					[licenseArray addObject:lFile];
+//					[builtInKeywords addUniqueObjectsFromArray:[lFile valueInfoArray]];
 				}
 			}
 		}
@@ -139,9 +143,23 @@ static LicenseController *sharedInstance = nil;
 		
 - (void) searchForLicenses:(NSString *)info
 {
+	NSInteger narrow = [narrowResultsBtn state];
+	if (narrow == NSOffState) {
+		NSString *product = [productController currentProduct];
+		if (product) {
+			if ([application length]) {
+				NSString *productExtension = [licenseExtensionField stringValue];
+				if ([productExtension length]) {
+					[self reloadLicenses: productExtension];
+				} else {
+					[self reloadLicenses: @""];
+				}				
+			}
+		} else
+			[self reloadLicenses: @"*"];
+	}
 	NSMutableArray *foundLicenses = [NSMutableArray array];
 	NSEnumerator *enumerator = [licenseArray objectEnumerator];
-
 	id aLicenseFile;
 	while (aLicenseFile = [enumerator nextObject]) {
 		
@@ -156,17 +174,20 @@ static LicenseController *sharedInstance = nil;
 				if (![foundLicenses containsObject:aLicenseFile]) {
 					[foundLicenses addObject:aLicenseFile];
 				}
-			}			
+			}
 		}
 	}
 	if ([foundLicenses count]) {
 		[licenseArray release];
 		licenseArray = [foundLicenses retain];
+		[numberLicenses setStringValue: [NSString stringWithFormat:@"%d licenses found",[licenseArray count]]];
 		[licenseTable reloadData];
 	} else {
-		[NSTextField setStringValue: @"No licenses found"];
+		[licenseArray removeAllObjects];
+		[numberLicenses setStringValue: @"No licenses found"];
+		[licenseTable reloadData];
 	}
-
+	
 }
 
 - (void) completeTableEntry 
@@ -251,6 +272,7 @@ static LicenseController *sharedInstance = nil;
 	// Make sure the object is a tableView
 	int index;
 	if ([anObject respondsToSelector:@selector(object)] && [[anObject object] respondsToSelector:@selector(selectedRow)]) {
+		[searchLicenseField setStringValue:@""];
 		index = [[anObject object] selectedRow];
 		if (index == -1) {
 			return;	
@@ -619,7 +641,7 @@ static LicenseController *sharedInstance = nil;
 			
 		case 12: {
 			LicenseFile *lFile = [licenseArray objectAtIndex:row];
-				return [lFile fileName];
+			return [lFile fileName];
 			break;
 		}
 			
@@ -766,7 +788,8 @@ static LicenseController *sharedInstance = nil;
 		[headerFields setObject:mailBCC forKey:@"BCC"]; 
 		[headerFields setObject:subjectHeaderLine forKey:@"Subject"];
 		
-		NSString *bodyText = [NSString stringWithContentsOfFile:licenseTextFilePath];
+		NSError *err;
+		NSString *bodyText = [NSString stringWithContentsOfFile:licenseTextFilePath encoding:NSUTF8StringEncoding error:&err];
 		
 		// Find Email accounts
 //		NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(																   NSLibraryDirectory, NSUserDomainMask, YES);
@@ -786,7 +809,7 @@ static LicenseController *sharedInstance = nil;
 	}
 	
 }
-- (IBAction)emailLicense:(id)sender;
+- (IBAction)emailLicenseClick:(id)sender;
 {
 
 	[self completeTableEntry];
@@ -843,6 +866,140 @@ static LicenseController *sharedInstance = nil;
 		}
 }
 
+- (IBAction)revealLicenseFile:(id)sender
+{
+	NSInteger row = [licenseTable selectedRow];
+	if (row) {
+		LicenseFile *license = [licenseArray objectAtIndex:row];
+		[license reveal];
+		[license release];
+	}
+	
+}
+
+-(void)searchLicenses
+{
+	NSString *searchText = [searchLicenseField stringValue];
+	if ([searchText length]) {
+		[self searchForLicenses: searchText];
+	} else
+		[numberLicenses setStringValue: @"No licenses found"];	
+}
+
+// -------------------------------------------------------------------------------
+//	allKeywords:
+//
+//	This method builds our keyword array for use in type completion (dropdown list
+//	in NSSearchField).
+// -------------------------------------------------------------------------------
+- (NSArray *)allKeywords
+{
+    NSArray *array = [[[NSArray alloc] init] autorelease];
+    unsigned int i,count;
+	
+    if (allKeywords == nil)
+	{
+        allKeywords = [builtInKeywords mutableCopy];
+		
+        if (array != nil)
+		{
+            count = [array count];
+            for (i=0; i<count; i++)
+			{
+                if ([allKeywords indexOfObject:[array objectAtIndex:i]] == NSNotFound)
+                    [allKeywords addObject:[array objectAtIndex:i]];
+            }
+        }
+        [allKeywords sortUsingSelector:@selector(compare:)];
+    }
+    return allKeywords;
+}
+
+// -------------------------------------------------------------------------------
+//	control:textView:completions:forPartialWordRange:indexOfSelectedItem:
+//
+//	Use this method to override NSFieldEditor's default matches (which is a much bigger
+//	list of keywords).  By not implementing this method, you will then get back
+//	NSSearchField's default feature.
+// -------------------------------------------------------------------------------
+//- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words
+// forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int*)index
+//{
+//    NSMutableArray*	matches = NULL;
+//    NSString*		partialString;
+//    NSArray*		keywords;
+//    unsigned int	i,count;
+//    NSString*		string;
+//	
+//    partialString = [[textView string] substringWithRange:charRange];
+//    keywords      = [self allKeywords];
+//    count         = [keywords count];
+//    matches       = [NSMutableArray array];
+//	
+//    // find any match in our keyword array against what was typed -
+//	for (i=0; i< count; i++)
+//	{
+//        string = [keywords objectAtIndex:i];
+//        if ([string rangeOfString:partialString
+//						  options:NSAnchoredSearch | NSCaseInsensitiveSearch
+//							range:NSMakeRange(0, [string length])].location != NSNotFound)
+//		{
+//            [matches addObject:string];
+//        }
+//    }
+//    [matches sortUsingSelector:@selector(compare:)];
+//	
+//	return matches;
+//}
+
+//- (void)controlTextDidBeginEditing:(NSNotification *)aNotification
+//{
+//	
+//}
+// -------------------------------------------------------------------------------
+//	controlTextDidChange:
+//
+//	The text in NSSearchField has changed, try to attempt type completion.
+// -------------------------------------------------------------------------------
+//- (void)controlTextDidChange:(NSNotification *)obj
+//{
+//	NSTextView* textView = [[obj userInfo] objectForKey:@"NSFieldEditor"];
+//	
+//    if (!completePosting && !commandHandling)	// prevent calling "complete" too often
+//	{
+//        completePosting = YES;
+//        [textView complete:nil];
+//		NSString *searchText = [searchLicenseField stringValue];
+//		if ([searchText length]) {
+//			[self searchForLicenses: searchText];
+//		} else
+//			[numberLicenses setStringValue: @"No licenses found"];		
+//        completePosting = NO;
+//    }
+//	[licenseTable reloadData];
+//}
+
+// -------------------------------------------------------------------------------
+//	control:textView:commandSelector
+//
+//	Handle all commend selectors that we can handle here
+// -------------------------------------------------------------------------------
+//- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
+//{
+//    BOOL result = NO;
+//	
+//	if ([textView respondsToSelector:commandSelector])
+//	{
+//        commandHandling = YES;
+//        [textView performSelector:commandSelector withObject:nil];
+//        commandHandling = NO;
+//		
+//		result = YES;
+//    }
+//	
+//    return result;
+//}
+
 - (void)controlTextDidEndEditing:(NSNotification *)aNotification
 {
 	NSTabViewItem *tab = [tabView selectedTabViewItem];
@@ -877,8 +1034,6 @@ static LicenseController *sharedInstance = nil;
 				}
 				case 11: {
 					if (selectedRow != -1) {
-						
-						NSString *value = [valueArray objectAtIndex:selectedRow];
 						NSString *key = [keyArray objectAtIndex:selectedRow];
 						NSString *columnValue = [[tv string] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 						columnValue = [columnValue stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
@@ -891,7 +1046,6 @@ static LicenseController *sharedInstance = nil;
 							if (r.location == NSNotFound) { // key for this row does not contain "Email"
 								[valueArray replaceObjectAtIndex:selectedRow withObject:columnValue];
 							} else {
-								BOOL ok = [PMMail isEmail: columnValue];
 								PMMail *email = [PMMail initWithEmailAddress: columnValue];
 								NSString *mailtoString = [email emailAddress];
 								emailAddress = mailtoString;
@@ -913,12 +1067,20 @@ static LicenseController *sharedInstance = nil;
 			break;
 		}
 			
-		case 2: {
-			NSString *searchText = [searchLicenseField stringValue];
-			[self searchForLicenses: searchText];
+		case 3: {
+			[self searchForLicense: aNotification];
+			NSTextView* textView = [[aNotification userInfo] objectForKey:@"NSFieldEditor"];
+//			
+//			if (!completePosting && !commandHandling)	// prevent calling "complete" too often
+//			{
+//				completePosting = YES;
+//				[textView complete:nil];
+//				[licenseTable reloadData];
+//				completePosting = NO;
+//			}
 			break;
 		}
-		case 3:
+		case 4:
 			break;
 			
 		default:
@@ -929,20 +1091,25 @@ static LicenseController *sharedInstance = nil;
 
 - (IBAction)searchForLicense:(id)sender
 {
-    
+	NSString *searchText = [searchLicenseField stringValue];
+	if ([searchText length]) {
+		[self searchForLicenses: searchText];
+	} else
+		[numberLicenses setStringValue: @"No licenses found"];
+	
 }
 
-- (IBAction)blackListLicense:(id)sender
+- (IBAction)blackListLicenseFile:(id)sender
 {
     
 }
 
-- (IBAction)searchForBlackList:(id)sender
+- (IBAction)searchForBlackListFile:(id)sender
 {
     
 }
 
-- (IBAction)restoreLicense:(id)sender 
+- (IBAction)restoreLicenseFile:(id)sender 
 {
     
 }

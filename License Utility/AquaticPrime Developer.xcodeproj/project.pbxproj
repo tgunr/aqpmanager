@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		25C22E76108E664700D1D72F /* AquaticPrime.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C22E75108E664700D1D72F /* AquaticPrime.m */; };
 		3D12D14B085206240035BA78 /* add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3D12D14A085206240035BA78 /* add.tiff */; };
 		3D12D159085208CC0035BA78 /* StatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D12D158085208CC0035BA78 /* StatusController.m */; };
 		3D12D1C008520D0E0035BA78 /* ProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D12D1BF08520D0E0035BA78 /* ProductController.m */; };
@@ -26,11 +25,8 @@
 		3DD108F40881725A00C4C6B4 /* About.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD108F30881725A00C4C6B4 /* About.nib */; };
 		3DD108F80881726E00C4C6B4 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108F60881726E00C4C6B4 /* AboutController.m */; };
 		3DF60B9E085CE0BD004C50F2 /* remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DF60B9D085CE0BD004C50F2 /* remove.tiff */; };
-		75092C5112986D7A00183042 /* mutt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75092C5012986D7A00183042 /* mutt */; };
-		75092C5312986E5200183042 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75092C5212986E5200183042 /* Sparkle.framework */; };
 		75275E38126A0B7900DC2A8D /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E36126A0B7900DC2A8D /* Database.icns */; };
 		75275E39126A0B7900DC2A8D /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
-		752AFF2B129EE9B70028C23D /* libAquaticPrime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFF2A129EE9B70028C23D /* libAquaticPrime.a */; };
 		752AFF2F129EE9F90028C23D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFF2E129EE9F90028C23D /* Security.framework */; };
 		752AFF45129EEB970028C23D /* EDMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFE9A129EE7230028C23D /* EDMessage.framework */; };
 		752AFF49129EEBB20028C23D /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFE99129EE7230028C23D /* EDCommon.framework */; };
@@ -51,6 +47,9 @@
 		758E423B1269FA77008E173A /* success.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42301269FA77008E173A /* success.icns */; };
 		758E423C1269FA77008E173A /* ToolbarInfo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42311269FA77008E173A /* ToolbarInfo.icns */; };
 		758E423D1269FA77008E173A /* update.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42321269FA77008E173A /* update.icns */; };
+		759441F012A43E4200F04308 /* libcrypto.1.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 759441AC12A30E2700F04308 /* libcrypto.1.0.0.dylib */; };
+		7594425012A43FAD00F04308 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7594420F12A43EE100F04308 /* Sparkle.framework */; };
+		7594426E12A440CE00F04308 /* AquaticPrime.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C22E75108E664700D1D72F /* AquaticPrime.m */; };
 		75C60018127103E100A66201 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 75C60016127103E100A66201 /* dsa_pub.pem */; };
 		75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDB96126A10B5002BA6E7 /* PreferencesController.m */; };
 		75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */; };
@@ -60,32 +59,60 @@
 		E804BCA70833AAFD00512005 /* KeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = E804BCA60833AAFD00512005 /* KeyController.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		756F2E99126CBE2F00BC87E3 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				75092C5112986D7A00183042 /* mutt in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
+/* Begin PBXContainerItemProxy section */
+		7594420E12A43EE100F04308 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* Sparkle.framework */;
+			remoteInfo = Sparkle;
 		};
+		7594421012A43EE100F04308 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 61B5F90209C4CEE200B25A18 /* Sparkle Test App.app */;
+			remoteInfo = "Sparkle Test App";
+		};
+		7594421212A43EE100F04308 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DAAEFC960DA571DF0051E0D0 /* relaunch */;
+			remoteInfo = "relaunch tool";
+		};
+		7594421412A43EE100F04308 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 612279D90DB5470200AB99EA /* Sparkle Unit Tests.octest */;
+			remoteInfo = "Sparkle Unit Tests";
+		};
+		7594421612A43EE100F04308 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D06E8D00FD68C7C005AE3F6 /* BinaryDelta */;
+			remoteInfo = BinaryDelta;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
 		A0BFCA2509A3F240005C04A5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				75092C5312986E5200183042 /* Sparkle.framework in CopyFiles */,
+				7594425012A43FAD00F04308 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		25C22E74108E664700D1D72F /* AquaticPrime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AquaticPrime.h; sourceTree = "<group>"; };
-		25C22E75108E664700D1D72F /* AquaticPrime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AquaticPrime.m; sourceTree = "<group>"; };
+		25C22E74108E664700D1D72F /* AquaticPrime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AquaticPrime.h; path = ../../Source/Cocoa/AquaticPrime.h; sourceTree = "<group>"; };
+		25C22E75108E664700D1D72F /* AquaticPrime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AquaticPrime.m; path = ../../Source/Cocoa/AquaticPrime.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* AquaticPrimeDeveloper_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AquaticPrimeDeveloper_Prefix.pch; sourceTree = "<group>"; };
@@ -118,8 +145,6 @@
 		3DD108F50881726E00C4C6B4 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		3DD108F60881726E00C4C6B4 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		3DF60B9D085CE0BD004C50F2 /* remove.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = remove.tiff; sourceTree = "<group>"; };
-		75092C5012986D7A00183042 /* mutt */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = mutt; path = mutt/mutt; sourceTree = "<group>"; };
-		75092C5212986E5200183042 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = /Users/davec/Sources/GIT/Sparkle/build/Release/Sparkle.framework; sourceTree = "<absolute>"; };
 		75275E36126A0B7900DC2A8D /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
 		75275E37126A0B7900DC2A8D /* mailto.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = mailto.icns; sourceTree = "<group>"; };
 		752AFE99129EE7230028C23D /* EDCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EDCommon.framework; path = ../../../../Build/Development/EDCommon.framework; sourceTree = SOURCE_ROOT; };
@@ -129,6 +154,7 @@
 		752AFF2E129EE9F90028C23D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		752D9F391297B25300448E37 /* LicenseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseFile.h; sourceTree = "<group>"; };
 		752D9F3A1297B25300448E37 /* LicenseFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseFile.m; sourceTree = "<group>"; };
+		753681B612A1B53500FE1CAD /* Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extensions.h; path = "../../../../../Projects/Sources/PickADisk/Sources/Cocoa Extensions/Extensions.h"; sourceTree = SOURCE_ROOT; };
 		7566AD18129C54F700EF8ADC /* PMMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMail.h; sourceTree = "<group>"; };
 		7566AD19129C54F700EF8ADC /* PMMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMMail.m; sourceTree = "<group>"; };
 		7566AD58129C72F400EF8ADC /* NSApplication_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSApplication_Extensions.h; path = "../../../../../Projects/PickADisk/Sources/PickADisk/Sources/Cocoa Extensions/NSApplication_Extensions.h"; sourceTree = SOURCE_ROOT; };
@@ -154,6 +180,9 @@
 		758E42301269FA77008E173A /* success.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = success.icns; sourceTree = "<group>"; };
 		758E42311269FA77008E173A /* ToolbarInfo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ToolbarInfo.icns; sourceTree = "<group>"; };
 		758E42321269FA77008E173A /* update.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = update.icns; sourceTree = "<group>"; };
+		7594418212A30BC700F04308 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Library/Frameworks/Sparkle.framework; sourceTree = SDKROOT; };
+		759441AC12A30E2700F04308 /* libcrypto.1.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.1.0.0.dylib; path = /opt/local/lib/libcrypto.1.0.0.dylib; sourceTree = "<absolute>"; };
+		7594420312A43EE100F04308 /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = ../../../../GIT/Sparkle/Sparkle.xcodeproj; sourceTree = SOURCE_ROOT; };
 		75ACA575126B9C580046F460 /* libmysql.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysql.16.dylib; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysql.16.dylib"; sourceTree = SOURCE_ROOT; };
 		75C600111271036300A66201 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		75C60016127103E100A66201 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
@@ -180,11 +209,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				759441F012A43E4200F04308 /* libcrypto.1.0.0.dylib in Frameworks */,
 				752AFF49129EEBB20028C23D /* EDCommon.framework in Frameworks */,
 				752AFF45129EEB970028C23D /* EDMessage.framework in Frameworks */,
 				A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */,
 				75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */,
-				752AFF2B129EE9B70028C23D /* libAquaticPrime.a in Frameworks */,
 				752AFF2F129EE9F90028C23D /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,7 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				75275E57126A101B00DC2A8D /* Perferences Controller */,
-				25C22E68108E661700D1D72F /* Cocoa */,
+				25C22E68108E661700D1D72F /* Cocoa Extensions */,
 				3DB12D8E088046A600160861 /* Main Controller */,
 				3DB12C2808803BE900160861 /* Key Controller */,
 				3DB12C2708803BDC00160861 /* Product Controller */,
@@ -217,7 +246,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		25C22E68108E661700D1D72F /* Cocoa */ = {
+		25C22E68108E661700D1D72F /* Cocoa Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				7566AD58129C72F400EF8ADC /* NSApplication_Extensions.h */,
@@ -232,20 +261,18 @@
 				7566ADBB129C79BC00EF8ADC /* PMUtility.m */,
 				7566ADA1129C780F00EF8ADC /* pmsCFUtility.h */,
 				7566ADA2129C780F00EF8ADC /* pmsCFUtility.c */,
-				25C22E74108E664700D1D72F /* AquaticPrime.h */,
-				25C22E75108E664700D1D72F /* AquaticPrime.m */,
 				7566AD18129C54F700EF8ADC /* PMMail.h */,
 				7566AD19129C54F700EF8ADC /* PMMail.m */,
+				753681B612A1B53500FE1CAD /* Extensions.h */,
 			);
-			name = Cocoa;
+			name = "Cocoa Extensions";
 			path = ../Source/Cocoa;
 			sourceTree = SOURCE_ROOT;
 		};
 		29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */ = {
 			isa = PBXGroup;
 			children = (
-				75092C5212986E5200183042 /* Sparkle.framework */,
-				75092C5012986D7A00183042 /* mutt */,
+				7594420312A43EE100F04308 /* Sparkle.xcodeproj */,
 				75C6FF571270EE6300A66201 /* Misc */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -281,6 +308,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				759441AC12A30E2700F04308 /* libcrypto.1.0.0.dylib */,
 				752AFF24129EE9030028C23D /* AquaticPrime.framework */,
 				752AFE99129EE7230028C23D /* EDCommon.framework */,
 				752AFE9A129EE7230028C23D /* EDMessage.framework */,
@@ -292,6 +320,7 @@
 				75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */,
 				A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */,
 				752AFF2E129EE9F90028C23D /* Security.framework */,
+				7594418212A30BC700F04308 /* Sparkle.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -320,6 +349,8 @@
 		3DB12C2608803BD300160861 /* License Creation */ = {
 			isa = PBXGroup;
 			children = (
+				25C22E74108E664700D1D72F /* AquaticPrime.h */,
+				25C22E75108E664700D1D72F /* AquaticPrime.m */,
 				3D9364010856724F006F1864 /* LicenseController.h */,
 				3D9364020856724F006F1864 /* LicenseController.m */,
 			);
@@ -443,6 +474,18 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
+		7594420412A43EE100F04308 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7594420F12A43EE100F04308 /* Sparkle.framework */,
+				7594421112A43EE100F04308 /* Sparkle Test App.app */,
+				7594421312A43EE100F04308 /* relaunch */,
+				7594421512A43EE100F04308 /* Sparkle Unit Tests.octest */,
+				7594421712A43EE100F04308 /* BinaryDelta */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		75C6FF571270EE6300A66201 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,7 +519,6 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				A0BFCA2509A3F240005C04A5 /* CopyFiles */,
-				756F2E99126CBE2F00BC87E3 /* CopyFiles */,
 				75C6FF891270F1C600A66201 /* ShellScript */,
 			);
 			buildRules = (
@@ -509,12 +551,56 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7594420412A43EE100F04308 /* Products */;
+					ProjectRef = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* AquaticPrimeDeveloper */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7594420F12A43EE100F04308 /* Sparkle.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Sparkle.framework;
+			remoteRef = 7594420E12A43EE100F04308 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7594421112A43EE100F04308 /* Sparkle Test App.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Sparkle Test App.app";
+			remoteRef = 7594421012A43EE100F04308 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7594421312A43EE100F04308 /* relaunch */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = relaunch;
+			remoteRef = 7594421212A43EE100F04308 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7594421512A43EE100F04308 /* Sparkle Unit Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Sparkle Unit Tests.octest";
+			remoteRef = 7594421412A43EE100F04308 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7594421712A43EE100F04308 /* BinaryDelta */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = BinaryDelta;
+			remoteRef = 7594421612A43EE100F04308 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -580,7 +666,6 @@
 				3DD108F80881726E00C4C6B4 /* AboutController.m in Sources */,
 				3D160600089D3DBC00526ED8 /* OAGradientTableView.m in Sources */,
 				3D1606A4089D41C100526ED8 /* AQTextFieldCell.m in Sources */,
-				25C22E76108E664700D1D72F /* AquaticPrime.m in Sources */,
 				75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */,
 				752D9F3B1297B25300448E37 /* LicenseFile.m in Sources */,
 				7566AD1A129C54F700EF8ADC /* PMMail.m in Sources */,
@@ -590,6 +675,7 @@
 				7566AD63129C72F400EF8ADC /* NSString_Extensions.m in Sources */,
 				7566ADA3129C780F00EF8ADC /* pmsCFUtility.c in Sources */,
 				7566ADBC129C79BC00EF8ADC /* PMUtility.m in Sources */,
+				7594426E12A440CE00F04308 /* AquaticPrime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +723,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
+					/opt/local/lib,
 				);
 				PREBINDING = NO;
 				WRAPPER_EXTENSION = app;
@@ -682,6 +769,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
 					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
+					/opt/local/lib,
 				);
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-lcrypto";
@@ -720,6 +808,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../GIT/mysql-cocoa-framework/mysqlc\"",
 					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
+					/opt/local/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-lcrypto",
@@ -749,7 +838,7 @@
 				LD_OPENMP_FLAGS = "-fopenmp";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-lcrypto";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = AquaticPrime;
 				SDKROOT = macosx10.5;
 			};

@@ -7,6 +7,13 @@
 #import <Cocoa/Cocoa.h>
 #import <EDMessage/EDMessage.h>
 #import <EDCommon/EDCommon.h>
+#import "NSApplication_Extensions.h"
+#import "NSArray_Extensions.h"
+#import "NSData_Extensions.h"
+#import "NSString_Extensions.h"
+#import "PMUtility.h"
+#import "pmsCFUtility.h"
+#import "PMMail.h"
 
 #if __LP64__
 typedef long NSInteger;

@@ -39,7 +39,6 @@
 {
 	LicenseFile *licenseFile = [[[LicenseFile alloc] init] retain];
 	[licenseFile readLicenseAtPath: licenseFilePath];
-
 	return licenseFile;
 }
 
@@ -59,6 +58,12 @@
 	[components removeLastObject];
 	NSString *path = [@"/" stringByAppendingString: [components componentsJoinedByString:@"/"]];
 	return [path retain];
+}
+
+- (void)reveal {
+	NSURL *url = [NSURL fileURLWithPath:fileNamePath];
+	NSArray *urlArray = [NSArray arrayWithObject:url];
+	NSWorkspace *ws = [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:urlArray];
 }
 
 - (BOOL)readLicenseAtPath:(NSString*)licenseNamePath

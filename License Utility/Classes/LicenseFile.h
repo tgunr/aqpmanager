@@ -14,25 +14,23 @@
 	NSMutableArray *keyInfoArray;
 	NSMutableArray *valueInfoArray;
 	BOOL isLicenseValid;
-	NSString *licenseValidForProduct;
 	NSString *hash;
-	NSString *HFrom;
+	NSString *licenseValidForProduct;
 	NSString *HTo;
-	NSString *HSubject;
-	NSString *HBody;
 }
 
 @property (retain) 	NSString *fileNamePath;
 @property (retain) 	NSMutableArray *keyInfoArray;
 @property (retain) 	NSMutableArray *valueInfoArray;
-@property (assign) 	BOOL isLicenseValid;
 @property (retain) 	NSString *licenseValidForProduct;
 @property (retain) 	NSString *hash;
 @property (retain) 	NSString *HTo;
+@property (assign) 	BOOL isLicenseValid;
 
 + (LicenseFile *)initWithPath: (NSString *)licenseFilePath;
 - (NSString *)pathToName: (NSString *)fileNamePath;
 - (BOOL)readLicenseAtPath:(NSString*)licensePath;
 - (NSString *)fileName;
 - (NSString *)path;
+- (void)reveal;
 @end

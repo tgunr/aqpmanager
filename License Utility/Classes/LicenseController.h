@@ -50,24 +50,27 @@
 	IBOutlet NSButton *emailButton;
 
     // Licenses Tab
+	BOOL					completePosting;
+    BOOL					commandHandling;
+    BOOL					searching;
+	NSMutableArray			*allKeywords;
+	NSMutableArray			*builtInKeywords;
+
     IBOutlet NSSearchField *searchLicenseField;
     IBOutlet NSButton *searchLicenseBtn;
+    IBOutlet NSButton *narrowResultsBtn;
+    IBOutlet NSButton *searchBlacklistBtn;
     IBOutlet NSTableView *licenseTable;
     IBOutlet NSButton *mailButton;
     IBOutlet NSButton *blackListButton;
+    IBOutlet NSButton *revealButton;
 	IBOutlet NSTextField *numberLicenses;
-	
-    // Blacklist Tab
-    IBOutlet NSSearchField  *searchBlackListField;
-    IBOutlet NSButton *searchBlackListBtn;
-    IBOutlet NSTableView *blackListTable;
-    IBOutlet NSButton *restoreButton;
-	IBOutlet NSTextField *numberBlackListed;
-	
+		
 	NSMutableArray *keyArray;
 	NSMutableArray *valueArray;
 	NSMutableArray *licenseArray;
 	NSMutableArray *blackListArray;
+	
 	NSString *emailKey;
 	NSString *emailAddress;
 	NSString *application;
@@ -94,17 +97,18 @@
 - (void)newProductSelected;
 - (IBAction)editLicenseExtension:(id)sender;
 - (IBAction)editSaveDirectory:(id)sender;
-- (IBAction)emailLicense:(id)sender;
+- (IBAction)emailLicenseClick:(id)sender;
   
 - (IBAction)searchForLicense:(id)sender;
 - (IBAction)sendLicenseFile:(id)sender;
-- (IBAction)blackListLicense:(id)sender;
+- (IBAction)blackListLicenseFile:(id)sender;
+- (IBAction)revealLicenseFile:(id)sender;
 
-- (IBAction)searchForBlackList:(id)sender;
-- (IBAction)restoreLicense:(id)sender;
+- (IBAction)searchForBlackListFile:(id)sender;
+- (IBAction)restoreLicenseFile:(id)sender;
 
 - (void)createSupportDir;
-- (void) reloadLicenses: (NSString *)extension;
+- (void)reloadLicenses: (NSString *)extension;
 
 
 @end
