@@ -59,7 +59,7 @@
     IBOutlet NSSearchField *searchLicenseField;
     IBOutlet NSButton *searchLicenseBtn;
     IBOutlet NSButton *narrowResultsBtn;
-    IBOutlet NSButton *searchBlacklistBtn;
+    IBOutlet NSButton *blacklistRadioBtn;
     IBOutlet NSTableView *licenseTable;
     IBOutlet NSButton *mailButton;
     IBOutlet NSButton *blackListButton;
@@ -84,6 +84,8 @@
 	IBOutlet id statusController;
 	IBOutlet id productController;
 	IBOutlet id infoController;
+	IBOutlet NSArrayController *licenseArrayController;
+
 }
 
 @property (retain) 	NSString *supportDir;
@@ -98,18 +100,20 @@
 - (IBAction)editLicenseExtension:(id)sender;
 - (IBAction)editSaveDirectory:(id)sender;
 - (IBAction)emailLicenseClick:(id)sender;
-  
-- (IBAction)searchForLicense:(id)sender;
-- (IBAction)sendLicenseFile:(id)sender;
-- (IBAction)blackListLicenseFile:(id)sender;
-- (IBAction)revealLicenseFile:(id)sender;
-
-- (IBAction)searchForBlackListFile:(id)sender;
-- (IBAction)restoreLicenseFile:(id)sender;
+- (IBAction)mailBtnClick:(id)sender;
+- (IBAction)revealBtnClick:(id)sender;
+- (IBAction)searchBtnClick:(id)sender;
+- (IBAction)blacklistBtnCLick:(id)sender;
+- (IBAction)blacklistRadioClick:(id)sender;
+- (IBAction)restoreBtnClick:(id)sender;
 
 - (void)createSupportDir;
 - (void)reloadLicenses: (NSString *)extension;
+- (void)reloadLicenseArray;
 
+- (NSString *)prodBlacklistPath;
+- (NSString *)prodAttachmentsPath;
+- (NSString *)prodLicensesPath;
 
 @end
 

@@ -61,9 +61,21 @@
 }
 
 - (void)reveal {
-	NSURL *url = [NSURL fileURLWithPath:fileNamePath];
-	NSArray *urlArray = [NSArray arrayWithObject:url];
-	NSWorkspace *ws = [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:urlArray];
+	[[NSWorkspace sharedWorkspace] selectFile:fileNamePath inFileViewerRootedAtPath:NULL];
+}
+
+- (void)blacklist {
+	NSInteger done = 0;
+	
+	NSString *blacklistPath = [[LicenseController sharedInstance] prodBlacklistPath];
+	NSString *sourcePath = [self path];
+	NSArray *filesToMove = [NSArray arrayWithObject:[self fileName]];
+	[[NSWorkspace sharedWorkspace] 
+	 performFileOperation:NSWorkspaceMoveOperation 
+	 source:sourcePath
+	 destination:blacklistPath 
+	 files:filesToMove 
+	 tag:&done];
 }
 
 - (BOOL)readLicenseAtPath:(NSString*)licenseNamePath

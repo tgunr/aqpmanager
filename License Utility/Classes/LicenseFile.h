@@ -33,4 +33,5 @@
 - (NSString *)fileName;
 - (NSString *)path;
 - (void)reveal;
+- (void)blacklist;
 @end

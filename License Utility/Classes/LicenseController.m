@@ -95,6 +95,21 @@ static LicenseController *sharedInstance = nil;
 	[[searchLicenseField cell ]setSendsWholeSearchString: YES];
 	NSURL *url = [[NSURL alloc] init];
 	[saveDirectoryPathControl setURL:url];
+	[infoDrawer setMinContentSize:NSMakeSize(400, 400)];
+}
+
+#pragma mark Variables
+- (NSString *)prodBlacklistPath {
+	NSString * result = [NSString stringWithFormat:@"%@/Licenses/%@/Blacklist", [self supportDir], [productController currentProduct]];
+	return result;
+}
+
+- (NSString *)prodAttachmentsPath {
+	return [NSString stringWithFormat:@"%@/Licenses/%@/Attachments", [self supportDir], [productController currentProduct]];
+}
+
+- (NSString *)prodLicensesPath {
+	return [NSString stringWithFormat:@"%@/Licenses/%@/Licenses", [self supportDir], [productController currentProduct]];
 }
 
 #pragma mark License Generation
@@ -136,16 +151,42 @@ static LicenseController *sharedInstance = nil;
 				}
 			}
 		}
+		NSInteger blacklistState = [blacklistRadioBtn state];
+		if (blacklistState == NSOnState) {
+			
+			NSEnumerator *enumerator = [[productController productArray] objectEnumerator];
+			id anObject;
+			
+			while (anObject = [enumerator nextObject]) {
+				NSString * productPath = [NSString stringWithFormat:@"%@/Licenses/%@/Blacklist", [self supportDir], anObject];
+				NSDirectoryEnumerator *dirEnum = [fm enumeratorAtPath:productPath];
+				// if the file is in the black list folder, mark it invalid
+				while (fName = [dirEnum nextObject]) {
+					NSString *licensePathName = [NSString stringWithFormat: @"%@/%@", licenseDir, fName];
+					if ([extension isEqualToString: @"*"]) {
+						if ([[fName pathExtension] hasSuffix:@"license"]) {
+							lFile = [LicenseFile initWithPath: licensePathName];
+							[lFile setIsLicenseValid:NO];
+							[licenseArray addObject:lFile];
+						}
+					} else {
+						if ([[fName pathExtension] isEqualToString:extension]) {
+							lFile = [LicenseFile initWithPath: licensePathName];
+							[lFile setIsLicenseValid:NO];
+							[licenseArray addObject:lFile];
+						}
+					}
+				}
+			}			
+		}
+
 		[fm release];
 	}
 	[self updateNumberLicenses: [licenseArray count]];
 }
 		
-- (void) searchForLicenses:(NSString *)info
-{
-	NSInteger narrow = [narrowResultsBtn state];
-	if (narrow == NSOffState) {
-		NSString *product = [productController currentProduct];
+- (void) reloadLicenseArray {
+  NSString *product = [productController currentProduct];
 		if (product) {
 			if ([application length]) {
 				NSString *productExtension = [licenseExtensionField stringValue];
@@ -157,6 +198,15 @@ static LicenseController *sharedInstance = nil;
 			}
 		} else
 			[self reloadLicenses: @"*"];
+
+}
+
+- (void) searchForLicenses:(NSString *)info
+{
+	NSInteger narrow = [narrowResultsBtn state];
+	if (narrow == NSOffState) {
+		[self reloadLicenseArray];
+
 	}
 	NSMutableArray *foundLicenses = [NSMutableArray array];
 	NSEnumerator *enumerator = [licenseArray objectEnumerator];
@@ -273,6 +323,8 @@ static LicenseController *sharedInstance = nil;
 	int index;
 	if ([anObject respondsToSelector:@selector(object)] && [[anObject object] respondsToSelector:@selector(selectedRow)]) {
 		[searchLicenseField setStringValue:@""];
+		[self reloadLicenseArray];
+		[licenseTable reloadData];
 		index = [[anObject object] selectedRow];
 		if (index == -1) {
 			return;	
@@ -522,65 +574,13 @@ static LicenseController *sharedInstance = nil;
 	[fm release];
 }
 
-- (IBAction)editSaveDirectory:(id)sender
+-(void)searchLicenses
 {
-	// Run the selection panel
-	NSOpenPanel *selectPanel = [NSOpenPanel openPanel];
-	[selectPanel setCanChooseFiles:NO];
-	[selectPanel setCanChooseDirectories:YES];
-	[selectPanel setCanCreateDirectories: YES];
-	[selectPanel setAllowsMultipleSelection:NO];
-	[selectPanel setPrompt:@"Select"];
-	[selectPanel setTitle:@"Select Directory"];
-	if ([selectPanel runModal] == NSFileHandlingPanelCancelButton)
-		return;
-	
-	NSString *saveFolder = [[selectPanel filenames] objectAtIndex:0];
-	[saveDirectoryPathControl setURL:[NSURL fileURLWithPath:saveFolder isDirectory:YES]];
-	
-	[self foldersExist: saveFolder];
-//	APPKIT_EXTERN void NSBeginInformationalAlertSheet(NSString *title, 
-//													  NSString *defaultButton, 
-//													  NSString *alternateButton, 
-//													  NSString *otherButton, 
-//													  NSWindow *docWindow, 
-//													  id modalDelegate, 
-//													  SEL didEndSelector, 
-//													  SEL didDismissSelector, 
-//													  void *contextInfo, 
-//													  NSString *msgFormat, ...);
-}
-
-- (IBAction)sheetOK:(id)sender
-{
-	[NSApp endSheet:licenseExtensionSheet];
-    [licenseExtensionSheet orderOut:self];
-	
-	[licenseExtensionField setStringValue:[licenseExtensionEditField stringValue]];
-}
-
-- (IBAction)sheetCancel:(id)sender
-{
-	[NSApp endSheet:licenseExtensionSheet];
-    [licenseExtensionSheet orderOut:self];
-}
-
-- (IBAction)addKeyValue:(id)sender
-{
-	[keyArray addObject:@"New Key"];
-	[valueArray addObject:@"Undefined"];
-	
-	[keyValueTable reloadData];
-	
-	[generateLicenseButton setEnabled:YES];
-}
-
-- (IBAction)removeKeyValue:(id)sender
-{
-	if ([keyValueTable selectedRow] == -1)
-		return;
-	else
-		[keyValueTable deleteItemAtIndex:[keyValueTable selectedRow]];
+	NSString *searchText = [searchLicenseField stringValue];
+	if ([searchText length]) {
+		[self searchForLicenses: searchText];
+	} else
+		[numberLicenses setStringValue: @"No licenses found"];	
 }
 
 #pragma mark TableView Delegate Methods
@@ -616,10 +616,6 @@ static LicenseController *sharedInstance = nil;
 			
 		case 12:
 			return [licenseArray count];
-			break;
-			
-		case 13:
-			return [blackListArray count];
 			break;
 			
 		default:
@@ -709,7 +705,9 @@ static LicenseController *sharedInstance = nil;
             NSInteger selectedRow = [licenseTable selectedRow];
             if (selectedRow != -1) {
                 [[InfoController sharedInstance] setLicense:[licenseArray objectAtIndex:selectedRow]];
-                [infoDrawer open];
+                [infoDrawer setMinContentSize: NSMakeSize(400, 400)];
+				[infoDrawer open];
+				
             } else {
                 [infoDrawer close];
             }
@@ -720,6 +718,27 @@ static LicenseController *sharedInstance = nil;
 	}
 }
 
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
+{
+	NSUInteger tableTag = aTableView.tag;
+	switch (tableTag) {
+		case 12: {
+			NSString *s = aTableColumn.identifier;
+			if ([s isEqualToString:@"licenseFile"]) {
+				LicenseFile *lFile = [licenseArray objectAtIndex:rowIndex];
+				if (![lFile isLicenseValid]) {
+					[aCell setTextColor: [NSColor redColor]];
+				} else
+					[aCell setTextColor: [NSColor blackColor]];
+			}
+			break;
+		}
+		default:
+			break;
+	}
+}
+
+#pragma mark Emailing
 - (NSString *) emailSubjectLine: (NSString *)product {
   NSRange r;
   NSString *subjectHeaderLine;
@@ -856,7 +875,69 @@ static LicenseController *sharedInstance = nil;
 	}
 }
 
-- (IBAction)sendLicenseFile:(id)sender
+#pragma mark IBActions
+- (IBAction)editSaveDirectory:(id)sender
+{
+	// Run the selection panel
+	NSOpenPanel *selectPanel = [NSOpenPanel openPanel];
+	[selectPanel setCanChooseFiles:NO];
+	[selectPanel setCanChooseDirectories:YES];
+	[selectPanel setCanCreateDirectories: YES];
+	[selectPanel setAllowsMultipleSelection:NO];
+	[selectPanel setPrompt:@"Select"];
+	[selectPanel setTitle:@"Select Directory"];
+	if ([selectPanel runModal] == NSFileHandlingPanelCancelButton)
+		return;
+	
+	NSString *saveFolder = [[selectPanel filenames] objectAtIndex:0];
+	[saveDirectoryPathControl setURL:[NSURL fileURLWithPath:saveFolder isDirectory:YES]];
+	
+	[self foldersExist: saveFolder];
+	//	APPKIT_EXTERN void NSBeginInformationalAlertSheet(NSString *title, 
+	//													  NSString *defaultButton, 
+	//													  NSString *alternateButton, 
+	//													  NSString *otherButton, 
+	//													  NSWindow *docWindow, 
+	//													  id modalDelegate, 
+	//													  SEL didEndSelector, 
+	//													  SEL didDismissSelector, 
+	//													  void *contextInfo, 
+	//													  NSString *msgFormat, ...);
+}
+
+- (IBAction)sheetOK:(id)sender
+{
+	[NSApp endSheet:licenseExtensionSheet];
+    [licenseExtensionSheet orderOut:self];
+	
+	[licenseExtensionField setStringValue:[licenseExtensionEditField stringValue]];
+}
+
+- (IBAction)sheetCancel:(id)sender
+{
+	[NSApp endSheet:licenseExtensionSheet];
+    [licenseExtensionSheet orderOut:self];
+}
+
+- (IBAction)addKeyValue:(id)sender
+{
+	[keyArray addObject:@"New Key"];
+	[valueArray addObject:@"Undefined"];
+	
+	[keyValueTable reloadData];
+	
+	[generateLicenseButton setEnabled:YES];
+}
+
+- (IBAction)removeKeyValue:(id)sender
+{
+	if ([keyValueTable selectedRow] == -1)
+		return;
+	else
+		[keyValueTable deleteItemAtIndex:[keyValueTable selectedRow]];
+}
+
+- (IBAction)mailBtnClick:(id)sender
 {
 		NSInteger row = [licenseTable selectedRow];
 		if (row) {
@@ -866,7 +947,7 @@ static LicenseController *sharedInstance = nil;
 		}
 }
 
-- (IBAction)revealLicenseFile:(id)sender
+- (IBAction)revealBtnClick:(id)sender
 {
 	NSInteger row = [licenseTable selectedRow];
 	if (row) {
@@ -877,15 +958,35 @@ static LicenseController *sharedInstance = nil;
 	
 }
 
--(void)searchLicenses
+- (IBAction)searchBtnClick:(id)sender
 {
-	NSString *searchText = [searchLicenseField stringValue];
-	if ([searchText length]) {
-		[self searchForLicenses: searchText];
-	} else
-		[numberLicenses setStringValue: @"No licenses found"];	
+	[self searchLicenses];
 }
 
+- (IBAction)blacklistBtnCLick:(id)sender
+{
+	NSInteger row = [licenseTable selectedRow];
+	if (row) {
+		LicenseFile *license = [licenseArray objectAtIndex:row];
+		[license blacklist];
+		[license release];
+		[self reloadLicenseArray];
+		[licenseTable reloadData];
+	}
+}
+
+- (IBAction)blacklistRadioClick:(id)sender
+{
+	[self reloadLicenseArray];
+	[licenseTable reloadData];
+}
+
+- (IBAction)restoreBtnClick:(id)sender 
+{
+    
+}
+
+#pragma mark SearchField
 // -------------------------------------------------------------------------------
 //	allKeywords:
 //
@@ -1068,8 +1169,23 @@ static LicenseController *sharedInstance = nil;
 		}
 			
 		case 3: {
-			[self searchForLicense: aNotification];
 			NSTextView* textView = [[aNotification userInfo] objectForKey:@"NSFieldEditor"];
+            NSString* searchString = [[aNotification object] stringValue];
+            if ([searchString length] == 0)
+            {
+                if ([application length]) {
+                    NSString *productExtension = [licenseExtensionField stringValue];
+                    if ([productExtension length]) {
+                        [self reloadLicenses: productExtension];
+                    } else {
+                        [self reloadLicenses: @""];
+                    }				
+                }
+            }
+            else
+            {
+                [self searchLicenses];
+            }
 //			
 //			if (!completePosting && !commandHandling)	// prevent calling "complete" too often
 //			{
@@ -1089,30 +1205,6 @@ static LicenseController *sharedInstance = nil;
 	[keyValueTable reloadData];
 }
 
-- (IBAction)searchForLicense:(id)sender
-{
-	NSString *searchText = [searchLicenseField stringValue];
-	if ([searchText length]) {
-		[self searchForLicenses: searchText];
-	} else
-		[numberLicenses setStringValue: @"No licenses found"];
-	
-}
-
-- (IBAction)blackListLicenseFile:(id)sender
-{
-    
-}
-
-- (IBAction)searchForBlackListFile:(id)sender
-{
-    
-}
-
-- (IBAction)restoreLicenseFile:(id)sender 
-{
-    
-}
 
 #pragma TableView Actions
 

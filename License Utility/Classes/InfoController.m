@@ -53,7 +53,6 @@ static InfoController *sharedInstance = nil;
 - (void)awakeFromNib
 {
 	licenseFile = [[LicenseFile alloc] init];
-	
 	[[self window] registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
 }
 
@@ -88,6 +87,9 @@ static InfoController *sharedInstance = nil;
 	NSString *valid = [licenseFile isLicenseValid] ? [NSString stringWithFormat:@"This license is valid for %@", [licenseFile licenseValidForProduct]] 
     : @"This license is invalid";
 	[licenseValidField setStringValue:valid];
+	if (![licenseFile isLicenseValid]) {
+		[licenseValidField setTextColor: [NSColor redColor]];
+	}
 	[hashField setStringValue:[NSString stringWithFormat:@"License Hash: %@", [licenseFile hash]]]; 
     [keyValueInfoTable reloadData];
 }
