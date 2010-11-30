@@ -583,6 +583,15 @@ static LicenseController *sharedInstance = nil;
 		[numberLicenses setStringValue: @"No licenses found"];	
 }
 
+#pragma mark TabView Delegate Methods
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
+{
+	id tvi = [tabViewItem identifier];
+	if (tvi != 3) {
+		[infoDrawer close];
+	}
+}
+
 #pragma mark TableView Delegate Methods
 
 - (void)deleteItemAtIndex:(int)row
@@ -705,7 +714,6 @@ static LicenseController *sharedInstance = nil;
             NSInteger selectedRow = [licenseTable selectedRow];
             if (selectedRow != -1) {
                 [[InfoController sharedInstance] setLicense:[licenseArray objectAtIndex:selectedRow]];
-                [infoDrawer setMinContentSize: NSMakeSize(400, 400)];
 				[infoDrawer open];
 				
             } else {
