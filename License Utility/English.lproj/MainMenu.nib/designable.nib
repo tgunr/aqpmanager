@@ -1833,9 +1833,6 @@
 				</object>
 				<string key="NSName"/>
 			</object>
-			<object class="NSUserDefaultsController" id="635728179">
-				<bool key="NSAppliesImmediately">YES</bool>
-			</object>
 			<object class="NSUserDefaultsController" id="95938768">
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
@@ -3377,7 +3374,6 @@
 																<int key="NSvFlags">292</int>
 																<string key="NSFrame">{{21, 12}, {117, 18}}</string>
 																<reference key="NSSuperview" ref="556639718"/>
-																<reference key="NSNextKeyView"/>
 																<int key="NSTag">31</int>
 																<bool key="NSEnabled">YES</bool>
 																<object class="NSButtonCell" key="NSCell" id="748995143">
@@ -5886,11 +5882,6 @@
 						<reference key="parent" ref="872090064"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">721</int>
-						<reference key="object" ref="635728179"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">723</int>
 						<reference key="object" ref="84788714"/>
 						<reference key="parent" ref="0"/>
@@ -7348,7 +7339,6 @@
 					<string>708.IBPluginDependency</string>
 					<string>709.IBPluginDependency</string>
 					<string>712.IBPluginDependency</string>
-					<string>721.IBPluginDependency</string>
 					<string>727.IBPluginDependency</string>
 					<string>734.IBPluginDependency</string>
 					<string>735.IBPluginDependency</string>
@@ -7882,7 +7872,6 @@
 							<string key="toolTip"> Send information about your computer to the developer to help improve the product. N too personal information is sent.</string>
 						</object>
 					</object>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
