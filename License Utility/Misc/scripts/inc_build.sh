@@ -1,4 +1,3 @@
-set -x
 
 # Test for kill prefs file on each build
 echo "BUILD_NUMBER: $BUILD_NUMBER"
