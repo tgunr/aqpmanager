@@ -601,7 +601,7 @@ static LicenseController *sharedInstance = nil;
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
 	id tvi = [tabViewItem identifier];
-	if (tvi != 3) {
+	if ([tvi integerValue] != 3) {
 		[infoDrawer close];
 	}
 }
