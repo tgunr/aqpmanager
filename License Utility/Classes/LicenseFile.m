@@ -64,10 +64,8 @@
 	[[NSWorkspace sharedWorkspace] selectFile:fileNamePath inFileViewerRootedAtPath:NULL];
 }
 
-- (void)blacklist {
+- (void)blacklist: (NSString *) blacklistPath {
 	NSInteger done = 0;
-	
-	NSString *blacklistPath = [[LicenseController sharedInstance] prodBlacklistPath];
 	NSString *sourcePath = [self path];
 	NSArray *filesToMove = [NSArray arrayWithObject:[self fileName]];
 	[[NSWorkspace sharedWorkspace] 

@@ -111,9 +111,9 @@
 - (void)reloadLicenses: (NSString *)extension;
 - (void)reloadLicenseArray;
 
-- (NSString *)prodBlacklistPath;
-- (NSString *)prodAttachmentsPath;
-- (NSString *)prodLicensesPath;
+- (NSString *)productBlackListPath: (NSString *)product;
+- (NSString *)prodAttachmentsPath: (NSString *)product;
+- (NSString *)prodLicensesPath: (NSString *)product;
 
 @end
 

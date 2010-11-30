@@ -99,17 +99,31 @@ static LicenseController *sharedInstance = nil;
 }
 
 #pragma mark Variables
-- (NSString *)prodBlacklistPath {
-	NSString * result = [NSString stringWithFormat:@"%@/Licenses/%@/Blacklist", [self supportDir], [productController currentProduct]];
+- (NSString *)productBlackListPath: (NSString *)product
+{
+	NSString * result = nil;
+	if (product) {
+		result = [NSString stringWithFormat:@"%@/Licenses/%@/Blacklist", [self supportDir], product];
+	}
 	return result;
 }
 
-- (NSString *)prodAttachmentsPath {
-	return [NSString stringWithFormat:@"%@/Licenses/%@/Attachments", [self supportDir], [productController currentProduct]];
+- (NSString *)prodAttachmentsPath: (NSString *)product
+{
+	NSString * result = nil;
+	if (product) {
+		result = [NSString stringWithFormat:@"%@/Licenses/%@/Attachments", [self supportDir], product];
+	}
+	return result;
 }
 
-- (NSString *)prodLicensesPath {
-	return [NSString stringWithFormat:@"%@/Licenses/%@/Licenses", [self supportDir], [productController currentProduct]];
+- (NSString *)prodLicensesPath: (NSString *)product
+{
+	NSString * result = nil;
+	if (product) {
+		result = [NSString stringWithFormat:@"%@/Licenses/%@/Licenses", [self supportDir], product];
+	}
+	return result;
 }
 
 #pragma mark License Generation
@@ -976,7 +990,7 @@ static LicenseController *sharedInstance = nil;
 	NSInteger row = [licenseTable selectedRow];
 	if (row) {
 		LicenseFile *license = [licenseArray objectAtIndex:row];
-		[license blacklist];
+		[license blacklist: [self productBlackListPath: [license licenseValidForProduct]]];
 		[license release];
 		[self reloadLicenseArray];
 		[licenseTable reloadData];

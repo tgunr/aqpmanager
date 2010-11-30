@@ -9,6 +9,7 @@ echo "SU_FEED: $SU_SITE/$SU_PATH/$SU_FEED" | sed -e 's?//?/?'
 if [[ "$CONFIGURATION" == 'Development' ]]; then
 	/usr/bin/perl -pe 's/(BUILD_NUMBER = )(\d+)/$1.($2+1)/eg' -i "$SRCROOT/Misc/debug.xcconfig"
 	BUILD_NUMBER=`head -n 1 "$SRCROOT/Misc/debug.xcconfig" | sed -e 's/BUILD_NUMBER = //'`
+	OLD_BUILD_NUMBER=$BUILD_NUMBER
 	PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
 	PlistBuddy -c "Set :CFBundleShortVersionString $VERSION_NUMBER" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
 	PlistBuddy -c "Set :SUFeedURL http:\/\/$SU_SITE/$SU_PATH/$SU_FEED" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
@@ -57,8 +58,8 @@ if [[ "$CONFIGURATION" == 'Development' ]]; then
 
 	WD=$PWD
 	pushd "$BUILT_PRODUCTS_DIR"
-	cp -R "$PRODUCT_NAME".app "$ARCHIVE_FILE".app
-	rm -f "*.zip"
+	rm -fr ${PRODUCT_NAME}_*.*
+	cp -R "${PRODUCT_NAME}".app "$ARCHIVE_FILE".app
 	ditto -ck --keepParent "$PRODUCT_NAME".app "$ARCHIVE_FILE".zip
 	popd
 fi
