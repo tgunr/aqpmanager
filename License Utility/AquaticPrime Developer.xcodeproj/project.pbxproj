@@ -47,12 +47,11 @@
 		758E423D1269FA77008E173A /* update.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42321269FA77008E173A /* update.icns */; };
 		759441F012A43E4200F04308 /* libcrypto.1.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 759441AC12A30E2700F04308 /* libcrypto.1.0.0.dylib */; };
 		7594426E12A440CE00F04308 /* AquaticPrime.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C22E75108E664700D1D72F /* AquaticPrime.m */; };
-		75C3C78112A588AA003B20BD /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75C3C78012A588A6003B20BD /* EDCommon.framework */; };
 		75C3C79512A588B8003B20BD /* EDMessage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75C3C79212A588B4003B20BD /* EDMessage.framework */; };
 		75C3C7A012A58927003B20BD /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75C3C76A12A58750003B20BD /* Sparkle.framework */; };
 		75C3C82712A590C4003B20BD /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C3C76A12A58750003B20BD /* Sparkle.framework */; };
-		75C3C87012A5965B003B20BD /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C3C78012A588A6003B20BD /* EDCommon.framework */; };
 		75C3C87112A59663003B20BD /* EDMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C3C79212A588B4003B20BD /* EDMessage.framework */; };
+		75C3C92812A5A92E003B20BD /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C3C78012A588A6003B20BD /* EDCommon.framework */; };
 		75C60018127103E100A66201 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 75C60016127103E100A66201 /* dsa_pub.pem */; };
 		75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDB96126A10B5002BA6E7 /* PreferencesController.m */; };
 		75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */; };
@@ -151,7 +150,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				75C3C79512A588B8003B20BD /* EDMessage.framework in CopyFiles */,
-				75C3C78112A588AA003B20BD /* EDCommon.framework in CopyFiles */,
 				75C3C7A012A58927003B20BD /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,8 +255,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75C3C92812A5A92E003B20BD /* EDCommon.framework in Frameworks */,
 				75C3C87112A59663003B20BD /* EDMessage.framework in Frameworks */,
-				75C3C87012A5965B003B20BD /* EDCommon.framework in Frameworks */,
 				75C3C82712A590C4003B20BD /* Sparkle.framework in Frameworks */,
 				759441F012A43E4200F04308 /* libcrypto.1.0.0.dylib in Frameworks */,
 				A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */,
