@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
-	<string>aqtp</string>
+	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>${BUILD_NUMBER}</string>
 	<key>CFBundleShortVersionString</key>
@@ -31,7 +31,7 @@
 	<key>SUCheckAtStartup</key>
 	<true/>
 	<key>SUEnableSystemProfiling</key>
-	<false/>
+	<true/>
 	<key>SUFeedURL</key>
 	<string>http://$SU_SITE/$SU_PATH/$SU_FEED</string>
 	<key>SUPublicDSAKeyFile</key>
