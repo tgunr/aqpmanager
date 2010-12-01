@@ -67,77 +67,77 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* Sparkle.framework */;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = Sparkle;
 		};
 		75C3C76B12A58750003B20BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 61B5F90209C4CEE200B25A18 /* Sparkle Test App.app */;
+			remoteGlobalIDString = 61B5F90209C4CEE200B25A18;
 			remoteInfo = "Sparkle Test App";
 		};
 		75C3C76D12A58750003B20BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = DAAEFC960DA571DF0051E0D0 /* relaunch */;
+			remoteGlobalIDString = DAAEFC960DA571DF0051E0D0;
 			remoteInfo = "relaunch tool";
 		};
 		75C3C76F12A58750003B20BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 612279D90DB5470200AB99EA /* Sparkle Unit Tests.octest */;
+			remoteGlobalIDString = 612279D90DB5470200AB99EA;
 			remoteInfo = "Sparkle Unit Tests";
 		};
 		75C3C77112A58750003B20BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5D06E8D00FD68C7C005AE3F6 /* BinaryDelta */;
+			remoteGlobalIDString = 5D06E8D00FD68C7C005AE3F6;
 			remoteInfo = BinaryDelta;
 		};
 		75C3C77F12A588A6003B20BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75C3C68D12A56E0A003B20BD /* EDCommon.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = AD39F33905443F3E0086D411 /* EDCommon.framework */;
+			remoteGlobalIDString = AD39F33905443F3E0086D411;
 			remoteInfo = EDCommon;
 		};
 		75C3C79112A588B4003B20BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75C3C69612A56E1C003B20BD /* EDMessage.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* EDMessage.framework */;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = EDMessage;
 		};
 		75C3C79312A588B4003B20BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75C3C69612A56E1C003B20BD /* EDMessage.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 031A06950E9F14EB00DADB91 /* MailSender */;
+			remoteGlobalIDString = 031A06950E9F14EB00DADB91;
 			remoteInfo = MailSender;
 		};
 		75C3C82112A590A7003B20BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75C3C69612A56E1C003B20BD /* EDMessage.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* EDMessage */;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = EDMessage;
 		};
 		75C3C82312A590B0003B20BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75C3C68D12A56E0A003B20BD /* EDCommon.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = AD39F29B05443F3D0086D411 /* EDCommon */;
+			remoteGlobalIDString = AD39F29B05443F3D0086D411;
 			remoteInfo = EDCommon;
 		};
 		75C3C82512A590B0003B20BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7594420312A43EE100F04308 /* Sparkle.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* Sparkle */;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = Sparkle;
 		};
 /* End PBXContainerItemProxy section */
@@ -956,7 +956,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75C6FF5A1270EE8D00A66201 /* stage.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = PolyMicro;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -986,6 +986,43 @@
 			};
 			name = Default;
 		};
+		752E076C12A5B696002C05B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
+			buildSettings = {
+				ARCHS = i386;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				LD_OPENMP_FLAGS = "-fopenmp";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = AquaticPrime;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+		752E076D12A5B696002C05B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
+			buildSettings = {
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = AquaticPrimeDeveloper_Prefix.pch;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -993,6 +1030,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D9363D308565C58006F1864 /* Development */,
+				752E076D12A5B696002C05B8 /* Release */,
 				3D9363D408565C58006F1864 /* Deployment */,
 				3D9363D508565C58006F1864 /* Default */,
 			);
@@ -1003,6 +1041,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D9363D708565C58006F1864 /* Development */,
+				752E076C12A5B696002C05B8 /* Release */,
 				3D9363D808565C58006F1864 /* Deployment */,
 				3D9363D908565C58006F1864 /* Default */,
 			);
