@@ -12,13 +12,10 @@
 		3D12D1C008520D0E0035BA78 /* ProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D12D1BF08520D0E0035BA78 /* ProductController.m */; };
 		3D160600089D3DBC00526ED8 /* OAGradientTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1605FE089D3DBC00526ED8 /* OAGradientTableView.m */; };
 		3D1606A4089D41C100526ED8 /* AQTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1606A2089D41C100526ED8 /* AQTextFieldCell.m */; };
-		3D4458EB08971CEC002901EB /* aquatic.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3D4458EA08971CEC002901EB /* aquatic.icns */; };
 		3D9364030856724F006F1864 /* LicenseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9364020856724F006F1864 /* LicenseController.m */; };
-		3DA8074C08A694CF006C1C9F /* badge.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3DA8074B08A694CE006C1C9F /* badge.icns */; };
 		3DB12CA108803F0300160861 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB12C9F08803F0300160861 /* MainController.m */; };
 		3DB12CFC0880423A00160861 /* LicenseInfo.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB12CFB0880423A00160861 /* LicenseInfo.nib */; };
 		3DB12D080880427F00160861 /* InfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB12D060880427F00160861 /* InfoController.m */; };
-		3DC1B057088183B10007C7E0 /* aboutbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC1B056088183B10007C7E0 /* aboutbox.png */; };
 		3DD108C0088170A100C4C6B4 /* AQAboutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BA088170A100C4C6B4 /* AQAboutView.m */; };
 		3DD108C2088170A100C4C6B4 /* AQAboutWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BC088170A100C4C6B4 /* AQAboutWindow.m */; };
 		3DD108C4088170A100C4C6B4 /* AQTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BE088170A100C4C6B4 /* AQTableView.m */; };
@@ -32,6 +29,7 @@
 		752E0A7B12A64B86002C05B8 /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75C3C78012A588A6003B20BD /* EDCommon.framework */; };
 		752E0A8012A64BAA002C05B8 /* EDMessage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75C3C79212A588B4003B20BD /* EDMessage.framework */; };
 		752E0A8D12A64C27002C05B8 /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C3C78012A588A6003B20BD /* EDCommon.framework */; };
+		755B9F0F12A6FA4800D4BEAA /* aqpmanager.icns in Resources */ = {isa = PBXBuildFile; fileRef = 755B9F0E12A6FA4800D4BEAA /* aqpmanager.icns */; };
 		7566AD1A129C54F700EF8ADC /* PMMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD19129C54F700EF8ADC /* PMMail.m */; };
 		7566AD60129C72F400EF8ADC /* NSApplication_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD59129C72F400EF8ADC /* NSApplication_Extensions.m */; };
 		7566AD61129C72F400EF8ADC /* NSArray_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5B129C72F400EF8ADC /* NSArray_Extensions.m */; };
@@ -172,10 +170,8 @@
 		3D1605FF089D3DBC00526ED8 /* OAGradientTableView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OAGradientTableView.h; sourceTree = "<group>"; };
 		3D1606A2089D41C100526ED8 /* AQTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AQTextFieldCell.m; sourceTree = "<group>"; };
 		3D1606A3089D41C100526ED8 /* AQTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AQTextFieldCell.h; sourceTree = "<group>"; };
-		3D4458EA08971CEC002901EB /* aquatic.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = aquatic.icns; path = ../Images/aquatic.icns; sourceTree = "<group>"; };
 		3D9364010856724F006F1864 /* LicenseController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LicenseController.h; sourceTree = "<group>"; };
 		3D9364020856724F006F1864 /* LicenseController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LicenseController.m; sourceTree = "<group>"; };
-		3DA8074B08A694CE006C1C9F /* badge.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = badge.icns; path = ../Images/badge.icns; sourceTree = "<group>"; };
 		3DB12C9E08803F0300160861 /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
 		3DB12C9F08803F0300160861 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		3DB12CFB0880423A00160861 /* LicenseInfo.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = LicenseInfo.nib; path = Nibs/LicenseInfo.nib; sourceTree = "<group>"; };
@@ -198,6 +194,7 @@
 		752AFF2E129EE9F90028C23D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		752D9F391297B25300448E37 /* LicenseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseFile.h; sourceTree = "<group>"; };
 		752D9F3A1297B25300448E37 /* LicenseFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseFile.m; sourceTree = "<group>"; };
+		755B9F0E12A6FA4800D4BEAA /* aqpmanager.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = aqpmanager.icns; sourceTree = "<group>"; };
 		7566AD18129C54F700EF8ADC /* PMMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMail.h; sourceTree = "<group>"; };
 		7566AD19129C54F700EF8ADC /* PMMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMMail.m; sourceTree = "<group>"; };
 		7566AD58129C72F400EF8ADC /* NSApplication_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSApplication_Extensions.h; path = "../../PickADisk/Sources/PickADisk/Sources/Cocoa Extensions/NSApplication_Extensions.h"; sourceTree = SOURCE_ROOT; };
@@ -245,7 +242,7 @@
 		75FFE7E912A455B7008FCE20 /* LicenseArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseArrayController.h; sourceTree = "<group>"; };
 		75FFE7EA12A455B7008FCE20 /* LicenseArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseArrayController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* AquaticPrime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AquaticPrime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* AquaticPrime Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AquaticPrime Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		E804BCA50833AAFD00512005 /* KeyController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeyController.h; sourceTree = "<group>"; };
 		E804BCA60833AAFD00512005 /* KeyController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = KeyController.m; sourceTree = "<group>"; };
@@ -288,7 +285,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* AquaticPrime.app */,
+				8D1107320486CEB800E47090 /* AquaticPrime Manager.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -504,8 +501,7 @@
 		758E42271269FA77008E173A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				3DA8074B08A694CE006C1C9F /* badge.icns */,
-				3D4458EA08971CEC002901EB /* aquatic.icns */,
+				755B9F0E12A6FA4800D4BEAA /* aqpmanager.icns */,
 				75275E36126A0B7900DC2A8D /* Database.icns */,
 				75275E37126A0B7900DC2A8D /* mailto.icns */,
 				758E42281269FA77008E173A /* advancedpref.icns */,
@@ -595,7 +591,7 @@
 			name = AquaticPrimeDeveloper;
 			productInstallPath = "$(HOME)/Applications";
 			productName = AquaticPrimeDeveloper;
-			productReference = 8D1107320486CEB800E47090 /* AquaticPrime.app */;
+			productReference = 8D1107320486CEB800E47090 /* AquaticPrime Manager.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -606,7 +602,7 @@
 			attributes = {
 				ORGANIZATIONNAME = "PolyMicro Systems";
 			};
-			buildConfigurationList = 3D9363D608565C58006F1864 /* Build configuration list for PBXProject "AquaticPrime Developer" */;
+			buildConfigurationList = 3D9363D608565C58006F1864 /* Build configuration list for PBXProject "AquaticPrime Manager" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -708,9 +704,6 @@
 				3DF60B9E085CE0BD004C50F2 /* remove.tiff in Resources */,
 				3DB12CFC0880423A00160861 /* LicenseInfo.nib in Resources */,
 				3DD108F40881725A00C4C6B4 /* About.nib in Resources */,
-				3DC1B057088183B10007C7E0 /* aboutbox.png in Resources */,
-				3D4458EB08971CEC002901EB /* aquatic.icns in Resources */,
-				3DA8074C08A694CF006C1C9F /* badge.icns in Resources */,
 				758E42331269FA77008E173A /* advancedpref.icns in Resources */,
 				758E42351269FA77008E173A /* generalpref.icns in Resources */,
 				758E42361269FA77008E173A /* minus.icns in Resources */,
@@ -723,6 +716,7 @@
 				75275E38126A0B7900DC2A8D /* Database.icns in Resources */,
 				75275E39126A0B7900DC2A8D /* mailto.icns in Resources */,
 				75C60018127103E100A66201 /* dsa_pub.pem in Resources */,
+				755B9F0F12A6FA4800D4BEAA /* aqpmanager.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,7 +920,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lcrypto";
-				PRODUCT_NAME = AquaticPrime;
+				PRODUCT_NAME = "AquaticPrime Manager";
 				SDKROOT = macosx10.5;
 			};
 			name = Development;
@@ -948,7 +942,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lcrypto";
-				PRODUCT_NAME = AquaticPrime;
+				PRODUCT_NAME = "AquaticPrime Manager";
 				SDKROOT = macosx10.5;
 			};
 			name = Deployment;
@@ -966,7 +960,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lcrypto";
-				PRODUCT_NAME = AquaticPrime;
+				PRODUCT_NAME = "AquaticPrime Manager";
 				SDKROOT = macosx10.5;
 			};
 			name = Default;
@@ -985,7 +979,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lcrypto";
-				PRODUCT_NAME = AquaticPrime;
+				PRODUCT_NAME = "AquaticPrime Manager";
 				SDKROOT = macosx10.5;
 			};
 			name = Release;
@@ -1024,7 +1018,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
 		};
-		3D9363D608565C58006F1864 /* Build configuration list for PBXProject "AquaticPrime Developer" */ = {
+		3D9363D608565C58006F1864 /* Build configuration list for PBXProject "AquaticPrime Manager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D9363D708565C58006F1864 /* Development */,
