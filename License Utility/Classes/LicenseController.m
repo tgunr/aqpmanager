@@ -962,7 +962,7 @@ static LicenseController *sharedInstance = nil;
 - (IBAction)mailBtnClick:(id)sender
 {
 		NSInteger row = [licenseTable selectedRow];
-		if (row) {
+		if (row != -1) {
 			LicenseFile *license = [licenseArray objectAtIndex:row];
 			[self emailLicenseFile:license];
 			[license release];
