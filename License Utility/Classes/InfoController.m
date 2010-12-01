@@ -89,7 +89,11 @@ static InfoController *sharedInstance = nil;
 	[licenseValidField setStringValue:valid];
 	if (![licenseFile isLicenseValid]) {
 		[licenseValidField setTextColor: [NSColor redColor]];
+	} else {
+		NSColor *aColor = [NSColor colorWithCalibratedRed:0.165 green:0.502 blue:0.216 alpha:1.000];
+		[licenseValidField setTextColor: aColor];
 	}
+
 	[hashField setStringValue:[NSString stringWithFormat:@"License Hash: %@", [licenseFile hash]]]; 
     [keyValueInfoTable reloadData];
 }
