@@ -95,7 +95,7 @@ static LicenseController *sharedInstance = nil;
 	[[searchLicenseField cell ]setSendsWholeSearchString: YES];
 	NSURL *url = [[NSURL alloc] init];
 	[saveDirectoryPathControl setURL:url];
-	[infoDrawer setMinContentSize:NSMakeSize(400, 400)];
+	[self enableLicensesTabButtons: NO];
 }
 
 #pragma mark Variables
@@ -597,6 +597,13 @@ static LicenseController *sharedInstance = nil;
 		[numberLicenses setStringValue: @"No licenses found"];	
 }
 
+- (void) enableLicensesTabButtons: (BOOL)state
+{
+	[mailButton setEnabled: state];
+	[blackListButton setEnabled: state];
+	[revealButton setEnabled: state];
+} 
+
 #pragma mark TabView Delegate Methods
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
@@ -729,8 +736,9 @@ static LicenseController *sharedInstance = nil;
             if (selectedRow != -1) {
                 [[InfoController sharedInstance] setLicense:[licenseArray objectAtIndex:selectedRow]];
 				[infoDrawer open];
-				
+				[self enableLicensesTabButtons: YES];
             } else {
+				[self enableLicensesTabButtons: NO];
                 [infoDrawer close];
             }
 			break;
