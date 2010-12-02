@@ -35,7 +35,10 @@
 	IBOutlet NSTextView *publicKeyView;
 	IBOutlet NSTextView *privateKeyView;
 	IBOutlet NSTabView *tabView;
-	
+	IBOutlet NSForm *mailFieldsForm;
+	IBOutlet NSForm *mailFilesForm;
+	IBOutlet NSButton *saveButton;
+
 	RSA *rsaKey;
 	
 	IBOutlet id productController;
@@ -53,5 +56,5 @@
 - (void)viewKeysForCurrentProduct;
 - (BOOL)loadKeysForProduct:(NSString *)productName;
 - (BOOL)saveKeysForProduct:(NSString *)productName;
-
+- (IBAction)saveButtonClick: (id)sender;
 @end

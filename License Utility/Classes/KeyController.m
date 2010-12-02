@@ -129,10 +129,12 @@ static KeyController *sharedInstance = nil;
 {
 	if ([productController currentProduct]) {
 		[generateButton setEnabled:YES];
+		[saveButton setEnabled:YES];
 		[self loadKeysForProduct:[productController currentProduct]];
 	}
 	else {
 		[generateButton setEnabled:NO];
+		[saveButton setEnabled:NO];
 		[rsaKeyView setString:@""];
 		[publicKeyView setString:@""];
 		[privateKeyView setString:@""];
@@ -208,7 +210,7 @@ static KeyController *sharedInstance = nil;
 	[tabView selectLastTabViewItem:self];
 	
 	if ([fm fileExistsAtPath:productPath]) {
-		if (NSRunInformationalAlertPanel(warningString, @"The old product key will be erased.", @"OK", @"Cancel", nil) == NSAlertAlternateReturn)
+		if (NSRunInformationalAlertPanel(warningString, @"The old product key will be erased. FOREVER!", @"OK", @"Cancel", nil) == NSAlertAlternateReturn)
 			return;
 		else
 			[fm movePath:productPath toPath:[productPath stringByAppendingString:@".old"] handler:nil];
@@ -246,6 +248,20 @@ static KeyController *sharedInstance = nil;
 	NSDictionary *keyDict = [NSDictionary dictionaryWithContentsOfFile:productPath];
 	NSData *pubData = [keyDict objectForKey:@"Public Key"];
 	NSData *privData = [keyDict objectForKey:@"Private Key"];
+	NSArray *mailFieldData = [keyDict objectForKey: @"MailFields"];
+	NSArray *mailFilesData = [keyDict objectForKey: @"MailFiles"];
+	NSUInteger i;
+	for (i = 0; i < 3; i++) {
+		NSString *field = [mailFieldData objectAtIndex:i];
+		NSCell *cell = [mailFieldsForm cellAtIndex:i];
+		[cell setStringValue: field];
+	}
+	
+	for (i = 0; i < 3; i++) {
+		NSString *file = [mailFilesData objectAtIndex:i];
+		NSCell *cell = [mailFilesForm cellAtIndex:i];
+		[cell setStringValue: file];
+	}
 	
 	if (rsaKey)
 		RSA_free(rsaKey);
@@ -284,8 +300,27 @@ static KeyController *sharedInstance = nil;
 	pubData =  [NSData dataWithBytesNoCopy:pubBytes length:pubLength freeWhenDone:YES];
 	privData =  [NSData dataWithBytesNoCopy:privBytes length:privLength freeWhenDone:YES];
 	
+	// Create the mail objects
+	NSMutableArray *mailFieldData = [NSMutableArray arrayWithCapacity: 3];
+	NSUInteger i;
+	for (i = 0; i < 3; i++) {
+		NSCell *cell = [mailFieldsForm cellAtIndex:i];
+		[mailFieldData addObject: [cell stringValue]];
+	}
+	
+	NSMutableArray *mailFileData = [NSMutableArray arrayWithCapacity: 3];
+	for (i = 0; i < 3; i++) {
+		NSCell *cell = [mailFilesForm cellAtIndex:i];
+		[mailFileData addObject: [cell stringValue]];
+	}
+	
 	// Create the dictionary
-	NSDictionary *keyDict = [NSDictionary dictionaryWithObjectsAndKeys: pubData, @"Public Key", privData, @"Private Key", nil];
+	NSDictionary *keyDict = [NSDictionary dictionaryWithObjectsAndKeys: 
+							 pubData, @"Public Key", 
+							 privData, @"Private Key", 
+							 mailFieldData, @"MailFields",
+							 mailFileData, @"MailFiles",
+							 nil];
 	
 	// The ~/Library/Application Support/Aquatic/ folder doesn't exist yet
 	if (![fm fileExistsAtPath:supportDir isDirectory:&isDir])
@@ -361,6 +396,12 @@ static KeyController *sharedInstance = nil;
 																																
 	[fm copyPath:keyPath toPath:productPath handler:nil];
 	[productController loadProducts];
+}
+
+- (IBAction)saveButtonClick: (id)sender 
+{
+	if ([productController currentProduct])
+		[self saveKeysForProduct:[productController currentProduct]];
 }
 
 @end
