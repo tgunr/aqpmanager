@@ -29,6 +29,7 @@
 		752E0A7B12A64B86002C05B8 /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75C3C78012A588A6003B20BD /* EDCommon.framework */; };
 		752E0A8012A64BAA002C05B8 /* EDMessage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75C3C79212A588B4003B20BD /* EDMessage.framework */; };
 		752E0A8D12A64C27002C05B8 /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C3C78012A588A6003B20BD /* EDCommon.framework */; };
+		7536FA3112A9151400597AB9 /* aqpmanager.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */; };
 		755B9F0F12A6FA4800D4BEAA /* aqpmanager.icns in Resources */ = {isa = PBXBuildFile; fileRef = 755B9F0E12A6FA4800D4BEAA /* aqpmanager.icns */; };
 		7566AD1A129C54F700EF8ADC /* PMMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD19129C54F700EF8ADC /* PMMail.m */; };
 		7566AD60129C72F400EF8ADC /* NSApplication_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD59129C72F400EF8ADC /* NSApplication_Extensions.m */; };
@@ -194,6 +195,7 @@
 		752AFF2E129EE9F90028C23D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		752D9F391297B25300448E37 /* LicenseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseFile.h; sourceTree = "<group>"; };
 		752D9F3A1297B25300448E37 /* LicenseFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseFile.m; sourceTree = "<group>"; };
+		7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = aqpmanager.xcdatamodel; sourceTree = SOURCE_ROOT; };
 		755B9F0E12A6FA4800D4BEAA /* aqpmanager.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = aqpmanager.icns; sourceTree = "<group>"; };
 		7566AD18129C54F700EF8ADC /* PMMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMail.h; sourceTree = "<group>"; };
 		7566AD19129C54F700EF8ADC /* PMMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMMail.m; sourceTree = "<group>"; };
@@ -553,6 +555,7 @@
 				75C6FF581270EE8D00A66201 /* debug.xcconfig */,
 				75C6FF591270EE8D00A66201 /* release.xcconfig */,
 				75C6FF5A1270EE8D00A66201 /* stage.xcconfig */,
+				7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				7566ADBC129C79BC00EF8ADC /* PMUtility.m in Sources */,
 				7594426E12A440CE00F04308 /* AquaticPrime.m in Sources */,
 				75FFE7EB12A455B7008FCE20 /* LicenseArrayController.m in Sources */,
+				7536FA3112A9151400597AB9 /* aqpmanager.xcdatamodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
