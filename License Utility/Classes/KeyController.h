@@ -45,6 +45,8 @@
 	IBOutlet id statusController;
 	IBOutlet id LicenseController;
 }
+@property (retain) 	IBOutlet NSForm *mailFieldsForm;
+@property (retain) 	IBOutlet NSForm *mailFilesForm;
 
 + (KeyController *)sharedInstance;
 - (NSString*)publicKey;

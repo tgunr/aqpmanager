@@ -772,7 +772,7 @@ static LicenseController *sharedInstance = nil;
 - (NSString *) emailSubjectLine: (NSString *)product {
   NSRange r;
   NSString *subjectHeaderLine;
-  NSString *mailSubject = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailSubject"];
+  NSString *mailSubject = [productController emailFieldSubject];
 	if ([mailSubject length] != 0) {
 		r = [mailSubject rangeOfString:@"&P"];	// look for an &P for product name
 		if (r.location == NSNotFound) { // email textField does not want to use the product name
@@ -788,76 +788,101 @@ static LicenseController *sharedInstance = nil;
 
 - (void) emailLicenseFile: (LicenseFile *) licenseFile
 {
+	NSString *mailBBCTo = @"";
+	NSString *emailFrom;
+	NSString *emailBCC;
+	NSString *subjectHeaderLine;
+	NSString *licenseTextFileName;
+	NSString *licenseImageFileName;
+	NSString *licenseOtherFileName;
+
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSString *licenseProduct = [licenseFile licenseValidForProduct];
-	NSString *subjectHeaderLine = [self emailSubjectLine: licenseProduct];
-	
-	//	NSString *mailFrom = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailFromAddress"];
-	NSString *mailBCC = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailBCCAddress"];
-	NSString *mailBBCTo = @"";
-	if ([mailBCC length] != 0)
-		mailBBCTo = [NSString stringWithFormat: @"-b \"%@\"", mailBCC];
-	
-	NSString *licenseTextFileName = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseTextFile"];
-	NSString *licenseImageFileName = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseImageFile"];
-	NSString *licenseOtherFileName = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseOtherFile"];
+	if ([licenseProduct isEqualToString: [productController currentProduct]]) {
+		subjectHeaderLine = [self emailSubjectLine: licenseProduct];
+		
+		emailBCC = [productController emailFieldBCC];
+		if ([emailBCC length] != 0)
+			mailBBCTo = [NSString stringWithFormat: @"-b \"%@\"", emailBCC];
+		
+		
+		emailFrom				= [productController emailFieldFrom];
+		licenseTextFileName = [productController emailLicenseTextFile];
+		licenseImageFileName = [productController emailLicenseImageFile];
+		licenseOtherFileName = [productController emailLicenseOtherFile];
+	} else {
+		[MainController playUISoundForBOOL: NO];
+		NSString * errorString = @"Please assign values for emailing in the Product Data tad";
+		//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
+		NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
+	}
+
+
 	NSString *licenseSupport = [supportDir stringByAppendingFormat:@"/Licenses/%@", licenseProduct];
 	NSString *attachmentsPath = [NSString stringWithFormat: @"%@/Attachments/", licenseSupport, [licenseFile path]];
 
-	NSString *licenseTextFilePath = [attachmentsPath stringByAppendingString:licenseTextFileName];
-	BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
-	if (textFileExists) { // Have to have at least this one		
-		NSMutableArray *attachmentList = [NSMutableArray array]; 
-
-		if (licenseImageFileName) {
-			NSString *licenseImageFilePath = [attachmentsPath stringByAppendingString:licenseImageFileName];
-			BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
-			if (imageFileExists) {
-				NSData *imageData = [NSData dataWithContentsOfFile: licenseImageFilePath];
-				[attachmentList addObject:[EDObjectPair pairWithObjects:imageData:licenseImageFileName]]; 
+	@try {
+		NSString *licenseTextFilePath = [attachmentsPath stringByAppendingString:licenseTextFileName];
+		BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
+		if (textFileExists) { // Have to have at least this one		
+			NSMutableArray *attachmentList = [NSMutableArray array]; 
+			
+			if ([licenseImageFileName length]) {
+				NSString *licenseImageFilePath = [attachmentsPath stringByAppendingString:licenseImageFileName];
+				BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
+				if (imageFileExists) {
+					NSData *imageData = [NSData dataWithContentsOfFile: licenseImageFilePath];
+					[attachmentList addObject:[EDObjectPair pairWithObjects:imageData:licenseImageFileName]]; 
+				}
 			}
+			
+			NSData *licenseFileData = [NSData dataWithContentsOfFile: [licenseFile fileNamePath]];
+			[attachmentList addObject:[EDObjectPair pairWithObjects:licenseFileData:[licenseFile fileName]]]; 
+			
+			if ([licenseOtherFileName length]) {
+				NSString *licenseOtherFilePath = [attachmentsPath stringByAppendingString:licenseOtherFileName];
+				BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
+				if (otherFileExists) {
+					NSData *otherData = [NSData dataWithContentsOfFile: licenseOtherFilePath];
+					[attachmentList addObject:[EDObjectPair pairWithObjects:otherData:licenseOtherFileName]]; 
+				}
+			}
+			
+			
+			NSMutableDictionary *headerFields = [NSMutableDictionary dictionary]; 
+			[headerFields setObject:emailFrom forKey:@"From"]; 
+			[headerFields setObject:[licenseFile HTo] forKey:@"To"]; 
+			[headerFields setObject:emailBCC forKey:@"BCC"]; 
+			[headerFields setObject:subjectHeaderLine forKey:@"Subject"];
+			
+			NSError *err;
+			NSString *bodyText = [NSString stringWithContentsOfFile:licenseTextFilePath encoding:NSUTF8StringEncoding error:&err];
+			
+			NSString *emailServer = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailServer"];
+			NSString *emailServerPort = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailServerPort"];
+			
+			@try {
+				id mailAgent = [EDMailAgent mailAgentForRelayHostWithName:emailServer port:[emailServerPort intValue]]; 
+				
+				[mailAgent sendMailWithHeaders:headerFields body:bodyText andAttachments:attachmentList];
+				[MainController playUISoundForBOOL: YES];
+			}
+			@catch (NSException * e) {
+				[MainController playUISoundForBOOL: NO];
+				NSString * errorString = [NSString stringWithFormat:@"An error has occured try to email the license file, please check all your settings.\n%@", [e reason]];
+				//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
+				NSRunAlertPanel(@"Could not mail license file", errorString, @"OK", nil, nil);
+			}	
 		}
-		
-		NSData *licenseFileData = [NSData dataWithContentsOfFile: [licenseFile fileNamePath]];
-		[attachmentList addObject:[EDObjectPair pairWithObjects:licenseFileData:[licenseFile fileName]]]; 
-		
-		if (licenseOtherFileName) {
-			NSString *licenseOtherFilePath = [attachmentsPath stringByAppendingString:licenseOtherFileName];
-			BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
-			if (otherFileExists) {
-				NSData *otherData = [NSData dataWithContentsOfFile: licenseOtherFilePath];
-				[attachmentList addObject:[EDObjectPair pairWithObjects:otherData:licenseOtherFileName]]; 
-			}
 	}
-		
-		
-		NSMutableDictionary *headerFields = [NSMutableDictionary dictionary]; 
-		[headerFields setObject:@"support@polymicrosystems.com" forKey:@"From"]; 
-		[headerFields setObject:[licenseFile HTo] forKey:@"To"]; 
-		[headerFields setObject:mailBCC forKey:@"BCC"]; 
-		[headerFields setObject:subjectHeaderLine forKey:@"Subject"];
-		
-		NSError *err;
-		NSString *bodyText = [NSString stringWithContentsOfFile:licenseTextFilePath encoding:NSUTF8StringEncoding error:&err];
-		
-		// Find Email accounts
-//		NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(																   NSLibraryDirectory, NSUserDomainMask, YES);
-//		NSString *libraryPath = [searchPaths objectAtIndex:0];
-//		NSString *mailPrefsPath = [[libraryPath stringByAppendingPathComponent:@"Preferences"] stringByAppendingPathComponent:@"com.apple.mail.plist"];
-//		NSDictionary *mailPreferences = [NSDictionary dictionaryWithContentsOfFile:mailPrefsPath];
-//		NSArray *accounts = [mailPreferences valueForKey:@"DeliveryAccounts"];
-
-		id mailAgent = [EDMailAgent mailAgentForRelayHostWithName:@"mp.polymicro.net"]; 
-		[mailAgent sendMailWithHeaders:headerFields body:bodyText andAttachments:attachmentList];
-		[MainController playUISoundForBOOL: YES];
-	} else {
+	@catch (NSException * e) {
 		[MainController playUISoundForBOOL: NO];
 		NSString * errorString = @"Please assign a text file for the eamil body in the preference panel";
 		//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
 		NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
-	}
-	
+	}	
 }
+		
 - (IBAction)emailLicenseClick:(id)sender;
 {
 

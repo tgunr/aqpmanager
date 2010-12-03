@@ -30,6 +30,8 @@
 #import "LicenseController.h"
 
 @implementation KeyController
+@synthesize mailFieldsForm;
+@synthesize mailFilesForm;
 
 #pragma mark Setup
 

@@ -16,7 +16,14 @@
 	IBOutlet NSToolbar *tabToolBar;
 
 	IBOutlet NSTextField *updateText;
+	IBOutlet NSForm *mailServer;
+	IBOutlet NSFormCell *hostName;
+	IBOutlet NSFormCell *hostPort;
+	IBOutlet NSTableView *accountsTable;
+	
+	NSMutableArray *emailAccounts;
 }
+@property (retain) 	NSArray *emailAccounts;
 
 - (IBAction)runPreferences:(id)sender;
 - (IBAction)clickTool:(NSToolbarItem*)sender;

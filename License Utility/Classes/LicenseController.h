@@ -110,6 +110,7 @@
 - (void)createSupportDir;
 - (void)reloadLicenses: (NSString *)extension;
 - (void)reloadLicenseArray;
+- (void) enableLicensesTabButtons: (BOOL)state;
 
 - (NSString *)productBlackListPath: (NSString *)product;
 - (NSString *)prodAttachmentsPath: (NSString *)product;

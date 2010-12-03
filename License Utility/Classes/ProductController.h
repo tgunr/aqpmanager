@@ -52,4 +52,10 @@
 - (NSString *)productAtIndex:(int)index;
 - (NSArray*)allProducts;
 
+- (NSString *)emailFieldSubject;
+- (NSString *)emailFieldFrom;
+- (NSString *)emailFieldBCC;
+- (NSString *)emailLicenseTextFile;
+- (NSString *)emailLicenseImageFile;
+- (NSString *)emailLicenseOtherFile;
 @end

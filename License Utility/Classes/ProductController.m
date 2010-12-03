@@ -65,12 +65,44 @@
 	return YES;
 }
 
+#pragma mark Email Values
+- (NSString *)emailFieldSubject {
+	NSString *result = [[[keyController mailFieldsForm] cellAtIndex:0] stringValue];
+	return result;
+}
+
+- (NSString *)emailFieldFrom {
+	NSString *result = [[[keyController mailFieldsForm] cellAtIndex:1] stringValue];
+	return result;
+}
+
+- (NSString *)emailFieldBCC {
+	NSString *result = [[[keyController mailFieldsForm] cellAtIndex:2] stringValue];
+	return result;
+}
+
+- (NSString *)emailLicenseTextFile {
+	NSString *result = [[[keyController mailFilesForm] cellAtIndex:0] stringValue];
+	return result;
+}
+
+- (NSString *)emailLicenseImageFile {
+	NSString *result = [[[keyController mailFilesForm] cellAtIndex:1] stringValue];
+	return result;
+}
+
+- (NSString *)emailLicenseOtherFile {
+	NSString *result = [[[keyController mailFilesForm] cellAtIndex:2] stringValue];
+	return result;
+}
+
+
+#pragma mark Load Project
 - (IBAction)saveProducts:(id)sender
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"ProductWillBeSelected" object:productTable];
 }
 
-#pragma mark Load Project
 
 - (void)loadProducts
 {
