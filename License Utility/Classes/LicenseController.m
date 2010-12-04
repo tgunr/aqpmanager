@@ -815,6 +815,7 @@ static LicenseController *sharedInstance = nil;
 		NSString * errorString = @"Please assign values for emailing in the Product Data tad";
 		//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
 		NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
+		return;
 	}
 
 
