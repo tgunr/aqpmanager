@@ -1,4 +1,3 @@
-
 # Test for kill prefs file on each build
 echo "BUILD_NUMBER: $BUILD_NUMBER"
 echo "VERSION_NUMBER: $VERSION_NUMBER"
@@ -6,9 +5,9 @@ echo "SU_FEED: $SU_SITE/$SU_PATH/$SU_FEED" | sed -e 's?//?/?'
 
 ### If not releasing increment build number
 if [[ "$CONFIGURATION" == 'Development' ]]; then
+	OLD_BUILD_NUMBER=$BUILD_NUMBER
 	/usr/bin/perl -pe 's/(BUILD_NUMBER = )(\d+)/$1.($2+1)/eg' -i "$SRCROOT/Misc/debug.xcconfig"
 	BUILD_NUMBER=`head -n 1 "$SRCROOT/Misc/debug.xcconfig" | sed -e 's/BUILD_NUMBER = //'`
-	OLD_BUILD_NUMBER=$BUILD_NUMBER
 	PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
 	PlistBuddy -c "Set :CFBundleShortVersionString $VERSION_NUMBER" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
 	PlistBuddy -c "Set :SUFeedURL http:\/\/$SU_SITE/$SU_PATH/$SU_FEED" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
@@ -42,6 +41,8 @@ if [[ "$CONFIGURATION" == 'Development' ]]; then
 
 	# construct file names
 	ARCHIVE_FILE=`echo "${PRODUCT_NAME}_${VERSION_NUMBER}_${RELEASE_BUILD}" | tr " -" "_"`
+#	PROGRAM_FILE=`echo "${PRODUCT_NAME}" | sed -e "s/ /\\\\\ /"`
+	PROGRAM_FILE=`echo "${PRODUCT_NAME}" | tr " -" "_"`
 	RELEASE_NOTES="$ARCHIVE_FILE".html
 
 	#Files
@@ -57,7 +58,7 @@ if [[ "$CONFIGURATION" == 'Development' ]]; then
 
 	WD=$PWD
 	pushd "$BUILT_PRODUCTS_DIR"
-	rm -fr ${PRODUCT_NAME}_*.*
+	rm -fr ${PROGRAM_FILE}_*.*
 	cp -R "${PRODUCT_NAME}".app "$ARCHIVE_FILE".app
 	ditto -ck --keepParent "$PRODUCT_NAME".app "$ARCHIVE_FILE".zip
 	popd
