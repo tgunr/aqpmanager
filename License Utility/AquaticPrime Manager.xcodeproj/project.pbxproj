@@ -26,10 +26,11 @@
 		75275E39126A0B7900DC2A8D /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
 		752AFF2F129EE9F90028C23D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFF2E129EE9F90028C23D /* Security.framework */; };
 		752D9F3B1297B25300448E37 /* LicenseFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 752D9F3A1297B25300448E37 /* LicenseFile.m */; };
-		752E0A7B12A64B86002C05B8 /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75C3C78012A588A6003B20BD /* EDCommon.framework */; };
-		752E0A8012A64BAA002C05B8 /* EDMessage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75C3C79212A588B4003B20BD /* EDMessage.framework */; };
-		752E0A8D12A64C27002C05B8 /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C3C78012A588A6003B20BD /* EDCommon.framework */; };
 		7536FA3112A9151400597AB9 /* aqpmanager.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */; };
+		7536FBDB12A99D6400597AB9 /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
+		7536FBE112A99D7700597AB9 /* EDMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536FBE012A99D7700597AB9 /* EDMessage.framework */; };
+		7536FC3612A9BD8A00597AB9 /* EDMessage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FBE012A99D7700597AB9 /* EDMessage.framework */; };
+		7536FC3A12A9BDAF00597AB9 /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
 		755B9F0F12A6FA4800D4BEAA /* aqpmanager.icns in Resources */ = {isa = PBXBuildFile; fileRef = 755B9F0E12A6FA4800D4BEAA /* aqpmanager.icns */; };
 		7566AD1A129C54F700EF8ADC /* PMMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD19129C54F700EF8ADC /* PMMail.m */; };
 		7566AD60129C72F400EF8ADC /* NSApplication_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD59129C72F400EF8ADC /* NSApplication_Extensions.m */; };
@@ -50,7 +51,6 @@
 		7594426E12A440CE00F04308 /* AquaticPrime.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C22E75108E664700D1D72F /* AquaticPrime.m */; };
 		75C3C7A012A58927003B20BD /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75C3C76A12A58750003B20BD /* Sparkle.framework */; };
 		75C3C82712A590C4003B20BD /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C3C76A12A58750003B20BD /* Sparkle.framework */; };
-		75C3C87112A59663003B20BD /* EDMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C3C79212A588B4003B20BD /* EDMessage.framework */; };
 		75C60018127103E100A66201 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 75C60016127103E100A66201 /* dsa_pub.pem */; };
 		75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDB96126A10B5002BA6E7 /* PreferencesController.m */; };
 		75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */; };
@@ -148,8 +148,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				752E0A7B12A64B86002C05B8 /* EDCommon.framework in CopyFiles */,
-				752E0A8012A64BAA002C05B8 /* EDMessage.framework in CopyFiles */,
+				7536FC3A12A9BDAF00597AB9 /* EDCommon.framework in CopyFiles */,
+				7536FC3612A9BD8A00597AB9 /* EDMessage.framework in CopyFiles */,
 				75C3C7A012A58927003B20BD /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,6 +196,8 @@
 		752D9F391297B25300448E37 /* LicenseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseFile.h; sourceTree = "<group>"; };
 		752D9F3A1297B25300448E37 /* LicenseFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseFile.m; sourceTree = "<group>"; };
 		7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = aqpmanager.xcdatamodel; sourceTree = SOURCE_ROOT; };
+		7536FBDA12A99D6400597AB9 /* EDCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EDCommon.framework; path = "../../../Sources/GIT/EdCommon/build/Release (embedded)/EDCommon.framework"; sourceTree = SOURCE_ROOT; };
+		7536FBE012A99D7700597AB9 /* EDMessage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EDMessage.framework; path = "../../../Sources/GIT/EdMessage/build/Release (embedded)/EDMessage.framework"; sourceTree = SOURCE_ROOT; };
 		755B9F0E12A6FA4800D4BEAA /* aqpmanager.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = aqpmanager.icns; sourceTree = "<group>"; };
 		7566AD18129C54F700EF8ADC /* PMMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMail.h; sourceTree = "<group>"; };
 		7566AD19129C54F700EF8ADC /* PMMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMMail.m; sourceTree = "<group>"; };
@@ -255,12 +257,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				752E0A8D12A64C27002C05B8 /* EDCommon.framework in Frameworks */,
-				75C3C87112A59663003B20BD /* EDMessage.framework in Frameworks */,
 				75C3C82712A590C4003B20BD /* Sparkle.framework in Frameworks */,
 				A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */,
 				75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */,
 				752AFF2F129EE9F90028C23D /* Security.framework in Frameworks */,
+				7536FBDB12A99D6400597AB9 /* EDCommon.framework in Frameworks */,
+				7536FBE112A99D7700597AB9 /* EDMessage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +357,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7536FBE012A99D7700597AB9 /* EDMessage.framework */,
+				7536FBDA12A99D6400597AB9 /* EDCommon.framework */,
 				759441AC12A30E2700F04308 /* libcrypto.1.0.0.dylib */,
 				75ACA575126B9C580046F460 /* libmysql.16.dylib */,
 				7572A925126B9B1A00B41790 /* libmysql.dylib */,
@@ -810,6 +814,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Sources/GIT/EdCommon/build/Release (embedded)\"",
+					"\"$(SRCROOT)/../../../Sources/GIT/EdMessage/build/Release (embedded)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -839,6 +848,8 @@
 					"\"$(SRCROOT)/../../../../GIT/EdMessage/build/Development\"",
 					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
 					"\"$(SRCROOT)/../../../../Build/Development\"",
+					"\"$(SRCROOT)/../../../Sources/GIT/EdCommon/build/Release (embedded)\"",
+					"\"$(SRCROOT)/../../../Sources/GIT/EdMessage/build/Release (embedded)\"",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -886,6 +897,8 @@
 					"\"$(SRCROOT)/../../../../GIT/EdMessage/build/Development\"",
 					"\"$(SRCROOT)/../Source/Cocoa/build/Development\"",
 					"\"$(SRCROOT)/../../../../Build/Development\"",
+					"\"$(SRCROOT)/../../../Sources/GIT/EdCommon/build/Release (embedded)\"",
+					"\"$(SRCROOT)/../../../Sources/GIT/EdMessage/build/Release (embedded)\"",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -992,6 +1005,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Sources/GIT/EdCommon/build/Release (embedded)\"",
+					"\"$(SRCROOT)/../../../Sources/GIT/EdMessage/build/Release (embedded)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;

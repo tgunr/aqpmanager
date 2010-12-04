@@ -41,7 +41,7 @@ if [[ "$CONFIGURATION" == 'Development' ]]; then
 	KEYCHAIN_DIR="$SRCROOT/Misc"
 
 	# construct file names
-	ARCHIVE_FILE=`echo "${PRODUCT_NAME}_${VERSION_NUMBER}_${RELEASE_BUILD}" | tr "-" "_"`
+	ARCHIVE_FILE=`echo "${PRODUCT_NAME}_${VERSION_NUMBER}_${RELEASE_BUILD}" | tr " -" "_"`
 	RELEASE_NOTES="$ARCHIVE_FILE".html
 
 	#Files
