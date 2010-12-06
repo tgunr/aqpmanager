@@ -11,7 +11,7 @@
 #import "NSArray_Extensions.h"
 #import "NSData_Extensions.h"
 #import "NSString_Extensions.h"
-#import "PMUtility.h"
+#import "pmsNSUtility.h"
 #import "pmsCFUtility.h"
 #import "PMMail.h"
 
