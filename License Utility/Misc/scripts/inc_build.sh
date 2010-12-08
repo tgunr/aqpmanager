@@ -56,10 +56,10 @@ if [[ "$CONFIGURATION" == 'Development' ]]; then
 	DOWNLOAD_URL="$DOWNLOAD_BASE_URL/$ARCHIVE_FILE"
 
 
-	WD=$PWD
-	pushd "$BUILT_PRODUCTS_DIR"
-	rm -fr ${PROGRAM_FILE}_*.*
-	cp -R "${PRODUCT_NAME}".app "$ARCHIVE_FILE".app
-	ditto -ck --keepParent "$PRODUCT_NAME".app "$ARCHIVE_FILE".zip
-	popd
+#	WD=$PWD
+#	pushd "$BUILT_PRODUCTS_DIR"
+#	rm -fr ${PROGRAM_FILE}_*.*
+#	cp -R "${PRODUCT_NAME}".app "$ARCHIVE_FILE".app
+#	ditto -ck --keepParent "$PRODUCT_NAME".app "$ARCHIVE_FILE".zip
+#	popd
 fi

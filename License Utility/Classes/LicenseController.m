@@ -55,7 +55,7 @@ static LicenseController *sharedInstance = nil;
 	keyArray = [[NSMutableArray array] retain];
 	valueArray = [[NSMutableArray array] retain];
 	licenseArray = [[NSMutableArray array] retain];
-    supportDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
+    supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
 	licenseDir = [[supportDir stringByAppendingString:@"/Generated Licenses"] retain];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductCreated) name:@"NewKeyGenerated" object:nil];
@@ -89,7 +89,6 @@ static LicenseController *sharedInstance = nil;
 
 - (void)awakeFromNib 
 {
-	[self createSupportDir];
 //	builtInKeywords = [NSMutableArray arrayWithCapacity:1];
 	[self reloadLicenses: @"*"];
 	[[searchLicenseField cell ]setSendsWholeSearchString: YES];
@@ -263,34 +262,6 @@ static LicenseController *sharedInstance = nil;
 	}
 }
 
-- (void)createSupportDir {
- 
-	NSFileManager *fm = [NSFileManager defaultManager];
-	BOOL isDir;
-	
-	// The ~/Library/Application Support/Aquatic/ folder doesn't exist yet
-	if (![fm fileExistsAtPath:supportDir isDirectory:&isDir])
-	{
-		// The support path leads to a file! Bad! This shouldn't happen ever!!
-		if (!isDir)
-			[fm removeFileAtPath:supportDir handler:nil];
-		
-		// Create the ~/Library/Application Support/Aquatic/ directory
-		[fm createDirectoryAtPath:supportDir attributes:nil];
-	}
-
-	// The ~/Library/Application Support/Aquatic/Generated Licenses folder doesn't exist yet
-	if  (![fm fileExistsAtPath:licenseDir isDirectory:&isDir])
-	{
-		// The licenses path leads to a file! Bad! This shouldn't happen ever!!
-		if (!isDir)
-			[fm removeFileAtPath:licenseDir handler:nil];
-			
-		// Create the product key directory
-		[fm createDirectoryAtPath:licenseDir attributes:nil];
-	}
-}
-
 - (IBAction)generateLicense:(id)sender
 {
 	NSString *errorString;
@@ -369,18 +340,18 @@ static LicenseController *sharedInstance = nil;
 								  valueArray, @"Values", 
 								  nil];
 	
-	// The ~/Library/Application Support/Aquatic/ folder doesn't exist yet
+	// The ~/Library/Application Support/AquaticPrime Manager/ folder doesn't exist yet
 	if (![fm fileExistsAtPath:supportDir isDirectory:&isDir])
 	{
 		// The support path leads to a file! Bad! This shouldn't happen ever!!
 		if (!isDir)
 			[fm removeFileAtPath:supportDir handler:nil];
 		
-		// Create the ~/Library/Application Support/Aquatic/ directory
+		// Create the ~/Library/Application Support/AquaticPrime Manager/ directory
 		[fm createDirectoryAtPath:supportDir attributes:nil];
 	}
 	
-	// The ~/Library/Application Support/Aquatic/License Templates folder doesn't exist yet
+	// The ~/Library/Application Support/AquaticPrime Manager/License Templates folder doesn't exist yet
 	if  (![fm fileExistsAtPath:templateDir isDirectory:&isDir])
 	{
 		// The template path leads to a file! Bad! This shouldn't happen ever!!

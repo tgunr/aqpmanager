@@ -113,7 +113,7 @@ static KeyController *sharedInstance = nil;
 	int productIndex;
 	for (productIndex = 0; productIndex < [products count]; productIndex++)
 	{
-		NSString *productPath = [[@"~/Library/Application Support/Aquatic/Product Keys" stringByExpandingTildeInPath] 
+		NSString *productPath = [[@"~/Library/Application Support/AquaticPrime Manager/Product Keys" stringByExpandingTildeInPath] 
 								stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", [products objectAtIndex:productIndex]]];
 	
 		// Load the public key
@@ -203,7 +203,7 @@ static KeyController *sharedInstance = nil;
 - (void)generateKeyForProduct:(NSString *)productName
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
+	NSString *supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
 	NSString *keyDir = [supportDir stringByAppendingString:@"/Product Keys"];
 	NSString *productPath = [keyDir stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", productName]];
 	NSString *warningString = [NSString stringWithFormat:
@@ -281,7 +281,7 @@ static KeyController *sharedInstance = nil;
 - (BOOL)saveKeysForProduct:(NSString *)productName
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
+	NSString *supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
 	NSString *keyDir = [supportDir stringByAppendingString:@"/Product Keys"];
 	NSString *productPath = [keyDir stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", productName]];
 	BOOL isDir;
@@ -324,33 +324,6 @@ static KeyController *sharedInstance = nil;
 							 mailFileData, @"MailFiles",
 							 nil];
 	
-	// The ~/Library/Application Support/Aquatic/ folder doesn't exist yet
-	if (![fm fileExistsAtPath:supportDir isDirectory:&isDir])
-	{
-		// Create the ~/Library/Application Support/Aquatic/ directory
-		[fm createDirectoryAtPath:supportDir attributes:nil];
-	}
-	// The support path leads to a file! Bad!
-	else if (!isDir)
-	{
-		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create support directory.", supportDir], 
-						@"OK", nil, nil);
-		return NO;
-	}
-	
-	if  (![fm fileExistsAtPath:keyDir isDirectory:&isDir])
-	{
-		// Create the product key directory
-		[fm createDirectoryAtPath:keyDir attributes:nil];
-	}
-	// The key directory path leads to a file! Bad again!
-	else if (!isDir)
-	{
-		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create key storage directory.", keyDir], 
-						@"OK", nil, nil);
-		return NO;
-	}
-	
 	[keyDict writeToFile:productPath atomically:YES];
 	return YES;
 }
@@ -366,7 +339,7 @@ static KeyController *sharedInstance = nil;
 	
 	NSString *exportPath = [savePanel filename];
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *productPath = [[NSString stringWithFormat:@"~/Library/Application Support/Aquatic/Product Keys/%@.plist", 
+	NSString *productPath = [[NSString stringWithFormat:@"~/Library/Application Support/AquaticPrime Manager/Product Keys/%@.plist", 
 															[productController currentProduct]] stringByExpandingTildeInPath];
 																																
 	[fm copyPath:productPath toPath:exportPath handler:nil];
@@ -393,7 +366,7 @@ static KeyController *sharedInstance = nil;
 	}
 	
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *productPath = [[NSString stringWithFormat:@"~/Library/Application Support/Aquatic/Product Keys/%@.plist", 
+	NSString *productPath = [[NSString stringWithFormat:@"~/Library/Application Support/AquaticPrime Manager/Product Keys/%@.plist", 
 															[keyPath lastPathComponent]] stringByExpandingTildeInPath];
 																																
 	[fm copyPath:keyPath toPath:productPath handler:nil];

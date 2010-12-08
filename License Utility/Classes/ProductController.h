@@ -58,4 +58,7 @@
 - (NSString *)emailLicenseTextFile;
 - (NSString *)emailLicenseImageFile;
 - (NSString *)emailLicenseOtherFile;
+
+- (void)createSupportDir;
+
 @end
