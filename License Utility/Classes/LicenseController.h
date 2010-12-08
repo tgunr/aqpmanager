@@ -107,6 +107,9 @@
 - (IBAction)blacklistRadioClick:(id)sender;
 - (IBAction)restoreBtnClick:(id)sender;
 
+- (IBAction)addKeyValue:(id)sender;
+- (IBAction)removeKeyValue:(id)sender;
+
 - (void)createSupportDir;
 - (void)reloadLicenses: (NSString *)extension;
 - (void)reloadLicenseArray;

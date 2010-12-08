@@ -1,5 +1,5 @@
-BUILD_NUMBER = 723
-VERSION_NUMBER = 0.1
-SU_SITE = mp.polymicro.net
-SU_PATH = products/aqprime/updates
+BUILD_NUMBER = 728
+VERSION_NUMBER = 0.1b2
+SU_SITE = polymicro.net
+SU_PATH = products/aqpmanager/updates
 SU_FEED = updates.xml
