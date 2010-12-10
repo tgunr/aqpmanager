@@ -31,36 +31,240 @@
 #import "ProductController.h"
 #import "AquaticPrime.h"
 #import "AQTableView.h"
+#import "InfoController.h"
+#import "LicenseFile.h"
+#import "PMMail.h"
 
 @implementation LicenseController
 
+@synthesize supportDir;
+@synthesize licenseDir;
+
 #pragma mark Init
+
+static LicenseController *sharedInstance = nil;
 
 - (id)init
 {
+	if (sharedInstance) {
+        [self dealloc];
+    } else {
+        sharedInstance = [super init];
+    }
+	
 	keyArray = [[NSMutableArray array] retain];
 	valueArray = [[NSMutableArray array] retain];
-	
+	licenseArray = [[NSMutableArray array] retain];
+    supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
+	licenseDir = [[supportDir stringByAppendingString:@"/Generated Licenses"] retain];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductCreated) name:@"NewProductCreated" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductSelected) name:@"ProductSelected" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveLicenseTemplate:) name:@"ProductWillBeSelected" object:nil];
 	
-	return [super init];
+	if (!infoController) {
+		infoController = [InfoController sharedInstance];
+	}	
+	
+	return sharedInstance;
 }
- 
+
++ (LicenseController *)sharedInstance
+{
+    return sharedInstance ? sharedInstance : [[[self alloc] init ]autorelease];
+}
+
 - (void)dealloc
 {
 	[keyArray release];
 	[valueArray release];
+	[licenseArray release];
+	[supportDir release];
+	[licenseDir release];
+	[infoController release];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib 
+{
+//	builtInKeywords = [NSMutableArray arrayWithCapacity:1];
+	[self reloadLicenses: @"*"];
+	[[searchLicenseField cell ]setSendsWholeSearchString: YES];
+	NSURL *url = [[NSURL alloc] init];
+	[saveDirectoryPathControl setURL:url];
+	[self enableLicensesTabButtons: NO];
+}
 
+#pragma mark Variables
+- (NSString *)productPath: (NSString *)product
+{
+	NSString * result = nil;
+	if (product) {
+		NSString *path = [[saveDirectoryPathControl URL] path];
+		result = [NSString stringWithFormat:@"%@/%@", path, product];
+	}
+	return result;
+}
+
+- (NSString *)productBlackListPath: (NSString *)product
+{
+	NSString * result = nil;
+	if (product) {
+		NSString *path = [self productPath: product];
+		result = [NSString stringWithFormat:@"%@/Blacklist", path];
+	}
+	return result;
+}
+
+- (NSString *)prodAttachmentsPath: (NSString *)product
+{
+	NSString * result = nil;
+	if (product) {
+		NSString *path = [self productPath: product];
+		result = [NSString stringWithFormat:@"%@/Attachments", path];
+	}
+	return result;
+}
+
+- (NSString *)prodLicensesPath: (NSString *)product
+{
+	NSString * result = nil;
+	if (product) {
+		NSString *path = [self productPath: product];
+		result = [NSString stringWithFormat:@"%@/Licenses", path];
+	}
+	return result;
 }
 
 #pragma mark License Generation
+
+- (void) updateNumberLicenses: (NSInteger) number
+{
+	NSString *numberString = @"";
+	if (number) {
+		numberString = [NSString stringWithFormat:@"%d licenses found", number];
+	} else
+		numberString = [NSString stringWithFormat:@"No licenses found", number];
+	[numberLicenses setStringValue:numberString];
+}
+
+- (void) reloadLicenses: (NSString *)extension {
+	[licenseArray  removeAllObjects];
+//	[builtInKeywords removeAllObjects];
+	
+	if ([extension length]) {
+		NSFileManager *fm = [NSFileManager defaultManager];		
+		NSDirectoryEnumerator *dirEnum = [fm enumeratorAtPath:licenseDir];
+		
+		NSString *fName;
+		LicenseFile *lFile;
+		
+		while (fName = [dirEnum nextObject]) {
+			NSString *licensePathName = [NSString stringWithFormat: @"%@/%@", licenseDir, fName];
+			if ([extension isEqualToString: @"*"]) {
+				if ([[fName pathExtension] hasSuffix:@"license"]) {
+					lFile = [LicenseFile initWithPath: licensePathName];
+					[licenseArray addObject:lFile];
+//					[builtInKeywords addUniqueObjectsFromArray:[lFile valueInfoArray]];
+				}
+			} else {
+				if ([[fName pathExtension] isEqualToString:extension]) {
+					lFile = [LicenseFile initWithPath: licensePathName];
+					[licenseArray addObject:lFile];
+//					[builtInKeywords addUniqueObjectsFromArray:[lFile valueInfoArray]];
+				}
+			}
+		}
+		NSInteger blacklistState = [blacklistRadioBtn state];
+		if (blacklistState == NSOnState) {
+			
+			NSEnumerator *enumerator = [[productController productArray] objectEnumerator];
+			id anObject;
+			
+			while (anObject = [enumerator nextObject]) {
+				NSString * productPath = [NSString stringWithFormat:@"%@/Licenses/%@/Blacklist", [self supportDir], anObject];
+				NSDirectoryEnumerator *dirEnum = [fm enumeratorAtPath:productPath];
+				// if the file is in the black list folder, mark it invalid
+				while (fName = [dirEnum nextObject]) {
+					NSString *licensePathName = [NSString stringWithFormat: @"%@/%@", licenseDir, fName];
+					if ([extension isEqualToString: @"*"]) {
+						if ([[fName pathExtension] hasSuffix:@"license"]) {
+							lFile = [LicenseFile initWithPath: licensePathName];
+							[lFile setIsLicenseValid:NO];
+							[licenseArray addObject:lFile];
+						}
+					} else {
+						if ([[fName pathExtension] isEqualToString:extension]) {
+							lFile = [LicenseFile initWithPath: licensePathName];
+							[lFile setIsLicenseValid:NO];
+							[licenseArray addObject:lFile];
+						}
+					}
+				}
+			}			
+		}
+
+		[fm release];
+	}
+	[self updateNumberLicenses: [licenseArray count]];
+}
+		
+- (void) reloadLicenseArray {
+  NSString *product = [productController currentProduct];
+		if (product) {
+			if ([application length]) {
+				NSString *productExtension = [licenseExtensionField stringValue];
+				if ([productExtension length]) {
+					[self reloadLicenses: productExtension];
+				} else {
+					[self reloadLicenses: @""];
+				}				
+			}
+		} else
+			[self reloadLicenses: @"*"];
+
+}
+
+- (void) searchForLicenses:(NSString *)info
+{
+	NSInteger narrow = [narrowResultsBtn state];
+	if (narrow == NSOffState) {
+		[self reloadLicenseArray];
+
+	}
+	NSMutableArray *foundLicenses = [NSMutableArray array];
+	NSEnumerator *enumerator = [licenseArray objectEnumerator];
+	id aLicenseFile;
+	while (aLicenseFile = [enumerator nextObject]) {
+		
+		NSArray *vArrary = [aLicenseFile valueInfoArray];
+		NSEnumerator *valueEnumerator = [vArrary objectEnumerator];
+		
+		id aValue;
+		while (aValue = [valueEnumerator nextObject]) {
+			NSRange range = [aValue rangeOfString:info options:NSCaseInsensitiveSearch];
+			
+			if( range.location != NSNotFound ) {
+				if (![foundLicenses containsObject:aLicenseFile]) {
+					[foundLicenses addObject:aLicenseFile];
+				}
+			}
+		}
+	}
+	if ([foundLicenses count]) {
+		[licenseArray release];
+		licenseArray = [foundLicenses retain];
+		[numberLicenses setStringValue: [NSString stringWithFormat:@"%d licenses found",[licenseArray count]]];
+		[licenseTable reloadData];
+	} else {
+		[licenseArray removeAllObjects];
+		[numberLicenses setStringValue: @"No licenses found"];
+		[licenseTable reloadData];
+	}
+	
+}
 
 - (void) completeTableEntry 
 {
@@ -81,33 +285,6 @@
 		return;
 	}
 	
-	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
-	NSString *licenseDir = [supportDir stringByAppendingString:@"/Generated Licenses"];
-	BOOL isDir;
-	
-	// The ~/Library/Application Support/Aquatic/ folder doesn't exist yet
-	if (![fm fileExistsAtPath:supportDir isDirectory:&isDir])
-	{
-		// The support path leads to a file! Bad! This shouldn't happen ever!!
-		if (!isDir)
-			[fm removeFileAtPath:supportDir handler:nil];
-		
-		// Create the ~/Library/Application Support/Aquatic/ directory
-		[fm createDirectoryAtPath:supportDir attributes:nil];
-	}
-
-	// The ~/Library/Application Support/Aquatic/Generated Licenses folder doesn't exist yet
-	if  (![fm fileExistsAtPath:licenseDir isDirectory:&isDir])
-	{
-		// The licenses path leads to a file! Bad! This shouldn't happen ever!!
-		if (!isDir)
-			[fm removeFileAtPath:licenseDir handler:nil];
-			
-		// Create the product key directory
-		[fm createDirectoryAtPath:licenseDir attributes:nil];
-	}
-	
 	licenseDictionary = [NSMutableDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
 	
 	NSString *publicKey = [keyController publicKey];
@@ -119,12 +296,16 @@
 	[self completeTableEntry];
 
 	licenseMaker = [AquaticPrime aquaticPrimeWithKey:publicKey privateKey:privateKey];
-	
-	NSString *path = [NSString stringWithFormat:@"%@/Licenses/%@.%@", [saveDirectoryField stringValue], [valueArray objectAtIndex:0], [licenseExtensionField stringValue]];
-	NSString *backupPath = [NSString stringWithFormat:@"%@/%@.%@", licenseDir, [valueArray objectAtIndex:0], [licenseExtensionField stringValue]];
+
+	NSString *extension = [licenseExtensionField stringValue];
+	NSURL *pathURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], [valueArray objectAtIndex:0], extension]];
+	NSString *path = [pathURL path];
+	NSString *backupPath = [NSString stringWithFormat:@"%@/%@.%@", licenseDir, [valueArray objectAtIndex:0], extension];
 	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:path];
 	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:backupPath];
 	[statusController setStatus:[NSString stringWithFormat:@"Wrote license to %@", path] duration:5.0];
+	
+	[licenseTable reloadData];
 	
 	//	BOOL useMySQL = [[NSUserDefaults standardUserDefaults] objectForKey:@"MYSQLUse"];
 	//	if (useMySQL)
@@ -139,6 +320,9 @@
 	// Make sure the object is a tableView
 	int index;
 	if ([anObject respondsToSelector:@selector(object)] && [[anObject object] respondsToSelector:@selector(selectedRow)]) {
+		[searchLicenseField setStringValue:@""];
+		[self reloadLicenseArray];
+		[licenseTable reloadData];
 		index = [[anObject object] selectedRow];
 		if (index == -1) {
 			return;	
@@ -148,33 +332,39 @@
 		return;
 	
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
 	NSString *templateDir = [supportDir stringByAppendingString:@"/License Templates"];
 	NSString *productPath = [templateDir stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", [productController productAtIndex:index]]];
 	BOOL isDir;
 	
 	// Save this way to preserve the order of items
+	NSString *saveDir = [[saveDirectoryPathControl URL] path];
+	if (!saveDir) {
+		saveDir = [@"~/Documents" stringByExpandingTildeInPath];
+	}
+	if (!emailKey) {
+		emailKey = @"Email";
+	}
 	NSDictionary *templateDict = [NSDictionary dictionaryWithObjectsAndKeys:
 								  [productController productAtIndex:index], @"Product",
+								  [licenseExtensionField stringValue], @"Extension",
+								  saveDir, @"SaveDirectory", 
+								  emailKey, @"EmailKey",
 								  keyArray, @"Keys", 
 								  valueArray, @"Values", 
-								  [licenseExtensionField stringValue], @"Extension",
-								  [saveDirectoryField stringValue], @"Save Directory", 
-								  emailKey, @"EmailKey",
 								  nil];
 	
-	// The ~/Library/Application Support/Aquatic/ folder doesn't exist yet
+	// The ~/Library/Application Support/AquaticPrime Manager/ folder doesn't exist yet
 	if (![fm fileExistsAtPath:supportDir isDirectory:&isDir])
 	{
 		// The support path leads to a file! Bad! This shouldn't happen ever!!
 		if (!isDir)
 			[fm removeFileAtPath:supportDir handler:nil];
 		
-		// Create the ~/Library/Application Support/Aquatic/ directory
+		// Create the ~/Library/Application Support/AquaticPrime Manager/ directory
 		[fm createDirectoryAtPath:supportDir attributes:nil];
 	}
 	
-	// The ~/Library/Application Support/Aquatic/License Templates folder doesn't exist yet
+	// The ~/Library/Application Support/AquaticPrime Manager/License Templates folder doesn't exist yet
 	if  (![fm fileExistsAtPath:templateDir isDirectory:&isDir])
 	{
 		// The template path leads to a file! Bad! This shouldn't happen ever!!
@@ -196,7 +386,6 @@
 		return NO;
 	
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
 	NSString *templateDir = [supportDir stringByAppendingString:@"/License Templates"];
 	NSString *productPath = [templateDir stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", [productController currentProduct]]];
 
@@ -204,7 +393,7 @@
 	{
 		[licenseExtensionField setStringValue:@"plist"];
 		[licenseExtensionEditField setStringValue:@"plist"];
-		[saveDirectoryField setStringValue:[@"~/Documents" stringByExpandingTildeInPath]];
+		[saveDirectoryPathControl setURL: [NSURL fileURLWithPath:[@"~/Documents" stringByExpandingTildeInPath]]];
 		return NO;
 	}
 	
@@ -213,7 +402,12 @@
 	keyArray = [[NSMutableArray arrayWithArray:[templateDict objectForKey:@"Keys"]] retain];
 	valueArray = [[NSMutableArray arrayWithArray:[templateDict objectForKey:@"Values"]] retain];
 	[licenseExtensionField setStringValue:[templateDict objectForKey:@"Extension"]];
-	[saveDirectoryField setStringValue:[templateDict objectForKey:@"Save Directory"]];
+	id saveDir = [templateDict objectForKey:@"SaveDirectory"];
+	if (!saveDir) {
+		saveDir = [@"~/Documents" stringByExpandingTildeInPath];
+	}
+	NSURL *url = [NSURL fileURLWithPath: saveDir];
+	[saveDirectoryPathControl setURL:url];
 	
 	emailKey = [templateDict objectForKey:@"EmailKey"];
 	if ([emailKey length]) 
@@ -246,7 +440,7 @@
 		[valueArray release];
 		
 	// Enable everything except the remove button
-	[addButton setEnabled:YES];
+	[addProductButton setEnabled:YES];
 	[generateLicenseButton setEnabled:YES];
 	[editExtensionButton setEnabled:YES];
 	[editSaveDirectoryButton setEnabled:YES];
@@ -256,27 +450,50 @@
 		// Default values
 		keyArray = [[NSMutableArray arrayWithObjects:@"Name", @"Email", nil] retain];
 		valueArray = [[NSMutableArray arrayWithObjects:@"User", @"user@email.com", nil] retain];
+		[licenseEmailField setStringValue:@"Email"];
 	}
 	// No product
 	else if (![productController currentProduct] ) {
-		// Disable everything
-		[addButton setEnabled:NO];
-		[removeButton setEnabled:NO];
-		[generateLicenseButton setEnabled:NO];
-		[editExtensionButton setEnabled:NO];
-		[editSaveDirectoryButton setEnabled:NO];
-		[emailButton setEnabled:NO];
-		
-		[licenseExtensionField setStringValue:@""];
-		[saveDirectoryField setStringValue:@""];
-		[licenseEmailField setStringValue:@""];
-		
-		keyArray = [[NSMutableArray array] retain];
-		valueArray = [[NSMutableArray array] retain];
-	}
-	
+			// Disable everything
+			[addProductButton setEnabled:NO];
+			[removeProductButton setEnabled:NO];
+			[generateLicenseButton setEnabled:NO];
+			[editExtensionButton setEnabled:NO];
+			[editSaveDirectoryButton setEnabled:NO];
+			[emailButton setEnabled:NO];
+			
+			[licenseExtensionField setStringValue:@""];
+			[saveDirectoryPathControl setURL: [[NSURL alloc] init]];
+			[licenseEmailField setStringValue:@""];
+			
+			keyArray = [[NSMutableArray array] retain];
+			valueArray = [[NSMutableArray array] retain];
+
+			[self reloadLicenses: @"*"];
+		} else {
+			if ([application length]) {
+				NSString *productExtension = [licenseExtensionField stringValue];
+				if ([productExtension length]) {
+					[self reloadLicenses: productExtension];
+				} else {
+					[self reloadLicenses: @""];
+				}
+
+			}
+		}
 	[keyValueTable reloadData];
+	[licenseTable reloadData];
 }
+
+- (void)newProductCreated
+{
+	if ([productController currentProduct] )
+		application = [productController currentProduct];
+	else 
+		application = @"";
+	[self newProductSelected];
+}
+
 
 #pragma mark Interface
 
@@ -287,7 +504,7 @@
 		   modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
 
-- (BOOL) foldersExist: (id)sender {
+- (void) foldersExist: (NSString *)saveFolder {
 	BOOL aDir;
 	BOOL folderExists;
 	int result = 0; // if this is ever non zero, something went haywire
@@ -296,124 +513,89 @@
 	
 	NSFileManager *fm = [NSFileManager defaultManager];
 
-	folderPath = [NSString stringWithFormat: @"%@", [saveDirectoryField stringValue]];
-	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
+	NSString *basePath = [NSString stringWithFormat: @"%@/%@", saveFolder, application];
+	folderExists = [fm fileExistsAtPath:basePath isDirectory: &aDir];
 	if (!folderExists) {
-		mkdirString = [NSString stringWithFormat:@"mkdir -p %@", [saveDirectoryField stringValue]];
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@", basePath];
 		result = system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
 	}
 
-	folderPath = [NSString stringWithFormat: @"%@/Attachments", [saveDirectoryField stringValue]];
+	folderPath = [NSString stringWithFormat: @"%@/Attachments", basePath];
 	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
 	if (!folderExists) {
-		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Attachments", [saveDirectoryField stringValue]];
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Attachments", basePath];
 		result += system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
 	}
 
-	folderPath = [NSString stringWithFormat: @"%@/Licenses", [saveDirectoryField stringValue]];
+	folderPath = [NSString stringWithFormat: @"%@/Licenses", basePath];
 	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
 	if (!folderExists) {
-		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Licenses", [saveDirectoryField stringValue]];
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Licenses", basePath];
 		result += system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
 	}
-	folderPath = [NSString stringWithFormat: @"%@/Blacklist", [saveDirectoryField stringValue]];
+	folderPath = [NSString stringWithFormat: @"%@/Blacklist", basePath];
 	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
 	if (!folderExists) {
-		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Blacklist", [saveDirectoryField stringValue]];
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Blacklist", basePath];
 		result += system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
 	}
 	
-	if (result == 0) 
-		NSBeginInformationalAlertSheet(@"Storage folders",
-									   @"OK",
-									   nil,
-									   nil,
-									   [sender window],               // window sheet is attached to
-									   self,                   // we'll be our own delegate
-									   nil,
-									   nil,                   // no need for did-dismiss selector
-									   nil,
-									   @"The auxiliary folders Attachments, Licenses, and Blacklist exist at \n%@",
-									   [saveDirectoryField stringValue]
-									   );                   // no parameters in message
-	else {
-		NSBeginCriticalAlertSheet(@"Storage folders",
-									   @"OK",
-									   nil,
-									   nil,
-									   [sender window],               // window sheet is attached to
-									   self,                   // we'll be our own delegate
-									   nil,
-									   nil,                   // no need for did-dismiss selector
-									   nil,
-									   @"One of auxiliary folders Attachments, Licenses, or Blacklist has NOT been created at \n%@\n Check for correct permissions or other problems that may casue a failure to create folders.",
-									   [saveDirectoryField stringValue]
-									   );                   // no parameters in message
-		[saveDirectoryField setStringValue:@"ERROR! Folders not created"];
+//	if (result == 0) 
+//		NSBeginInformationalAlertSheet(@"Storage folders",
+//									   @"OK",
+//									   nil,
+//									   nil,
+//									   [sender window],               // window sheet is attached to
+//									   self,                   // we'll be our own delegate
+//									   nil,
+//									   nil,                   // no need for did-dismiss selector
+//									   nil,
+//									   @"The auxiliary folders Attachments, Licenses, and Blacklist exist at \n%@",
+//									   [[saveDirectoryPathControl URL] absoluteString]
+//									   );                   // no parameters in message
+//	else {
+//		NSBeginCriticalAlertSheet(@"Storage folders",
+//									   @"OK",
+//									   nil,
+//									   nil,
+//									   [sender window],               // window sheet is attached to
+//									   self,                   // we'll be our own delegate
+//									   nil,
+//									   nil,                   // no need for did-dismiss selector
+//									   nil,
+//									   @"One of auxiliary folders Attachments, Licenses, or Blacklist has NOT been created at \n%@\n Check for correct permissions or other problems that may casue a failure to create folders.",
+//								  [[saveDirectoryPathControl URL] absoluteString]
+//									   );                   // no parameters in message
+//		[saveDirectoryPathControl setURL:[NSURL URLWithString:@""]];
+//
+//	}
+//	return result == 0;
+	[fm release];
+}
 
+-(void)searchLicenses
+{
+	NSString *searchText = [searchLicenseField stringValue];
+	if ([searchText length]) {
+		[self searchForLicenses: searchText];
+	} else
+		[numberLicenses setStringValue: @"No licenses found"];	
+}
+
+- (void) enableLicensesTabButtons: (BOOL)state
+{
+	[mailButton setEnabled: state];
+	[blackListButton setEnabled: state];
+	[revealButton setEnabled: state];
+} 
+
+#pragma mark TabView Delegate Methods
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
+{
+	id tvi = [tabViewItem identifier];
+	if ([tvi integerValue] != 3) {
+		[infoDrawer close];
 	}
-	return result == 0;
-}
-
-- (IBAction)editSaveDirectory:(id)sender
-{
-	// Run the selection panel
-	NSOpenPanel *selectPanel = [NSOpenPanel openPanel];
-	[selectPanel setCanChooseFiles:NO];
-	[selectPanel setCanChooseDirectories:YES];
-	[selectPanel setCanCreateDirectories: YES];
-	[selectPanel setAllowsMultipleSelection:NO];
-	[selectPanel setPrompt:@"Select"];
-	[selectPanel setTitle:@"Select Directory"];
-	if ([selectPanel runModal] == NSFileHandlingPanelCancelButton)
-		return;
-	
-	NSString *saveFolder = [[selectPanel filenames] objectAtIndex:0];
-	[saveDirectoryField setStringValue:saveFolder];
-	
-	[self foldersExist: sender];
-//	APPKIT_EXTERN void NSBeginInformationalAlertSheet(NSString *title, 
-//													  NSString *defaultButton, 
-//													  NSString *alternateButton, 
-//													  NSString *otherButton, 
-//													  NSWindow *docWindow, 
-//													  id modalDelegate, 
-//													  SEL didEndSelector, 
-//													  SEL didDismissSelector, 
-//													  void *contextInfo, 
-//													  NSString *msgFormat, ...);
-}
-
-- (IBAction)sheetOK:(id)sender
-{
-	[NSApp endSheet:licenseExtensionSheet];
-    [licenseExtensionSheet orderOut:self];
-	
-	[licenseExtensionField setStringValue:[licenseExtensionEditField stringValue]];
-}
-
-- (IBAction)sheetCancel:(id)sender
-{
-	[NSApp endSheet:licenseExtensionSheet];
-    [licenseExtensionSheet orderOut:self];
-}
-
-- (IBAction)addKeyValue:(id)sender
-{
-	[keyArray addObject:@"New Key"];
-	[valueArray addObject:@"Undefined"];
-	
-	[keyValueTable reloadData];
-	
-	[generateLicenseButton setEnabled:YES];
-}
-
-- (IBAction)removeKeyValue:(id)sender
-{
-	if ([keyValueTable selectedRow] == -1)
-		return;
-	else
-		[keyValueTable deleteItemAtIndex:[keyValueTable selectedRow]];
 }
 
 #pragma mark TableView Delegate Methods
@@ -438,83 +620,269 @@
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView
 {
-	if ([keyArray count] <= [valueArray count])
-		return [keyArray count];
-	else
-		return [valueArray count];
+	NSInteger tableTag = [tableView tag];
+	switch (tableTag) {
+		case 11:
+			if ([keyArray count] <= [valueArray count])
+				return [keyArray count];
+			else
+				return [valueArray count];
+			break;
+			
+		case 12:
+			return [licenseArray count];
+			break;
+			
+		default:
+			return 0;
+			break;
+	}
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
 {
-    if ([[tableColumn identifier] isEqualToString:@"keyColumn"])
-		return [keyArray objectAtIndex:row];
-	else
-		return [valueArray objectAtIndex:row];
+	NSInteger tableTag = [tableView tag];
+	switch (tableTag) {
+		case 11:
+			if ([[tableColumn identifier] isEqualToString:@"keyColumn"])
+				return [keyArray objectAtIndex:row];
+			else
+				return [valueArray objectAtIndex:row];
+			break;
+			
+		case 12: {
+			LicenseFile *lFile = [licenseArray objectAtIndex:row];
+			return [lFile fileName];
+			break;
+		}
+			
+		default:
+			return 0;
+			break;
+	}
+
+	return nil;
 }
 
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row
 {
     if (!object)
 		return;
-		
-	if ([[tableColumn identifier] isEqualToString:@"keyColumn"] && [object isEqualToString:@"Signature"]) {
-		NSRunAlertPanel(@"Signature is a reserved key-value pair", @"Please choose another key name.", @"OK", nil, nil);
-		return;
+	NSInteger tableTag = [tableView tag];
+	switch (tableTag) {
+		case 11:
+			if ([[tableColumn identifier] isEqualToString:@"keyColumn"] && [object isEqualToString:@"Signature"]) {
+				NSRunAlertPanel(@"Signature is a reserved key-value pair", @"Please choose another key name.", @"OK", nil, nil);
+				return;
+			}
+			
+			if ([[tableColumn identifier] isEqualToString:@"keyColumn"])
+				[keyArray replaceObjectAtIndex:row withObject:object];
+			else {
+				NSString *key = [keyArray objectAtIndex:row];
+				NSRange r = [key rangeOfString:@"email" options: NSCaseInsensitiveSearch];
+				if (r.location == NSNotFound) { // key for this row does not contain "Email"
+					NSString *columnValue = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+					columnValue = [columnValue stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+					columnValue = [columnValue stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
+					[valueArray replaceObjectAtIndex:row withObject:columnValue];
+				} else {
+					PMMail *email = [PMMail initWithEmailAddress: object];
+					NSString *mailtoString = [email emailAddress];
+					[valueArray replaceObjectAtIndex:row withObject:mailtoString];
+				}
+			}
+			[keyValueTable reloadData];
+			break;
+			
+		case 12:
+			break;
+			
+		default:
+			break;
 	}
 	
-	if ([[tableColumn identifier] isEqualToString:@"keyColumn"])
-		[keyArray replaceObjectAtIndex:row withObject:object];
-	else
-		[valueArray replaceObjectAtIndex:row withObject:object];
-	
-	[keyValueTable reloadData];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-	if ([keyValueTable selectedRow] == -1)
-		[removeButton setEnabled:NO];
-	else
-		[removeButton setEnabled:YES];
+    NSTableView *nTV = [aNotification object];
+	NSInteger tableTag = [nTV tag];
+	switch (tableTag) {
+		case 11:
+            if ([keyValueTable selectedRow] == -1)
+                [removeProductButton setEnabled:NO];
+            else
+                [removeProductButton setEnabled:YES];
+			break;
+			
+		case 12: {
+            NSInteger selectedRow = [licenseTable selectedRow];
+            if (selectedRow != -1) {
+                [[InfoController sharedInstance] setLicense:[licenseArray objectAtIndex:selectedRow]];
+				[infoDrawer open];
+				[self enableLicensesTabButtons: YES];
+            } else {
+				[self enableLicensesTabButtons: NO];
+                [infoDrawer close];
+            }
+			break;
+        }
+		default:
+			break;
+	}
 }
 
-- (IBAction)emailLicense:(id)sender;
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
+	NSUInteger tableTag = aTableView.tag;
+	switch (tableTag) {
+		case 12: {
+			NSString *s = aTableColumn.identifier;
+			if ([s isEqualToString:@"licenseFile"]) {
+				LicenseFile *lFile = [licenseArray objectAtIndex:rowIndex];
+				if (![lFile isLicenseValid]) {
+					[aCell setTextColor: [NSColor redColor]];
+				} else
+					[aCell setTextColor: [NSColor blackColor]];
+			}
+			break;
+		}
+		default:
+			break;
+	}
+}
 
-	[self completeTableEntry];
-	
-	NSRange r;
-	NSString *subjectHeaderLine;
-	NSString *mailSubject = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailSubject"];
+#pragma mark Emailing
+- (NSString *) emailSubjectLine: (NSString *)product {
+  NSRange r;
+  NSString *subjectHeaderLine;
+  NSString *mailSubject = [productController emailFieldSubject];
 	if ([mailSubject length] != 0) {
 		r = [mailSubject rangeOfString:@"&P"];	// look for an &P for product name
 		if (r.location == NSNotFound) { // email textField does not want to use the product name
 			subjectHeaderLine = mailSubject;
 		} else {
-			subjectHeaderLine = [mailSubject stringByReplacingCharactersInRange:r withString:application];
+			subjectHeaderLine = [mailSubject stringByReplacingCharactersInRange:r withString:product];
 		}
 	} else {
-		subjectHeaderLine = [NSString stringWithFormat:@"%@ License", application];
+		subjectHeaderLine = [NSString stringWithFormat:@"%@ License", product];
 	}
-	
-	NSString *mailFrom = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailFromAddress"];
-	NSString *mailBCC = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailBCCAddress"];
+  return subjectHeaderLine;
+}
+
+- (void) emailLicenseFile: (LicenseFile *) licenseFile
+{
 	NSString *mailBBCTo = @"";
-	if ([mailBCC length] != 0)
-		mailBBCTo = [NSString stringWithFormat: @"-b \"%@\"", mailBCC];
+	NSString *emailFrom;
+	NSString *emailBCC;
+	NSString *subjectHeaderLine;
+	NSString *licenseTextFileName;
+	NSString *licenseImageFileName;
+	NSString *licenseOtherFileName;
 
-	NSString *licenseTextFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseTextFile"];
-	NSString *licenseImageFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseImageFile"];
-	NSString *licenseOtherFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"LicenseOtherFile"];
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSString *licenseProduct = [licenseFile licenseValidForProduct];
+	if ([licenseProduct isEqualToString: [productController currentProduct]]) {
+		subjectHeaderLine = [self emailSubjectLine: licenseProduct];
+		
+		emailBCC = [productController emailFieldBCC];
+		if ([emailBCC length] != 0)
+			mailBBCTo = [NSString stringWithFormat: @"-b \"%@\"", emailBCC];
+		
+		
+		emailFrom				= [productController emailFieldFrom];
+		licenseTextFileName = [productController emailLicenseTextFile];
+		licenseImageFileName = [productController emailLicenseImageFile];
+		licenseOtherFileName = [productController emailLicenseOtherFile];
+	} else {
+		[MainController playUISoundForBOOL: NO];
+		NSString * errorString = @"Please assign values for emailing in the Product Data tad";
+		//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
+		NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
+		return;
+	}
 
+
+	NSString *licenseSupport = [supportDir stringByAppendingFormat:@"/Licenses/%@", licenseProduct];
+	NSString *attachmentsPath = [NSString stringWithFormat: @"%@/Attachments/", licenseSupport, [licenseFile path]];
+
+	@try {
+		NSString *licenseTextFilePath = [attachmentsPath stringByAppendingString:licenseTextFileName];
+		BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
+		if (textFileExists) { // Have to have at least this one		
+			NSMutableArray *attachmentList = [NSMutableArray array]; 
+			
+			if ([licenseImageFileName length]) {
+				NSString *licenseImageFilePath = [attachmentsPath stringByAppendingString:licenseImageFileName];
+				BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
+				if (imageFileExists) {
+					NSData *imageData = [NSData dataWithContentsOfFile: licenseImageFilePath];
+					[attachmentList addObject:[EDObjectPair pairWithObjects:imageData:licenseImageFileName]]; 
+				}
+			}
+			
+			NSData *licenseFileData = [NSData dataWithContentsOfFile: [licenseFile fileNamePath]];
+			[attachmentList addObject:[EDObjectPair pairWithObjects:licenseFileData:[licenseFile fileName]]]; 
+			
+			if ([licenseOtherFileName length]) {
+				NSString *licenseOtherFilePath = [attachmentsPath stringByAppendingString:licenseOtherFileName];
+				BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
+				if (otherFileExists) {
+					NSData *otherData = [NSData dataWithContentsOfFile: licenseOtherFilePath];
+					[attachmentList addObject:[EDObjectPair pairWithObjects:otherData:licenseOtherFileName]]; 
+				}
+			}
+			
+			
+			NSMutableDictionary *headerFields = [NSMutableDictionary dictionary]; 
+			[headerFields setObject:emailFrom forKey:@"From"]; 
+			[headerFields setObject:[licenseFile HTo] forKey:@"To"]; 
+			[headerFields setObject:emailBCC forKey:@"BCC"]; 
+			[headerFields setObject:subjectHeaderLine forKey:@"Subject"];
+			
+			NSError *err;
+			NSString *bodyText = [NSString stringWithContentsOfFile:licenseTextFilePath encoding:NSUTF8StringEncoding error:&err];
+			
+			NSString *emailServer = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailServer"];
+			NSString *emailServerPort = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailServerPort"];
+			
+			@try {
+				id mailAgent = [EDMailAgent mailAgentForRelayHostWithName:emailServer port:[emailServerPort intValue]]; 
+				
+				[mailAgent sendMailWithHeaders:headerFields body:bodyText andAttachments:attachmentList];
+				[MainController playUISoundForBOOL: YES];
+			}
+			@catch (NSException * e) {
+				[MainController playUISoundForBOOL: NO];
+				NSString * errorString = [NSString stringWithFormat:@"An error has occured try to email the license file, please check all your settings.\n%@", [e reason]];
+				//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
+				NSRunAlertPanel(@"Could not mail license file", errorString, @"OK", nil, nil);
+			}	
+		}
+	}
+	@catch (NSException * e) {
+		[MainController playUISoundForBOOL: NO];
+		NSString * errorString = @"Please assign a text file for the eamil body in the preference panel";
+		//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
+		NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
+	}	
+}
+		
+- (IBAction)emailLicenseClick:(id)sender;
+{
+
+	[self completeTableEntry];
+	
+	NSRange r;
 	NSString *mailTo;
 	NSString *licenseName;
 	NSString *tvs = [licenseEmailField stringValue];
 	r = [tvs rangeOfString:@"@"];	// look for an @ in the email
 	if ([tvs length] != 0) {
 		if (r.location == NSNotFound) { // email textField does not have an address, look for emailAddressntainsObject:tvs];
-			id key = [keyArray containsObject:tvs];
-			if (key) {
+			BOOL keyResult = [keyArray containsObject:tvs];
+			if (keyResult) {
 				emailKey = tvs;
 				licenseName = mailTo = [valueArray objectAtIndex:[keyArray indexOfObject:tvs]];
 			} 
@@ -526,10 +894,9 @@
 	if ([mailTo length] != 0) {
 		// Do we have all the pieces
 		NSFileManager *fm = [NSFileManager defaultManager];
-		NSString *licenseFilePath;
 		NSString *licenseFileString;
-		NSString *textFileString;
-		licenseFilePath = [NSString stringWithFormat: @"%@/Licenses/%@.%@", [saveDirectoryField stringValue], licenseName, [licenseExtensionField stringValue]];
+		NSURL *licenseFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], licenseName, [licenseExtensionField stringValue]]];
+		NSString *licenseFilePath = [licenseFileURL path];
 		BOOL licenseFileExists = [fm isReadableFileAtPath: licenseFilePath];
 		if (!licenseFileExists) {
 			[self generateLicense:sender];
@@ -538,56 +905,10 @@
 		if (licenseFileExists) {
 			licenseFileString = [NSString stringWithFormat:@"\"%@\"", licenseFilePath];
 
-			NSString *licenseTextFilePath = [NSString stringWithFormat: @"%@/Attachments/%@", [saveDirectoryField stringValue], licenseTextFile];
-			BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
-
-			if (textFileExists) { // Have to have at least these two
-				textFileString = [NSString stringWithFormat:@"\"%@\"", licenseTextFilePath];
-
-				NSString *licenseImageFilePath = [NSString stringWithFormat: @"%@/Attachments/%@", [saveDirectoryField stringValue], licenseImageFile];
-				BOOL imageFileExists = [fm isReadableFileAtPath: licenseImageFilePath];
-				NSString *imageFileString;
-				if (imageFileExists) 
-					imageFileString = [NSString stringWithFormat:@"\"%@\"", licenseImageFilePath];
-				else
-					imageFileString = @"";
-			
-				NSString *licenseOtherFilePath = [NSString stringWithFormat: @"%@/Attachments/%@", [saveDirectoryField stringValue], licenseOtherFile];
-				BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
-				NSString *otherFileString;
-				if (otherFileExists) 
-					otherFileString = [NSString stringWithFormat:@"\"%@\"", licenseOtherFilePath];
-				else
-					otherFileString = @"";
-
-				NSBundle *mb = [NSBundle mainBundle];
-				NSString *ex = [mb executablePath];
-				NSMutableArray *muttComponents = [NSMutableArray arrayWithCapacity:1];
-				[muttComponents addObjectsFromArray:[ex pathComponents]];
-				[muttComponents removeLastObject];
-				[muttComponents addObject:@"mutt"];
-				NSString *muttFilePath = [NSString pathWithComponents:muttComponents];
-				NSString *mutt = [NSString stringWithFormat: @"\"%@\" -s \"%@\" %@ -a %@ %@ %@ -- %@ < %@", 
-								  muttFilePath,
-								  subjectHeaderLine, 
-								  mailBBCTo, 
-								  licenseFileString,
-								  otherFileString,
-								  imageFileString,
-								  mailTo, 
-								  textFileString
-								  ];
-				int result = system([mutt UTF8String]);
-				if (result) {
-					[MainController playUISoundForBOOL: NO];
-					NSLog(@"mutt: %x", result);
-				} else 
-					[MainController playUISoundForBOOL: YES];
-			} else {
-				NSString * errorString = @"Please assign a text file for the eamil body in the preference panel";
-				//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
-				NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
-			}
+			LicenseFile *licenseFile = [LicenseFile initWithPath:licenseFilePath];
+			[licenseFile setHTo:mailTo];
+			[self emailLicenseFile: licenseFile];
+			[licenseFile release];
 		} else {
 			NSString * errorString = @"Please assign at least one key-value pair in order to generate and email a license!";
 			NSRunAlertPanel(@"Could not create license file", errorString, @"OK", nil, nil);
@@ -595,25 +916,337 @@
 	}
 }
 
+#pragma mark IBActions
+- (IBAction)editSaveDirectory:(id)sender
+{
+	// Run the selection panel
+	NSOpenPanel *selectPanel = [NSOpenPanel openPanel];
+	[selectPanel setCanChooseFiles:NO];
+	[selectPanel setCanChooseDirectories:YES];
+	[selectPanel setCanCreateDirectories: YES];
+	[selectPanel setAllowsMultipleSelection:NO];
+	[selectPanel setPrompt:@"Select"];
+	[selectPanel setTitle:@"Select Directory"];
+	if ([selectPanel runModal] == NSFileHandlingPanelCancelButton)
+		return;
+	
+	NSString *saveFolder = [[selectPanel filenames] objectAtIndex:0];
+	[saveDirectoryPathControl setURL:[NSURL fileURLWithPath:saveFolder isDirectory:YES]];
+	
+	[self foldersExist: saveFolder];
+	//	APPKIT_EXTERN void NSBeginInformationalAlertSheet(NSString *title, 
+	//													  NSString *defaultButton, 
+	//													  NSString *alternateButton, 
+	//													  NSString *otherButton, 
+	//													  NSWindow *docWindow, 
+	//													  id modalDelegate, 
+	//													  SEL didEndSelector, 
+	//													  SEL didDismissSelector, 
+	//													  void *contextInfo, 
+	//													  NSString *msgFormat, ...);
+}
+
+- (IBAction)extensionSheetOK:(id)sender
+{
+	[NSApp endSheet:licenseExtensionSheet];
+    [licenseExtensionSheet orderOut:self];
+	NSString *extension = [[licenseExtensionEditField stringValue] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	[licenseExtensionField setStringValue:extension];
+}
+
+- (IBAction)extensionSheetCancel:(id)sender
+{
+	[NSApp endSheet:licenseExtensionSheet];
+    [licenseExtensionSheet orderOut:self];
+}
+
+- (IBAction)addKeyValue:(id)sender
+{
+	[keyArray addObject:@"New Key"];
+	[valueArray addObject:@"Undefined"];
+	
+	[keyValueTable reloadData];
+	
+	[generateLicenseButton setEnabled:YES];
+}
+
+- (IBAction)removeKeyValue:(id)sender
+{
+	if ([keyValueTable selectedRow] == -1)
+		return;
+	else
+		[keyValueTable deleteItemAtIndex:[keyValueTable selectedRow]];
+}
+
+- (IBAction)mailBtnClick:(id)sender
+{
+		NSInteger row = [licenseTable selectedRow];
+		if (row != -1) {
+			LicenseFile *license = [licenseArray objectAtIndex:row];
+			[self emailLicenseFile:license];
+			[license release];
+		}
+}
+
+- (IBAction)revealBtnClick:(id)sender
+{
+	NSInteger row = [licenseTable selectedRow];
+	if (row != -1) {
+		LicenseFile *license = [licenseArray objectAtIndex:row];
+		[license reveal];
+		[license release];
+	}
+	
+}
+
+- (IBAction)searchBtnClick:(id)sender
+{
+	[self searchLicenses];
+}
+
+- (IBAction)blacklistBtnCLick:(id)sender
+{
+	NSInteger row = [licenseTable selectedRow];
+	if (row != -1) {
+		LicenseFile *license = [licenseArray objectAtIndex:row];
+		[license blacklist: [self productBlackListPath: [license licenseValidForProduct]]];
+		[license release];
+		[self reloadLicenseArray];
+		[licenseTable reloadData];
+	}
+}
+
+- (IBAction)blacklistRadioClick:(id)sender
+{
+	[self reloadLicenseArray];
+	[licenseTable reloadData];
+}
+
+- (IBAction)restoreBtnClick:(id)sender 
+{
+    
+}
+
+#pragma mark SearchField
+// -------------------------------------------------------------------------------
+//	allKeywords:
+//
+//	This method builds our keyword array for use in type completion (dropdown list
+//	in NSSearchField).
+// -------------------------------------------------------------------------------
+- (NSArray *)allKeywords
+{
+    NSArray *array = [[[NSArray alloc] init] autorelease];
+    unsigned int i,count;
+	
+    if (allKeywords == nil)
+	{
+        allKeywords = [builtInKeywords mutableCopy];
+		
+        if (array != nil)
+		{
+            count = [array count];
+            for (i=0; i<count; i++)
+			{
+                if ([allKeywords indexOfObject:[array objectAtIndex:i]] == NSNotFound)
+                    [allKeywords addObject:[array objectAtIndex:i]];
+            }
+        }
+        [allKeywords sortUsingSelector:@selector(compare:)];
+    }
+    return allKeywords;
+}
+
+// -------------------------------------------------------------------------------
+//	control:textView:completions:forPartialWordRange:indexOfSelectedItem:
+//
+//	Use this method to override NSFieldEditor's default matches (which is a much bigger
+//	list of keywords).  By not implementing this method, you will then get back
+//	NSSearchField's default feature.
+// -------------------------------------------------------------------------------
+//- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words
+// forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int*)index
+//{
+//    NSMutableArray*	matches = NULL;
+//    NSString*		partialString;
+//    NSArray*		keywords;
+//    unsigned int	i,count;
+//    NSString*		string;
+//	
+//    partialString = [[textView string] substringWithRange:charRange];
+//    keywords      = [self allKeywords];
+//    count         = [keywords count];
+//    matches       = [NSMutableArray array];
+//	
+//    // find any match in our keyword array against what was typed -
+//	for (i=0; i< count; i++)
+//	{
+//        string = [keywords objectAtIndex:i];
+//        if ([string rangeOfString:partialString
+//						  options:NSAnchoredSearch | NSCaseInsensitiveSearch
+//							range:NSMakeRange(0, [string length])].location != NSNotFound)
+//		{
+//            [matches addObject:string];
+//        }
+//    }
+//    [matches sortUsingSelector:@selector(compare:)];
+//	
+//	return matches;
+//}
+
+//- (void)controlTextDidBeginEditing:(NSNotification *)aNotification
+//{
+//	
+//}
+// -------------------------------------------------------------------------------
+//	controlTextDidChange:
+//
+//	The text in NSSearchField has changed, try to attempt type completion.
+// -------------------------------------------------------------------------------
+//- (void)controlTextDidChange:(NSNotification *)obj
+//{
+//	NSTextView* textView = [[obj userInfo] objectForKey:@"NSFieldEditor"];
+//	
+//    if (!completePosting && !commandHandling)	// prevent calling "complete" too often
+//	{
+//        completePosting = YES;
+//        [textView complete:nil];
+//		NSString *searchText = [searchLicenseField stringValue];
+//		if ([searchText length]) {
+//			[self searchForLicenses: searchText];
+//		} else
+//			[numberLicenses setStringValue: @"No licenses found"];		
+//        completePosting = NO;
+//    }
+//	[licenseTable reloadData];
+//}
+
+// -------------------------------------------------------------------------------
+//	control:textView:commandSelector
+//
+//	Handle all commend selectors that we can handle here
+// -------------------------------------------------------------------------------
+//- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
+//{
+//    BOOL result = NO;
+//	
+//	if ([textView respondsToSelector:commandSelector])
+//	{
+//        commandHandling = YES;
+//        [textView performSelector:commandSelector withObject:nil];
+//        commandHandling = NO;
+//		
+//		result = YES;
+//    }
+//	
+//    return result;
+//}
+
 - (void)controlTextDidEndEditing:(NSNotification *)aNotification
 {
-	NSTextView * tv = [[aNotification userInfo] objectForKey: @"NSFieldEditor"];
-	NSString *tvs = [licenseEmailField stringValue];
-	NSRange r = [tvs rangeOfString:@"@"];	// look for an @ in the email
-	if ([tvs length] != 0) {
-		if (r.location == NSNotFound) { // email texemailAddressField does not have an address, look for a key
-			id key = [keyArray containsObject:tvs];
-			if (key) {
-				emailKey = tvs;
-				emailAddress = [valueArray objectAtIndex:[keyArray indexOfObject:tvs]];
-			} 
-		} else {
-			emailAddress = tvs;
+	NSTabViewItem *tab = [tabView selectedTabViewItem];
+	NSInteger tableTag = [[tab identifier] integerValue];
+	switch (tableTag) {
+		case 1: {
+            id n = [aNotification object];
+			NSInteger tagID = [n tag];
+			id tv = [[aNotification userInfo] objectForKey: @"NSFieldEditor"];
+			NSInteger selectedRow = [keyValueTable selectedRow];
+			NSInteger selectedCol = [keyValueTable selectedColumn];
+			NSInteger keyCol = [keyValueTable columnWithIdentifier:@"keyColumn"];
+			NSString * c = [n stringValue];
+			switch (tagID) {
+				case 1: {
+					NSString *tvs = [licenseEmailField stringValue];
+					NSRange r = [tvs rangeOfString:@"@"];	// look for an @ in the email
+					if ([tvs length] != 0) {
+						if (r.location == NSNotFound) { // email texemailAddressField does not have an address, look for a key
+							BOOL keyResult = [keyArray containsObject:tvs];
+							if (keyResult) {
+								emailKey = tvs;
+								emailAddress = [valueArray objectAtIndex:[keyArray indexOfObject:tvs]];
+							} 
+						} else {
+							emailAddress = tvs;
+						}
+						PMMail *email = [PMMail initWithEmailAddress: emailAddress];
+						emailAddress = [email emailAddress];
+						break;
+					}
+				}
+				case 11: {
+					if (selectedRow != -1) {
+						NSString *key = [keyArray objectAtIndex:selectedRow];
+						NSString *columnValue = [[tv string] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+						columnValue = [columnValue stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+						columnValue = [columnValue stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
+						
+						// Special check for the key named "Email"
+						if (selectedCol != keyCol) {
+							NSRange r = [key rangeOfString:@"email" options: NSCaseInsensitiveSearch];
+							
+							if (r.location == NSNotFound) { // key for this row does not contain "Email"
+								[valueArray replaceObjectAtIndex:selectedRow withObject:columnValue];
+							} else {
+								PMMail *email = [PMMail initWithEmailAddress: columnValue];
+								NSString *mailtoString = [email emailAddress];
+								emailAddress = mailtoString;
+								[valueArray replaceObjectAtIndex:selectedRow withObject:mailtoString];
+							}
+						} else
+							[valueArray replaceObjectAtIndex:selectedRow withObject:columnValue];
+					}
+					break;
+				}
+			
+				default:
+					break;
+			}
+			if ([emailAddress length])
+				[emailButton setEnabled:YES];
+			else
+				[emailButton setEnabled:NO];
+			break;
 		}
+			
+		case 3: {
+			NSTextView* textView = [[aNotification userInfo] objectForKey:@"NSFieldEditor"];
+            NSString* searchString = [[aNotification object] stringValue];
+            if ([searchString length] == 0)
+            {
+                if ([application length]) {
+                    NSString *productExtension = [licenseExtensionField stringValue];
+                    if ([productExtension length]) {
+                        [self reloadLicenses: productExtension];
+                    } else {
+                        [self reloadLicenses: @""];
+                    }				
+                }
+            }
+            else
+            {
+                [self searchLicenses];
+            }
+//			
+//			if (!completePosting && !commandHandling)	// prevent calling "complete" too often
+//			{
+//				completePosting = YES;
+//				[textView complete:nil];
+//				[licenseTable reloadData];
+//				completePosting = NO;
+//			}
+			break;
+		}
+		case 4:
+			break;
+			
+		default:
+			break;
 	}
-	if ([emailAddress length])
-		[emailButton setEnabled:YES];
-	else
-		[emailButton setEnabled:NO];
+	[keyValueTable reloadData];
 }
+
+
+#pragma TableView Actions
+
 @end

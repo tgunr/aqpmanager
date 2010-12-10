@@ -247,7 +247,12 @@
 	if (!licenseFile)
 		return NO;
 	
-	return [licenseFile writeToFile:path atomically:YES];
+    NSError *error = nil;
+	BOOL result = [licenseFile writeToFile:path options:NSAtomicWrite error:&error];
+    if (error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+    return result;
 }
 
 // This method only logs errors on developer problems, so don't expect to grab an error message if it's just an invalid license

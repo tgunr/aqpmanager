@@ -27,8 +27,11 @@
 #import "KeyController.h"
 #import "ProductController.h"
 #import "StatusController.h"
+#import "LicenseController.h"
 
 @implementation KeyController
+@synthesize mailFieldsForm;
+@synthesize mailFilesForm;
 
 #pragma mark Setup
 
@@ -65,7 +68,7 @@ static KeyController *sharedInstance = nil;
 
 + (KeyController *)sharedInstance
 {
-    return sharedInstance ? sharedInstance : [[self alloc] init];
+    return sharedInstance ? sharedInstance : [[[self alloc] init] autorelease];
 }
 
 #pragma mark Getting Keys
@@ -110,7 +113,7 @@ static KeyController *sharedInstance = nil;
 	int productIndex;
 	for (productIndex = 0; productIndex < [products count]; productIndex++)
 	{
-		NSString *productPath = [[@"~/Library/Application Support/Aquatic/Product Keys" stringByExpandingTildeInPath] 
+		NSString *productPath = [[@"~/Library/Application Support/AquaticPrime Manager/Product Keys" stringByExpandingTildeInPath] 
 								stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", [products objectAtIndex:productIndex]]];
 	
 		// Load the public key
@@ -128,10 +131,12 @@ static KeyController *sharedInstance = nil;
 {
 	if ([productController currentProduct]) {
 		[generateButton setEnabled:YES];
+		[saveButton setEnabled:YES];
 		[self loadKeysForProduct:[productController currentProduct]];
 	}
 	else {
 		[generateButton setEnabled:NO];
+		[saveButton setEnabled:NO];
 		[rsaKeyView setString:@""];
 		[publicKeyView setString:@""];
 		[privateKeyView setString:@""];
@@ -198,7 +203,8 @@ static KeyController *sharedInstance = nil;
 - (void)generateKeyForProduct:(NSString *)productName
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
+//	NSString *supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
+	NSString *supportDir = [[LicenseController sharedInstance] supportDir];
 	NSString *keyDir = [supportDir stringByAppendingString:@"/Product Keys"];
 	NSString *productPath = [keyDir stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", productName]];
 	NSString *warningString = [NSString stringWithFormat:
@@ -207,7 +213,7 @@ static KeyController *sharedInstance = nil;
 	[tabView selectLastTabViewItem:self];
 	
 	if ([fm fileExistsAtPath:productPath]) {
-		if (NSRunInformationalAlertPanel(warningString, @"The old product key will be erased.", @"OK", @"Cancel", nil) == NSAlertAlternateReturn)
+		if (NSRunInformationalAlertPanel(warningString, [NSString stringWithFormat:@"The old product key at %@ which currently exists will be erased. FOREVER!", productPath], @"OK", @"Cancel", nil) == NSAlertAlternateReturn)
 			return;
 		else
 			[fm movePath:productPath toPath:[productPath stringByAppendingString:@".old"] handler:nil];
@@ -223,7 +229,7 @@ static KeyController *sharedInstance = nil;
 	[self saveKeysForProduct:productName];
 	
 	// Notify about the new key
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"NewKeyGenerated" object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"NewKeyGenerated" object:productName];
 }
 
 #pragma mark Loading and Saving
@@ -232,8 +238,8 @@ static KeyController *sharedInstance = nil;
 - (BOOL)loadKeysForProduct:(NSString *)productName
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *productPath = [[@"~/Library/Application Support/Aquatic/Product Keys" stringByExpandingTildeInPath] 
-								stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", productName]];
+    NSString *supportDir = [[LicenseController sharedInstance] supportDir];
+	NSString *productPath = [supportDir stringByAppendingString:[NSString stringWithFormat:@"/Product Keys/%@.plist", productName]];
 
 	// Generate a key if it doesn't exist
 	if (![fm fileExistsAtPath:productPath]) {
@@ -245,6 +251,20 @@ static KeyController *sharedInstance = nil;
 	NSDictionary *keyDict = [NSDictionary dictionaryWithContentsOfFile:productPath];
 	NSData *pubData = [keyDict objectForKey:@"Public Key"];
 	NSData *privData = [keyDict objectForKey:@"Private Key"];
+	NSArray *mailFieldData = [keyDict objectForKey: @"MailFields"];
+	NSArray *mailFilesData = [keyDict objectForKey: @"MailFiles"];
+	NSUInteger i;
+	for (i = 0; i < 3; i++) {
+		NSString *field = [mailFieldData objectAtIndex:i];
+		NSCell *cell = [mailFieldsForm cellAtIndex:i];
+		[cell setStringValue: field];
+	}
+	
+	for (i = 0; i < 3; i++) {
+		NSString *file = [mailFilesData objectAtIndex:i];
+		NSCell *cell = [mailFilesForm cellAtIndex:i];
+		[cell setStringValue: file];
+	}
 	
 	if (rsaKey)
 		RSA_free(rsaKey);
@@ -262,7 +282,8 @@ static KeyController *sharedInstance = nil;
 - (BOOL)saveKeysForProduct:(NSString *)productName
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
+//	NSString *supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
+	NSString *supportDir = [[LicenseController sharedInstance] supportDir];
 	NSString *keyDir = [supportDir stringByAppendingString:@"/Product Keys"];
 	NSString *productPath = [keyDir stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", productName]];
 	BOOL isDir;
@@ -283,35 +304,27 @@ static KeyController *sharedInstance = nil;
 	pubData =  [NSData dataWithBytesNoCopy:pubBytes length:pubLength freeWhenDone:YES];
 	privData =  [NSData dataWithBytesNoCopy:privBytes length:privLength freeWhenDone:YES];
 	
+	// Create the mail objects
+	NSMutableArray *mailFieldData = [NSMutableArray arrayWithCapacity: 3];
+	NSUInteger i;
+	for (i = 0; i < 3; i++) {
+		NSCell *cell = [mailFieldsForm cellAtIndex:i];
+		[mailFieldData addObject: [cell stringValue]];
+	}
+	
+	NSMutableArray *mailFileData = [NSMutableArray arrayWithCapacity: 3];
+	for (i = 0; i < 3; i++) {
+		NSCell *cell = [mailFilesForm cellAtIndex:i];
+		[mailFileData addObject: [cell stringValue]];
+	}
+	
 	// Create the dictionary
-	NSDictionary *keyDict = [NSDictionary dictionaryWithObjectsAndKeys: pubData, @"Public Key", privData, @"Private Key", nil];
-	
-	// The ~/Library/Application Support/Aquatic/ folder doesn't exist yet
-	if (![fm fileExistsAtPath:supportDir isDirectory:&isDir])
-	{
-		// Create the ~/Library/Application Support/Aquatic/ directory
-		[fm createDirectoryAtPath:supportDir attributes:nil];
-	}
-	// The support path leads to a file! Bad!
-	else if (!isDir)
-	{
-		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create support directory.", supportDir], 
-						@"OK", nil, nil);
-		return NO;
-	}
-	
-	if  (![fm fileExistsAtPath:keyDir isDirectory:&isDir])
-	{
-		// Create the product key directory
-		[fm createDirectoryAtPath:keyDir attributes:nil];
-	}
-	// The key directory path leads to a file! Bad again!
-	else if (!isDir)
-	{
-		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create key storage directory.", keyDir], 
-						@"OK", nil, nil);
-		return NO;
-	}
+	NSDictionary *keyDict = [NSDictionary dictionaryWithObjectsAndKeys: 
+							 pubData, @"Public Key", 
+							 privData, @"Private Key", 
+							 mailFieldData, @"MailFields",
+							 mailFileData, @"MailFiles",
+							 nil];
 	
 	[keyDict writeToFile:productPath atomically:YES];
 	return YES;
@@ -328,7 +341,7 @@ static KeyController *sharedInstance = nil;
 	
 	NSString *exportPath = [savePanel filename];
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *productPath = [[NSString stringWithFormat:@"~/Library/Application Support/Aquatic/Product Keys/%@.plist", 
+	NSString *productPath = [[NSString stringWithFormat:@"~/Library/Application Support/AquaticPrime Manager/Product Keys/%@.plist", 
 															[productController currentProduct]] stringByExpandingTildeInPath];
 																																
 	[fm copyPath:productPath toPath:exportPath handler:nil];
@@ -355,11 +368,17 @@ static KeyController *sharedInstance = nil;
 	}
 	
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *productPath = [[NSString stringWithFormat:@"~/Library/Application Support/Aquatic/Product Keys/%@.plist", 
+	NSString *productPath = [[NSString stringWithFormat:@"~/Library/Application Support/AquaticPrime Manager/Product Keys/%@.plist", 
 															[keyPath lastPathComponent]] stringByExpandingTildeInPath];
 																																
 	[fm copyPath:keyPath toPath:productPath handler:nil];
 	[productController loadProducts];
+}
+
+- (IBAction)saveButtonClick: (id)sender 
+{
+	if ([productController currentProduct])
+		[self saveKeysForProduct:[productController currentProduct]];
 }
 
 @end

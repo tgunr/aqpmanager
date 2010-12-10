@@ -27,34 +27,71 @@
 #import <Cocoa/Cocoa.h>
 @class AQTableView;
 @class AquaticPrime;
+@class InfoController;
+@class LicenseFile;
 
 @interface LicenseController : NSObject
 {
+	IBOutlet NSTabView *tabView;
+	IBOutlet NSDrawer *infoDrawer;
+	
+	// Generate Licenses Tab
     IBOutlet AQTableView *keyValueTable;
-	IBOutlet NSButton *addButton;
-	IBOutlet NSButton *removeButton;
+	IBOutlet NSButton *addProductButton;
+	IBOutlet NSButton *removeProductButton;
 	IBOutlet NSButton *generateLicenseButton;
 	IBOutlet NSButton *editExtensionButton;
 	IBOutlet NSButton *editSaveDirectoryButton;
 	IBOutlet NSTextField *licenseExtensionField;
-	IBOutlet NSTextField *saveDirectoryField;
+	IBOutlet NSPathControl *saveDirectoryPathControl;
 	IBOutlet NSTextField *licenseExtensionEditField;
 	IBOutlet NSPanel *licenseExtensionSheet;
 	IBOutlet NSTextField *licenseEmailField;
 	IBOutlet NSButton *emailButton;
-	
+
+    // Licenses Tab
+	BOOL					completePosting;
+    BOOL					commandHandling;
+    BOOL					searching;
+	NSMutableArray			*allKeywords;
+	NSMutableArray			*builtInKeywords;
+
+    IBOutlet NSSearchField *searchLicenseField;
+    IBOutlet NSButton *searchLicenseBtn;
+    IBOutlet NSButton *narrowResultsBtn;
+    IBOutlet NSButton *blacklistRadioBtn;
+    IBOutlet NSTableView *licenseTable;
+    IBOutlet NSButton *mailButton;
+    IBOutlet NSButton *blackListButton;
+    IBOutlet NSButton *revealButton;
+	IBOutlet NSTextField *numberLicenses;
+		
 	NSMutableArray *keyArray;
 	NSMutableArray *valueArray;
+	NSMutableArray *licenseArray;
+	NSMutableArray *blackListArray;
+	
 	NSString *emailKey;
 	NSString *emailAddress;
 	NSString *application;
 	NSMutableDictionary *licenseDictionary;
 	AquaticPrime *licenseMaker;
 	
+	NSString *supportDir;
+	NSString *licenseDir;
+	
 	IBOutlet id keyController;
 	IBOutlet id statusController;
 	IBOutlet id productController;
+	IBOutlet id infoController;
+	IBOutlet NSArrayController *licenseArrayController;
+
 }
+
+@property (retain) 	NSString *supportDir;
+@property (retain) 	NSString *licenseDir;
+
++ (LicenseController *)sharedInstance;
 
 - (IBAction)generateLicense:(id)sender;
 - (void)saveLicenseTemplate:(id)table;
@@ -62,7 +99,28 @@
 - (void)newProductSelected;
 - (IBAction)editLicenseExtension:(id)sender;
 - (IBAction)editSaveDirectory:(id)sender;
-- (IBAction)emailLicense:(id)sender;
-  
+- (IBAction)emailLicenseClick:(id)sender;
+- (IBAction)mailBtnClick:(id)sender;
+- (IBAction)revealBtnClick:(id)sender;
+- (IBAction)searchBtnClick:(id)sender;
+- (IBAction)blacklistBtnCLick:(id)sender;
+- (IBAction)blacklistRadioClick:(id)sender;
+- (IBAction)restoreBtnClick:(id)sender;
+
+- (IBAction)addKeyValue:(id)sender;
+- (IBAction)removeKeyValue:(id)sender;
+
+- (IBAction)extensionSheetOK:(id)sender;
+- (IBAction)extensionSheetCancel:(id)sender;
+
+- (void)reloadLicenses: (NSString *)extension;
+- (void)reloadLicenseArray;
+- (void) enableLicensesTabButtons: (BOOL)state;
+
+- (NSString *)productPath: (NSString *)product;
+- (NSString *)productBlackListPath: (NSString *)product;
+- (NSString *)prodAttachmentsPath: (NSString *)product;
+- (NSString *)prodLicensesPath: (NSString *)product;
+
 @end
 

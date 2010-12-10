@@ -10,6 +10,7 @@
 
 
 @implementation PreferencesController
+@synthesize emailAccounts;
 
 static PreferencesController *shared;
 
@@ -41,6 +42,12 @@ static PreferencesController *shared;
 	
 	[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forKeyPath:@"values.SULastCheckTime" options:0 context:NULL];
 	
+	// Find Email accounts
+	NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(																   NSLibraryDirectory, NSUserDomainMask, YES);
+	NSString *libraryPath = [searchPaths objectAtIndex:0];
+	NSString *mailPrefsPath = [[libraryPath stringByAppendingPathComponent:@"Preferences"] stringByAppendingPathComponent:@"com.apple.mail.plist"];
+	NSDictionary *mailPreferences = [NSDictionary dictionaryWithContentsOfFile:mailPrefsPath];
+	emailAccounts = [mailPreferences valueForKey:@"DeliveryAccounts"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -84,6 +91,7 @@ static PreferencesController *shared;
 	
 	return outToolbarItem;
 }
+
 
 - (IBAction)runPreferences:(id)sender
 {
@@ -160,6 +168,41 @@ static PreferencesController *shared;
 	CFURLRef	launchURL;
 	
 	LSOpenCFURLRef( feedbackURL, &launchURL );
+    CFRelease(feedbackURL);
+}
+
+#pragma mark Table Delegates
+- (int)numberOfRowsInTableView:(NSTableView *)tableView
+{
+	return [emailAccounts count];
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
+{
+	NSString *account = [[emailAccounts objectAtIndex:row] valueForKey:@"Hostname"];
+	return account;
+}
+
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row
+{
+
+	
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
+{
+	NSInteger selectedRow = [accountsTable selectedRow];
+	if (selectedRow != -1) {
+		NSString *account = [[emailAccounts objectAtIndex:selectedRow] valueForKey:@"Hostname"];
+		[hostName setStringValue:account];
+		NSString *port = [[emailAccounts objectAtIndex:selectedRow] valueForKey:@"PortNumber"];
+		if ([port length]) {
+			[hostPort setStringValue:port];
+		} else
+			[hostPort setStringValue:@"25"];
+		[[NSUserDefaults standardUserDefaults] setObject: account forKey: @"MailServer"];
+		[[NSUserDefaults standardUserDefaults] setObject: port	forKey: @"MailPort"];
+	}
 }
 
 @end

@@ -9,7 +9,7 @@
 	<key>CFBundleGetInfoString</key>
 	<string>${VERSION_NUMBER}</string>
 	<key>CFBundleIconFile</key>
-	<string>badge</string>
+	<string>aqpmanager</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.polymicrosystems.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
-	<string>aqtp</string>
+	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>${BUILD_NUMBER}</string>
 	<key>CFBundleShortVersionString</key>

@@ -27,20 +27,32 @@
 #import "InfoController.h"
 #import "KeyController.h"
 #import "AquaticPrime.h"
+#import "LicenseFile.h"
 
 @implementation InfoController
 
+static InfoController *sharedInstance = nil;
+
 - (id)init
 {
+	if (sharedInstance) {
+        [self dealloc];
+    } else {
+        sharedInstance = [super init];
+    }	
 	self = [super initWithWindowNibName:@"LicenseInfo"];
-	return self;
+	return sharedInstance;
 }
+
++ (InfoController *)sharedInstance
+{
+    return sharedInstance ? sharedInstance : [[[self alloc] init] autorelease];
+}
+
 
 - (void)awakeFromNib
 {
-	keyInfoArray = [[NSMutableArray alloc] init];
-	valueInfoArray = [[NSMutableArray alloc] init];
-	
+	licenseFile = [[LicenseFile alloc] init];
 	[[self window] registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
 }
 
@@ -57,10 +69,6 @@
 {
 }
 
-- (void)draggingEntered:(id <NSDraggingInfo>)sender
-{
-}
-
 - (void)draggingExited:(id <NSDraggingInfo>)sender
 {
 }
@@ -68,6 +76,26 @@
 - (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
 {
 	return YES;
+}
+
+- (void)setLicense:(LicenseFile *)license
+{
+    if (licenseFile)
+        [licenseFile release];
+    licenseFile = [license retain];
+	[licenseWindow setTitle:[license fileName]];
+	NSString *valid = [licenseFile isLicenseValid] ? [NSString stringWithFormat:@"This license is valid for %@", [licenseFile licenseValidForProduct]] 
+    : @"This license is invalid";
+	[licenseValidField setStringValue:valid];
+	if (![licenseFile isLicenseValid]) {
+		[licenseValidField setTextColor: [NSColor redColor]];
+	} else {
+		NSColor *aColor = [NSColor colorWithCalibratedRed:0.165 green:0.502 blue:0.216 alpha:1.000];
+		[licenseValidField setTextColor: aColor];
+	}
+
+	[hashField setStringValue:[NSString stringWithFormat:@"License Hash: %@", [licenseFile hash]]]; 
+    [keyValueInfoTable reloadData];
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
@@ -78,75 +106,31 @@
 		return NO;
 	
 	NSString *licensePath = [filenames objectAtIndex:0];
-	if (![self readLicenseAtPath:licensePath])
+	if (![licenseFile readLicenseAtPath:licensePath])
 		return NO;
 	
 	[licenseWindow setTitle:[licensePath lastPathComponent]];
-	NSString *valid = isLicenseValid ? [NSString stringWithFormat:@"This license is valid for %@", licenseValidForProduct] 
+	NSString *valid = [licenseFile isLicenseValid] ? [NSString stringWithFormat:@"This license is valid for %@", [licenseFile licenseValidForProduct]] 
 									 : @"This license is invalid";
 	[licenseValidField setStringValue:valid];
-	[hashField setStringValue:[NSString stringWithFormat:@"License Hash: %@", hash]]; 
+	[hashField setStringValue:[NSString stringWithFormat:@"License Hash: %@", [licenseFile hash]]]; 
 	[[self window] setContentView:licenseInfoView];
 	
 	return YES;
 }
 
-- (BOOL)readLicenseAtPath:(NSString*)licensePath
-{	
-	NSDictionary *licenseDictionary;
-	
-	// If it doesn't have a signature, don't accept the drop
-	if (![[NSDictionary dictionaryWithContentsOfFile:licensePath] objectForKey:@"Signature"])
-		return NO;
-	
-	// Grab all the product keys that we have
-	NSDictionary *productKeyDictionary = [[KeyController sharedInstance] allPublicKeys];
-	NSArray *productArray = [productKeyDictionary allKeys];
-	
-	// Determine if the license is valid for any of the products
-	int productIndex;
-	for (productIndex = 0; productIndex < [productArray count]; productIndex++)
-	{
-		NSString *currentProduct = [productArray objectAtIndex:productIndex];
-		NSData *publicKey = [productKeyDictionary objectForKey:currentProduct];
-		NSMutableString *publicKeyString = [NSMutableString stringWithString:[publicKey description]];
-		[publicKeyString replaceOccurrencesOfString:@" " withString:@"" options:nil range:NSMakeRange(0, [publicKeyString length])];
-		[publicKeyString replaceOccurrencesOfString:@"<" withString:@"" options:nil range:NSMakeRange(0, [publicKeyString length])];
-		[publicKeyString replaceOccurrencesOfString:@">" withString:@"" options:nil range:NSMakeRange(0, [publicKeyString length])];
-		
-		AquaticPrime *licenseChecker = [AquaticPrime aquaticPrimeWithKey:[NSString stringWithFormat:@"0x%@", publicKeyString]];
-		licenseDictionary = [licenseChecker dictionaryForLicenseFile:licensePath];
-		
-		if (licenseDictionary) {
-			keyInfoArray = [[licenseDictionary allKeys] retain];
-			valueInfoArray = [[licenseDictionary allValues] retain];
-			hash = (NSString *)[licenseChecker hash];
-			isLicenseValid = YES;
-			licenseValidForProduct = [currentProduct retain];
-			return YES;
-		}
-	}
-	
-	// At this point, the license is invalid, but we show the key-value pairs anyway
-	NSMutableDictionary *badLicenseDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:licensePath];
-	[badLicenseDictionary removeObjectForKey:@"Signature"];
-	keyInfoArray = [[NSMutableArray arrayWithArray:[badLicenseDictionary allKeys]] retain];
-	valueInfoArray = [[NSMutableArray arrayWithArray:[badLicenseDictionary allValues]] retain];
-	
-	return YES;
-}
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView
 {
-	return [keyInfoArray count];
+	return [[licenseFile keyInfoArray] count];
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
 {
     if ([[tableColumn identifier] isEqualToString:@"keyInfoColumn"])
-		return [keyInfoArray objectAtIndex:row];
+		return [[licenseFile keyInfoArray] objectAtIndex:row];
 	else
-		return [valueInfoArray objectAtIndex:row];
+		return [[licenseFile valueInfoArray] objectAtIndex:row];
 }
 
 @end

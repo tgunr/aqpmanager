@@ -26,9 +26,12 @@
 
 #import "ProductController.h"
 #import "KeyController.h"
+#import "LicenseController.h"
 #import "AQTableView.h"
 
 @implementation ProductController
+
+@synthesize productArray;
 
 #pragma mark Init
 
@@ -47,8 +50,82 @@
 	[super dealloc];
 }
 
+- (void)createSupportDir
+{
+	NSString *mySupportDir = [licenseController supportDir];
+	NSString *oldAquaticDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
+	NSString *keyDir = [mySupportDir stringByAppendingString:@"/Product Keys"];
+//	NSString *licensesDir = [mySupportDir stringByAppendingString:@"/Licenses"];
+	NSString *generatedDir = [mySupportDir stringByAppendingString:@"/Generated Licenses"];
+	NSString *templatesDir = [mySupportDir stringByAppendingString:@"/License Templates"];
+	
+	BOOL isDir;
+	NSFileManager *fm = [NSFileManager defaultManager];
+
+	if (![fm fileExistsAtPath:mySupportDir isDirectory:&isDir]) {
+		[fm createDirectoryAtPath:mySupportDir attributes:nil];
+		// First see if old Aquatic folder exists, if so ask to move it's content over to new folder
+		// Only do this one time at this point so there are no conflicts when moving
+		if ([fm fileExistsAtPath:oldAquaticDir isDirectory:&isDir])
+			if (isDir) {
+				NSInteger result = NSRunAlertPanel(@"Aquatic Folder Exists", [NSString stringWithFormat:@"%@ already exists as a folder. Would you like to move the contents to %@", oldAquaticDir, mySupportDir], 
+												   @"Yes", @"No", nil);
+				if (result == 1) {
+					NSDirectoryEnumerator *pathEnum = [[NSFileManager defaultManager] enumeratorAtPath:oldAquaticDir];
+					NSString *curPath;
+					BOOL moved = YES;
+					if(pathEnum) {
+						while ((curPath = [pathEnum nextObject])) {
+							NSString *source = [NSString stringWithFormat:@"%@/%@", oldAquaticDir, curPath];
+							NSString *dest = [NSString stringWithFormat:@"%@/%@", mySupportDir, curPath];
+							moved &= [fm movePath:source toPath:dest handler: nil];
+						}
+						if (moved) {
+							NSRunAlertPanel(@"Aquatic Folder Transferred", 
+											[NSString stringWithFormat:@"All files in %@ have been moved to %@ and the folder has been deleted", oldAquaticDir, mySupportDir], 
+											@"Ok", nil, nil);
+							[fm removeFileAtPath: oldAquaticDir handler: nil];
+						}
+						else 
+							NSRunAlertPanel(@"Aquatic Folder Error", 
+											[NSString stringWithFormat:@"A problem occured while moving files from %@ to %@. Please check the content manually and correct any files not moved.", oldAquaticDir, mySupportDir], 
+											@"Ok", nil, nil);
+					}
+				}
+			}
+	}
+	else if (!isDir) // The support path leads to a file! Bad!
+		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create support directory.", mySupportDir], 
+						@"OK", nil, nil);
+
+	if  (![fm fileExistsAtPath:keyDir isDirectory:&isDir])
+		[fm createDirectoryAtPath:keyDir attributes:nil];
+	else if (!isDir) // The key directory path leads to a file! Bad again!
+		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create key storage directory.", keyDir], 
+						@"OK", nil, nil);
+
+//	if  (![fm fileExistsAtPath:licensesDir isDirectory:&isDir])
+//		[fm createDirectoryAtPath:licensesDir attributes:nil];
+//	else if (!isDir) // The key directory path leads to a file! Bad again!
+//		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create key storage directory.", licensesDir], 
+//						@"OK", nil, nil);
+
+	if  (![fm fileExistsAtPath:generatedDir isDirectory:&isDir])
+		[fm createDirectoryAtPath:generatedDir attributes:nil];
+	else if (!isDir) // The key directory path leads to a file! Bad again!
+		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create key storage directory.", generatedDir], 
+						@"OK", nil, nil);
+
+	if  (![fm fileExistsAtPath:templatesDir isDirectory:&isDir])
+		[fm createDirectoryAtPath:templatesDir attributes:nil];
+	else if (!isDir) // The key directory path leads to a file! Bad again!
+		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create key storage directory.", templatesDir], 
+						@"OK", nil, nil);
+}
+
 - (void)awakeFromNib
 {
+	[self createSupportDir];
 	[self loadProducts];
 }
 
@@ -62,16 +139,49 @@
 	return YES;
 }
 
+#pragma mark Email Values
+- (NSString *)emailFieldSubject {
+	NSString *result = [[[keyController mailFieldsForm] cellAtIndex:0] stringValue];
+	return result;
+}
+
+- (NSString *)emailFieldFrom {
+	NSString *result = [[[keyController mailFieldsForm] cellAtIndex:1] stringValue];
+	return result;
+}
+
+- (NSString *)emailFieldBCC {
+	NSString *result = [[[keyController mailFieldsForm] cellAtIndex:2] stringValue];
+	return result;
+}
+
+- (NSString *)emailLicenseTextFile {
+	NSString *result = [[[keyController mailFilesForm] cellAtIndex:0] stringValue];
+	return result;
+}
+
+- (NSString *)emailLicenseImageFile {
+	NSString *result = [[[keyController mailFilesForm] cellAtIndex:1] stringValue];
+	return result;
+}
+
+- (NSString *)emailLicenseOtherFile {
+	NSString *result = [[[keyController mailFilesForm] cellAtIndex:2] stringValue];
+	return result;
+}
+
+
+#pragma mark Load Project
 - (IBAction)saveProducts:(id)sender
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"ProductWillBeSelected" object:productTable];
 }
 
-#pragma mark Load Project
 
 - (void)loadProducts
 {
-	NSString *keyDir = [@"~/Library/Application Support/Aquatic/Product Keys" stringByExpandingTildeInPath];
+	NSString *mySupportDir = [licenseController supportDir];
+	NSString *keyDir = [mySupportDir stringByAppendingString:@"/Product Keys"];
 	NSString *curPath;
 	NSMutableArray *possibleproductArray = [NSMutableArray array];
 	NSDirectoryEnumerator *pathEnum = [[NSFileManager defaultManager] enumeratorAtPath:keyDir];
@@ -103,10 +213,10 @@
 	
 	if ([productArray count]) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"ProductSelected" object:nil];
-		[removeButton setEnabled:YES];
+		[removeProductButton setEnabled:YES];
 	} 
 	else {
-		[removeButton setEnabled:NO];
+		[removeProductButton setEnabled:NO];
 	}
 }
 
@@ -136,10 +246,10 @@
 	while ([productArray containsObject:[oldProduct stringByAppendingString:copy]])
 		copy = [NSString stringWithFormat:@" Copy %i", i++];
 		
-	NSString *oldTemplateProductPath = [[@"~/Library/Application Support/Aquatic/License Templates" stringByExpandingTildeInPath] stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", oldProduct]];
-	NSString *newTemplateProductPath = [[@"~/Library/Application Support/Aquatic/License Templates" stringByExpandingTildeInPath] stringByAppendingString:[NSString stringWithFormat:@"/%@%@.plist", oldProduct, copy]];
-	NSString *oldKeyProductPath = [[@"~/Library/Application Support/Aquatic/Product Keys" stringByExpandingTildeInPath] stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", oldProduct]];
-	NSString *newKeyProductPath = [[@"~/Library/Application Support/Aquatic/Product Keys" stringByExpandingTildeInPath] stringByAppendingString:[NSString stringWithFormat:@"/%@%@.plist", oldProduct, copy]];
+	NSString *oldTemplateProductPath = [[@"~/Library/Application Support/AquaticPrime Manager/License Templates" stringByExpandingTildeInPath] stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", oldProduct]];
+	NSString *newTemplateProductPath = [[@"~/Library/Application Support/AquaticPrime Manager/License Templates" stringByExpandingTildeInPath] stringByAppendingString:[NSString stringWithFormat:@"/%@%@.plist", oldProduct, copy]];
+	NSString *oldKeyProductPath = [[@"~/Library/Application Support/AquaticPrime Manager/Product Keys" stringByExpandingTildeInPath] stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", oldProduct]];
+	NSString *newKeyProductPath = [[@"~/Library/Application Support/AquaticPrime Manager/Product Keys" stringByExpandingTildeInPath] stringByAppendingString:[NSString stringWithFormat:@"/%@%@.plist", oldProduct, copy]];
 
 	[fm copyPath:oldTemplateProductPath toPath:newTemplateProductPath handler:nil];
 	[fm copyPath:oldKeyProductPath toPath:newKeyProductPath handler:nil];
@@ -157,7 +267,7 @@
 	[NSApp endSheet:newProductSheet];
     [newProductSheet orderOut:self];
 	
-	NSString *productName = [nameField stringValue];
+	NSString *productName = [[nameField stringValue] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
 	if ([productName isEqualToString:@""])
 		return;
@@ -165,8 +275,10 @@
 	[keyController generateKeyForProduct:productName];
 	if ([productArray count]) {
 		[productTable selectRowIndexes:[NSIndexSet indexSetWithIndex:[productArray indexOfObject:productName]] byExtendingSelection:NO];
-		[removeButton setEnabled:YES];
+		[removeProductButton setEnabled:YES];
 	}
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"NewProductCreated" object:productName];
+
 }
 
 - (IBAction)sheetCancel:(id)sender
@@ -184,7 +296,7 @@
 		[productTable deleteItemAtIndex:[productTable selectedRow]];
 	
 	if (![productArray count])
-		[removeButton setEnabled:NO];
+		[removeProductButton setEnabled:NO];
 }
 
 #pragma mark Product Names
@@ -222,15 +334,21 @@
 - (void)deleteItemAtIndex:(int)index
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
+	NSString *supportDir = [licenseController supportDir];
 	NSString *product = [self productAtIndex:index];
+	NSError *err;
+	BOOL isDir;
 	
 	if (NSRunAlertPanel([NSString stringWithFormat:@"Are you sure you want to delete %@?", product],
 						@"This cannot be undone.", @"OK", @"Cancel", nil) == NSAlertAlternateReturn)
 		return;
-	
+	NSString *productPath = [licenseController productPath: product];
+	if ([fm fileExistsAtPath:productPath isDirectory:&isDir]) {
+		[fm removeItemAtPath:productPath error:&err];
+	}	
 	[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/Product Keys/%@.plist", product]] handler:nil];
 	[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/License Templates/%@.plist", product]] handler:nil];
+
 	[productArray removeObjectAtIndex:index];
 		
 	[productTable reloadData];
@@ -267,16 +385,16 @@
 	
 	// Move the keys to the new path
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *oldProductPath = [[@"~/Library/Application Support/Aquatic/Product Keys" stringByExpandingTildeInPath] 
+	NSString *oldProductPath = [[@"~/Library/Application Support/AquaticPrime Manager/Product Keys" stringByExpandingTildeInPath] 
 							stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", [productArray objectAtIndex:row]]];
 
-	NSString *newProductPath = [[@"~/Library/Application Support/Aquatic/Product Keys" stringByExpandingTildeInPath] 
+	NSString *newProductPath = [[@"~/Library/Application Support/AquaticPrime Manager/Product Keys" stringByExpandingTildeInPath] 
 							stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", object]];
 	
-	NSString *oldTemplateProductPath = [[@"~/Library/Application Support/Aquatic/License Templates" stringByExpandingTildeInPath] 
+	NSString *oldTemplateProductPath = [[@"~/Library/Application Support/AquaticPrime Manager/License Templates" stringByExpandingTildeInPath] 
 										stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", [productArray objectAtIndex:row]]];
 
-	NSString *newTemplateProductPath = [[@"~/Library/Application Support/Aquatic/License Templates" stringByExpandingTildeInPath] 
+	NSString *newTemplateProductPath = [[@"~/Library/Application Support/AquaticPrime Manager/License Templates" stringByExpandingTildeInPath] 
 										stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", object]];
 							
 	[fm movePath:oldProductPath toPath:newProductPath handler:nil];

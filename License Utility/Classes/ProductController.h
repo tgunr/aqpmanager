@@ -32,7 +32,7 @@
     IBOutlet OAGradientTableView *productTable;
 	IBOutlet NSButton *cancelButton;
 	IBOutlet NSButton *saveButton;
-	IBOutlet NSButton *removeButton;
+	IBOutlet NSButton *removeProductButton;
 	IBOutlet NSWindow *mainWindow;
 	IBOutlet NSWindow *newProductSheet;
 	IBOutlet NSTextField *nameField;
@@ -41,13 +41,27 @@
 	NSMutableArray *productArray;
 	
 	IBOutlet id keyController;
+	IBOutlet id licenseController;
 }
+@property (retain) 	NSMutableArray *productArray;
 
 - (void)loadProducts;
 - (IBAction)addNewProduct:(id)sender;
 - (IBAction)removeProduct:(id)sender;
+- (IBAction)sheetOK:(id)sender;
+- (IBAction)sheetCancel:(id)sender;
+
 - (NSString *)currentProduct;
 - (NSString *)productAtIndex:(int)index;
 - (NSArray*)allProducts;
+
+- (NSString *)emailFieldSubject;
+- (NSString *)emailFieldFrom;
+- (NSString *)emailFieldBCC;
+- (NSString *)emailLicenseTextFile;
+- (NSString *)emailLicenseImageFile;
+- (NSString *)emailLicenseOtherFile;
+
+- (void)createSupportDir;
 
 @end

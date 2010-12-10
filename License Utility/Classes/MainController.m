@@ -115,7 +115,7 @@ static MainController *shared;
 {
 	NSMutableDictionary*	defaultPrefs = [NSMutableDictionary dictionaryWithCapacity:0];
 	NSNumber*				boolTRUE = [NSNumber numberWithInt:1];
-	NSNumber*				boolFALSE = [NSNumber numberWithInt:0];
+//	NSNumber*				boolFALSE = [NSNumber numberWithInt:0];
 	NSString*				prefsVersion = [NSString stringWithCString:PREFS_VERSION encoding:NSUTF8StringEncoding];
 	NSString*				currentVersion = nil;
 	BOOL					needsUpdate = NO;
