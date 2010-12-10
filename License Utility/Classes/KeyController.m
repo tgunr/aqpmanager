@@ -203,7 +203,8 @@ static KeyController *sharedInstance = nil;
 - (void)generateKeyForProduct:(NSString *)productName
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
+//	NSString *supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
+	NSString *supportDir = [[LicenseController sharedInstance] supportDir];
 	NSString *keyDir = [supportDir stringByAppendingString:@"/Product Keys"];
 	NSString *productPath = [keyDir stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", productName]];
 	NSString *warningString = [NSString stringWithFormat:
@@ -212,7 +213,7 @@ static KeyController *sharedInstance = nil;
 	[tabView selectLastTabViewItem:self];
 	
 	if ([fm fileExistsAtPath:productPath]) {
-		if (NSRunInformationalAlertPanel(warningString, @"The old product key will be erased. FOREVER!", @"OK", @"Cancel", nil) == NSAlertAlternateReturn)
+		if (NSRunInformationalAlertPanel(warningString, [NSString stringWithFormat:@"The old product key at %@ which currently exists will be erased. FOREVER!", productPath], @"OK", @"Cancel", nil) == NSAlertAlternateReturn)
 			return;
 		else
 			[fm movePath:productPath toPath:[productPath stringByAppendingString:@".old"] handler:nil];
@@ -281,7 +282,8 @@ static KeyController *sharedInstance = nil;
 - (BOOL)saveKeysForProduct:(NSString *)productName
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
+//	NSString *supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
+	NSString *supportDir = [[LicenseController sharedInstance] supportDir];
 	NSString *keyDir = [supportDir stringByAppendingString:@"/Product Keys"];
 	NSString *productPath = [keyDir stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", productName]];
 	BOOL isDir;

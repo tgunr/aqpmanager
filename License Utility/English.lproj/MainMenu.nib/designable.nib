@@ -13,6 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="825"/>
+			<integer value="486"/>
 			<integer value="268"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -565,7 +566,7 @@
 				<string key="NSWindowContentMaxSize">{444, 103}</string>
 				<string key="NSWindowContentMinSize">{443, 5}</string>
 				<object class="NSView" key="NSWindowView" id="284015560">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -574,6 +575,7 @@
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{17, 63}, {123, 16}}</string>
 							<reference key="NSSuperview" ref="284015560"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="495537421"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="927831215">
@@ -611,6 +613,7 @@
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{148, 61}, {279, 22}}</string>
 							<reference key="NSSuperview" ref="284015560"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="343476601"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="613077507">
@@ -646,6 +649,7 @@
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{351, 13}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="284015560"/>
+							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="81875332">
 								<int key="NSCellFlags">67239424</int>
@@ -667,6 +671,7 @@
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{269, 13}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="284015560"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="367835263"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="67416660">
@@ -688,6 +693,8 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{447, 103}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="135349417"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
@@ -718,7 +725,6 @@
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{174, 58}, {184, 22}}</string>
 							<reference key="NSSuperview" ref="66123761"/>
-							<reference key="NSNextKeyView" ref="460031246"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="498630812">
 								<int key="NSCellFlags">-1804468671</int>
@@ -736,7 +742,6 @@
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{17, 59}, {143, 17}}</string>
 							<reference key="NSSuperview" ref="66123761"/>
-							<reference key="NSNextKeyView" ref="675262523"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="981087482">
 								<int key="NSCellFlags">67239424</int>
@@ -774,7 +779,6 @@
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{200, 10}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="66123761"/>
-							<reference key="NSNextKeyView" ref="1009768312"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="448867707">
 								<int key="NSCellFlags">67239424</int>
@@ -795,7 +799,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{378, 100}</string>
-					<reference key="NSNextKeyView" ref="935912020"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{381, 121}</string>
@@ -2355,7 +2358,7 @@
 																	<int key="NSCellFlags2">4194368</int>
 																	<string key="NSContents"/>
 																	<reference key="NSSupport" ref="768045189"/>
-																	<string key="NSPlaceholderString">email or Key</string>
+																	<string key="NSPlaceholderString">user@email.com or Key</string>
 																	<reference key="NSControlView" ref="478242839"/>
 																	<bool key="NSDrawsBackground">YES</bool>
 																	<int key="NSTextBezelStyle">1</int>
@@ -5202,6 +5205,38 @@
 						<reference key="destination" ref="146060910"/>
 					</object>
 					<int key="connectionID">1129</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">sheetOK:</string>
+						<reference key="source" ref="731254157"/>
+						<reference key="destination" ref="367835263"/>
+					</object>
+					<int key="connectionID">1130</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">sheetCancel:</string>
+						<reference key="source" ref="731254157"/>
+						<reference key="destination" ref="343476601"/>
+					</object>
+					<int key="connectionID">1131</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">extensionSheetOK:</string>
+						<reference key="source" ref="163631054"/>
+						<reference key="destination" ref="1009768312"/>
+					</object>
+					<int key="connectionID">1132</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">extensionSheetCancel:</string>
+						<reference key="source" ref="163631054"/>
+						<reference key="destination" ref="460031246"/>
+					</object>
+					<int key="connectionID">1133</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -8064,7 +8099,7 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{0, 1461}, {160, 73}}</string>
+					<string>{{863, 1033}, {160, 73}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -8201,7 +8236,7 @@
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="478242839"/>
-							<string key="toolTip">Enter the email address to send the license OR enter the key name of an email field in your license.</string>
+							<string key="toolTip">Enter the email address for whom to send the license OR enter the key name of an email field in your license.</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -8448,7 +8483,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1129</int>
+			<int key="maxID">1133</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -8677,6 +8712,8 @@
 							<string>editLicenseExtension:</string>
 							<string>editSaveDirectory:</string>
 							<string>emailLicenseClick:</string>
+							<string>extensionSheetCancel:</string>
+							<string>extensionSheetOK:</string>
 							<string>generateLicense:</string>
 							<string>mailBtnClick:</string>
 							<string>removeKeyValue:</string>
@@ -8686,6 +8723,8 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -8710,6 +8749,8 @@
 							<string>editLicenseExtension:</string>
 							<string>editSaveDirectory:</string>
 							<string>emailLicenseClick:</string>
+							<string>extensionSheetCancel:</string>
+							<string>extensionSheetOK:</string>
 							<string>generateLicense:</string>
 							<string>mailBtnClick:</string>
 							<string>removeKeyValue:</string>
@@ -8744,6 +8785,14 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">extensionSheetCancel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">extensionSheetOK:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">generateLicense:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -8773,7 +8822,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addButton</string>
+							<string>addProductButton</string>
 							<string>blackListButton</string>
 							<string>blacklistRadioBtn</string>
 							<string>editExtensionButton</string>
@@ -8794,7 +8843,7 @@
 							<string>narrowResultsBtn</string>
 							<string>numberLicenses</string>
 							<string>productController</string>
-							<string>removeButton</string>
+							<string>removeProductButton</string>
 							<string>revealButton</string>
 							<string>saveDirectoryPathControl</string>
 							<string>searchLicenseBtn</string>
@@ -8838,7 +8887,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addButton</string>
+							<string>addProductButton</string>
 							<string>blackListButton</string>
 							<string>blacklistRadioBtn</string>
 							<string>editExtensionButton</string>
@@ -8859,7 +8908,7 @@
 							<string>narrowResultsBtn</string>
 							<string>numberLicenses</string>
 							<string>productController</string>
-							<string>removeButton</string>
+							<string>removeProductButton</string>
 							<string>revealButton</string>
 							<string>saveDirectoryPathControl</string>
 							<string>searchLicenseBtn</string>
@@ -8870,7 +8919,7 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
-								<string key="name">addButton</string>
+								<string key="name">addProductButton</string>
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -8954,7 +9003,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">removeButton</string>
+								<string key="name">removeProductButton</string>
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -9191,9 +9240,13 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addNewProduct:</string>
 							<string>removeProduct:</string>
+							<string>sheetCancel:</string>
+							<string>sheetOK:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -9204,6 +9257,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addNewProduct:</string>
 							<string>removeProduct:</string>
+							<string>sheetCancel:</string>
+							<string>sheetOK:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -9213,6 +9268,14 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">removeProduct:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">sheetCancel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">sheetOK:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -9229,7 +9292,7 @@
 							<string>newProductSheet</string>
 							<string>productMenu</string>
 							<string>productTable</string>
-							<string>removeButton</string>
+							<string>removeProductButton</string>
 							<string>saveButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -9258,7 +9321,7 @@
 							<string>newProductSheet</string>
 							<string>productMenu</string>
 							<string>productTable</string>
-							<string>removeButton</string>
+							<string>removeProductButton</string>
 							<string>saveButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -9296,7 +9359,7 @@
 								<string key="candidateClassName">OAGradientTableView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">removeButton</string>
+								<string key="name">removeProductButton</string>
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">

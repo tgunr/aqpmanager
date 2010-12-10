@@ -37,8 +37,8 @@
 	
 	// Generate Licenses Tab
     IBOutlet AQTableView *keyValueTable;
-	IBOutlet NSButton *addButton;
-	IBOutlet NSButton *removeButton;
+	IBOutlet NSButton *addProductButton;
+	IBOutlet NSButton *removeProductButton;
 	IBOutlet NSButton *generateLicenseButton;
 	IBOutlet NSButton *editExtensionButton;
 	IBOutlet NSButton *editSaveDirectoryButton;
@@ -110,7 +110,9 @@
 - (IBAction)addKeyValue:(id)sender;
 - (IBAction)removeKeyValue:(id)sender;
 
-- (void)createSupportDir;
+- (IBAction)extensionSheetOK:(id)sender;
+- (IBAction)extensionSheetCancel:(id)sender;
+
 - (void)reloadLicenses: (NSString *)extension;
 - (void)reloadLicenseArray;
 - (void) enableLicensesTabButtons: (BOOL)state;

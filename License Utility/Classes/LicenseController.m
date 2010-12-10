@@ -58,7 +58,7 @@ static LicenseController *sharedInstance = nil;
     supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
 	licenseDir = [[supportDir stringByAppendingString:@"/Generated Licenses"] retain];
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductCreated) name:@"NewKeyGenerated" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductCreated) name:@"NewProductCreated" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductSelected) name:@"ProductSelected" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveLicenseTemplate:) name:@"ProductWillBeSelected" object:nil];
 	
@@ -427,7 +427,7 @@ static LicenseController *sharedInstance = nil;
 		[valueArray release];
 		
 	// Enable everything except the remove button
-	[addButton setEnabled:YES];
+	[addProductButton setEnabled:YES];
 	[generateLicenseButton setEnabled:YES];
 	[editExtensionButton setEnabled:YES];
 	[editSaveDirectoryButton setEnabled:YES];
@@ -437,13 +437,13 @@ static LicenseController *sharedInstance = nil;
 		// Default values
 		keyArray = [[NSMutableArray arrayWithObjects:@"Name", @"Email", nil] retain];
 		valueArray = [[NSMutableArray arrayWithObjects:@"User", @"user@email.com", nil] retain];
-		licenseEmailField = [@"Email" retain];
+		[licenseEmailField setStringValue:@"Email"];
 	}
 	// No product
 	else if (![productController currentProduct] ) {
 			// Disable everything
-			[addButton setEnabled:NO];
-			[removeButton setEnabled:NO];
+			[addProductButton setEnabled:NO];
+			[removeProductButton setEnabled:NO];
 			[generateLicenseButton setEnabled:NO];
 			[editExtensionButton setEnabled:NO];
 			[editSaveDirectoryButton setEnabled:NO];
@@ -478,6 +478,7 @@ static LicenseController *sharedInstance = nil;
 		application = [productController currentProduct];
 	else 
 		application = @"";
+	[self newProductSelected];
 }
 
 
@@ -697,9 +698,9 @@ static LicenseController *sharedInstance = nil;
 	switch (tableTag) {
 		case 11:
             if ([keyValueTable selectedRow] == -1)
-                [removeButton setEnabled:NO];
+                [removeProductButton setEnabled:NO];
             else
-                [removeButton setEnabled:YES];
+                [removeProductButton setEnabled:YES];
 			break;
 			
 		case 12: {
@@ -932,15 +933,15 @@ static LicenseController *sharedInstance = nil;
 	//													  NSString *msgFormat, ...);
 }
 
-- (IBAction)sheetOK:(id)sender
+- (IBAction)extensionSheetOK:(id)sender
 {
 	[NSApp endSheet:licenseExtensionSheet];
     [licenseExtensionSheet orderOut:self];
-	
-	[licenseExtensionField setStringValue:[licenseExtensionEditField stringValue]];
+	NSString *extension = [[licenseExtensionEditField stringValue] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	[licenseExtensionField setStringValue:extension];
 }
 
-- (IBAction)sheetCancel:(id)sender
+- (IBAction)extensionSheetCancel:(id)sender
 {
 	[NSApp endSheet:licenseExtensionSheet];
     [licenseExtensionSheet orderOut:self];
@@ -977,7 +978,7 @@ static LicenseController *sharedInstance = nil;
 - (IBAction)revealBtnClick:(id)sender
 {
 	NSInteger row = [licenseTable selectedRow];
-	if (row) {
+	if (row != -1) {
 		LicenseFile *license = [licenseArray objectAtIndex:row];
 		[license reveal];
 		[license release];
@@ -993,7 +994,7 @@ static LicenseController *sharedInstance = nil;
 - (IBAction)blacklistBtnCLick:(id)sender
 {
 	NSInteger row = [licenseTable selectedRow];
-	if (row) {
+	if (row != -1) {
 		LicenseFile *license = [licenseArray objectAtIndex:row];
 		[license blacklist: [self productBlackListPath: [license licenseValidForProduct]]];
 		[license release];

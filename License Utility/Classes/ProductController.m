@@ -213,10 +213,10 @@
 	
 	if ([productArray count]) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"ProductSelected" object:nil];
-		[removeButton setEnabled:YES];
+		[removeProductButton setEnabled:YES];
 	} 
 	else {
-		[removeButton setEnabled:NO];
+		[removeProductButton setEnabled:NO];
 	}
 }
 
@@ -267,7 +267,7 @@
 	[NSApp endSheet:newProductSheet];
     [newProductSheet orderOut:self];
 	
-	NSString *productName = [nameField stringValue];
+	NSString *productName = [[nameField stringValue] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
 	if ([productName isEqualToString:@""])
 		return;
@@ -275,8 +275,10 @@
 	[keyController generateKeyForProduct:productName];
 	if ([productArray count]) {
 		[productTable selectRowIndexes:[NSIndexSet indexSetWithIndex:[productArray indexOfObject:productName]] byExtendingSelection:NO];
-		[removeButton setEnabled:YES];
+		[removeProductButton setEnabled:YES];
 	}
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"NewProductCreated" object:productName];
+
 }
 
 - (IBAction)sheetCancel:(id)sender
@@ -294,7 +296,7 @@
 		[productTable deleteItemAtIndex:[productTable selectedRow]];
 	
 	if (![productArray count])
-		[removeButton setEnabled:NO];
+		[removeProductButton setEnabled:NO];
 }
 
 #pragma mark Product Names

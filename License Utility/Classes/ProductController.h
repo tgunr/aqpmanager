@@ -32,7 +32,7 @@
     IBOutlet OAGradientTableView *productTable;
 	IBOutlet NSButton *cancelButton;
 	IBOutlet NSButton *saveButton;
-	IBOutlet NSButton *removeButton;
+	IBOutlet NSButton *removeProductButton;
 	IBOutlet NSWindow *mainWindow;
 	IBOutlet NSWindow *newProductSheet;
 	IBOutlet NSTextField *nameField;
@@ -48,6 +48,9 @@
 - (void)loadProducts;
 - (IBAction)addNewProduct:(id)sender;
 - (IBAction)removeProduct:(id)sender;
+- (IBAction)sheetOK:(id)sender;
+- (IBAction)sheetCancel:(id)sender;
+
 - (NSString *)currentProduct;
 - (NSString *)productAtIndex:(int)index;
 - (NSArray*)allProducts;
