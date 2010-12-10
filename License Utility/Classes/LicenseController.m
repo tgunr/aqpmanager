@@ -98,11 +98,22 @@ static LicenseController *sharedInstance = nil;
 }
 
 #pragma mark Variables
+- (NSString *)productPath: (NSString *)product
+{
+	NSString * result = nil;
+	if (product) {
+		NSString *path = [[saveDirectoryPathControl URL] path];
+		result = [NSString stringWithFormat:@"%@/%@", path, product];
+	}
+	return result;
+}
+
 - (NSString *)productBlackListPath: (NSString *)product
 {
 	NSString * result = nil;
 	if (product) {
-		result = [NSString stringWithFormat:@"%@/Licenses/%@/Blacklist", [self supportDir], product];
+		NSString *path = [self productPath: product];
+		result = [NSString stringWithFormat:@"%@/Blacklist", path];
 	}
 	return result;
 }
@@ -111,7 +122,8 @@ static LicenseController *sharedInstance = nil;
 {
 	NSString * result = nil;
 	if (product) {
-		result = [NSString stringWithFormat:@"%@/Licenses/%@/Attachments", [self supportDir], product];
+		NSString *path = [self productPath: product];
+		result = [NSString stringWithFormat:@"%@/Attachments", path];
 	}
 	return result;
 }
@@ -120,7 +132,8 @@ static LicenseController *sharedInstance = nil;
 {
 	NSString * result = nil;
 	if (product) {
-		result = [NSString stringWithFormat:@"%@/Licenses/%@/Licenses", [self supportDir], product];
+		NSString *path = [self productPath: product];
+		result = [NSString stringWithFormat:@"%@/Licenses", path];
 	}
 	return result;
 }
@@ -500,30 +513,30 @@ static LicenseController *sharedInstance = nil;
 	
 	NSFileManager *fm = [NSFileManager defaultManager];
 
-	folderPath = [NSString stringWithFormat: @"%@", saveFolder];
-	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
+	NSString *basePath = [NSString stringWithFormat: @"%@/%@", saveFolder, application];
+	folderExists = [fm fileExistsAtPath:basePath isDirectory: &aDir];
 	if (!folderExists) {
-		mkdirString = [NSString stringWithFormat:@"mkdir -p %@", saveFolder];
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@", basePath];
 		result = system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
 	}
 
-	folderPath = [NSString stringWithFormat: @"%@/Attachments", saveFolder];
+	folderPath = [NSString stringWithFormat: @"%@/Attachments", basePath];
 	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
 	if (!folderExists) {
-		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Attachments", saveFolder];
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Attachments", basePath];
 		result += system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
 	}
 
-	folderPath = [NSString stringWithFormat: @"%@/Licenses", saveFolder];
+	folderPath = [NSString stringWithFormat: @"%@/Licenses", basePath];
 	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
 	if (!folderExists) {
-		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Licenses", saveFolder];
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Licenses", basePath];
 		result += system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
 	}
-	folderPath = [NSString stringWithFormat: @"%@/Blacklist", saveFolder];
+	folderPath = [NSString stringWithFormat: @"%@/Blacklist", basePath];
 	folderExists = [fm fileExistsAtPath:folderPath isDirectory: &aDir];
 	if (!folderExists) {
-		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Blacklist", saveFolder];
+		mkdirString = [NSString stringWithFormat:@"mkdir -p %@/Blacklist", basePath];
 		result += system([mkdirString cStringUsingEncoding:NSUTF8StringEncoding]);
 	}
 	

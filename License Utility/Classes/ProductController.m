@@ -55,7 +55,7 @@
 	NSString *mySupportDir = [licenseController supportDir];
 	NSString *oldAquaticDir = [@"~/Library/Application Support/Aquatic" stringByExpandingTildeInPath];
 	NSString *keyDir = [mySupportDir stringByAppendingString:@"/Product Keys"];
-	NSString *licensesDir = [mySupportDir stringByAppendingString:@"/Licenses"];
+//	NSString *licensesDir = [mySupportDir stringByAppendingString:@"/Licenses"];
 	NSString *generatedDir = [mySupportDir stringByAppendingString:@"/Generated Licenses"];
 	NSString *templatesDir = [mySupportDir stringByAppendingString:@"/License Templates"];
 	
@@ -104,11 +104,11 @@
 		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create key storage directory.", keyDir], 
 						@"OK", nil, nil);
 
-	if  (![fm fileExistsAtPath:licensesDir isDirectory:&isDir])
-		[fm createDirectoryAtPath:licensesDir attributes:nil];
-	else if (!isDir) // The key directory path leads to a file! Bad again!
-		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create key storage directory.", licensesDir], 
-						@"OK", nil, nil);
+//	if  (![fm fileExistsAtPath:licensesDir isDirectory:&isDir])
+//		[fm createDirectoryAtPath:licensesDir attributes:nil];
+//	else if (!isDir) // The key directory path leads to a file! Bad again!
+//		NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"%@ already exists as a file.  Can't create key storage directory.", licensesDir], 
+//						@"OK", nil, nil);
 
 	if  (![fm fileExistsAtPath:generatedDir isDirectory:&isDir])
 		[fm createDirectoryAtPath:generatedDir attributes:nil];
@@ -334,15 +334,21 @@
 - (void)deleteItemAtIndex:(int)index
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
+	NSString *supportDir = [licenseController supportDir];
 	NSString *product = [self productAtIndex:index];
+	NSError *err;
+	BOOL isDir;
 	
 	if (NSRunAlertPanel([NSString stringWithFormat:@"Are you sure you want to delete %@?", product],
 						@"This cannot be undone.", @"OK", @"Cancel", nil) == NSAlertAlternateReturn)
 		return;
-	
+	NSString *productPath = [licenseController productPath: product];
+	if ([fm fileExistsAtPath:productPath isDirectory:&isDir]) {
+		[fm removeItemAtPath:productPath error:&err];
+	}	
 	[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/Product Keys/%@.plist", product]] handler:nil];
 	[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/License Templates/%@.plist", product]] handler:nil];
+
 	[productArray removeObjectAtIndex:index];
 		
 	[productTable reloadData];

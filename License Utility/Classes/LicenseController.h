@@ -117,6 +117,7 @@
 - (void)reloadLicenseArray;
 - (void) enableLicensesTabButtons: (BOOL)state;
 
+- (NSString *)productPath: (NSString *)product;
 - (NSString *)productBlackListPath: (NSString *)product;
 - (NSString *)prodAttachmentsPath: (NSString *)product;
 - (NSString *)prodLicensesPath: (NSString *)product;
