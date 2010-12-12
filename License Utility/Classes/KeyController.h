@@ -38,6 +38,7 @@
 	IBOutlet NSForm *mailFieldsForm;
 	IBOutlet NSForm *mailFilesForm;
 	IBOutlet NSButton *saveButton;
+	IBOutlet NSButton *copyButton;
 
 	RSA *rsaKey;
 	
@@ -59,4 +60,5 @@
 - (BOOL)loadKeysForProduct:(NSString *)productName;
 - (BOOL)saveKeysForProduct:(NSString *)productName;
 - (IBAction)saveButtonClick: (id)sender;
+- (IBAction)copyButtonClick: (id)sender;
 @end

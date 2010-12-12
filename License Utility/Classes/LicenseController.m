@@ -895,7 +895,7 @@ static LicenseController *sharedInstance = nil;
 		// Do we have all the pieces
 		NSFileManager *fm = [NSFileManager defaultManager];
 		NSString *licenseFileString;
-		NSURL *licenseFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], licenseName, [licenseExtensionField stringValue]]];
+		NSURL *licenseFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@/%@.%@", [self prodLicensesPath], licenseName, [licenseExtensionField stringValue]]];
 		NSString *licenseFilePath = [licenseFileURL path];
 		BOOL licenseFileExists = [fm isReadableFileAtPath: licenseFilePath];
 		if (!licenseFileExists) {
@@ -926,7 +926,7 @@ static LicenseController *sharedInstance = nil;
 	[selectPanel setCanCreateDirectories: YES];
 	[selectPanel setAllowsMultipleSelection:NO];
 	[selectPanel setPrompt:@"Select"];
-	[selectPanel setTitle:@"Select Directory"];
+	[selectPanel setTitle:@"Select Top Level Directory"];
 	if ([selectPanel runModal] == NSFileHandlingPanelCancelButton)
 		return;
 	

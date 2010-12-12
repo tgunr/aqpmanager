@@ -330,29 +330,49 @@
 }
 
 #pragma mark TableView Delegate Methods
+- (void)doDeleteItem:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(NSString *)product
+{
+
+	int index = [productArray indexOfObject:product];
+	
+	if (returnCode == NSAlertDefaultReturn) {
+		NSFileManager *fm = [NSFileManager defaultManager];
+		NSString *supportDir = [licenseController supportDir];
+		NSError *err;
+		BOOL isDir;
+		
+		NSString *productPath = [licenseController productPath: product];
+		if ([fm fileExistsAtPath:productPath isDirectory:&isDir]) {
+			[fm removeItemAtPath:productPath error:&err];
+		}	
+		NSString *licenseExtension = 
+		[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/Product Keys/%@.plist", product]] handler:nil];
+		[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/License Templates/%@.plist", product]] handler:nil];
+		
+		[productArray removeObjectAtIndex:index];
+		
+		[productTable reloadData];
+		[productTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index-1] byExtendingSelection:NO];
+	}
+}
 
 - (void)deleteItemAtIndex:(int)index
 {
-	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *supportDir = [licenseController supportDir];
 	NSString *product = [self productAtIndex:index];
-	NSError *err;
-	BOOL isDir;
-	
-	if (NSRunAlertPanel([NSString stringWithFormat:@"Are you sure you want to delete %@?", product],
-						@"This cannot be undone.", @"OK", @"Cancel", nil) == NSAlertAlternateReturn)
+	NSWindow *window = [productTable window];
+	NSBeginAlertSheet(@"Delete Selected Product", 
+					  @"Ok", 
+					  @"Cancel", 
+					  nil, 
+					  window,
+					  self, 
+					  @selector(doDeleteItem:returnCode:contextInfo:), 
+					  NULL, 
+					  product, 
+					  [NSString stringWithFormat:@"Are you sure you want to delete %@? All files will be removed! FOREVER!", product]);
+//	if (NSRunAlertPanel([NSString stringWithFormat:@"Are you sure you want to delete %@?", product],
+//						@"This cannot be undone.", @"OK", @"Cancel", nil) == NSAlertAlternateReturn)
 		return;
-	NSString *productPath = [licenseController productPath: product];
-	if ([fm fileExistsAtPath:productPath isDirectory:&isDir]) {
-		[fm removeItemAtPath:productPath error:&err];
-	}	
-	[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/Product Keys/%@.plist", product]] handler:nil];
-	[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/License Templates/%@.plist", product]] handler:nil];
-
-	[productArray removeObjectAtIndex:index];
-		
-	[productTable reloadData];
-	[productTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index-1] byExtendingSelection:NO];
 	//[[NSNotificationCenter defaultCenter] postNotificationName:@"ProductSelected" object:productTable];
 }
 

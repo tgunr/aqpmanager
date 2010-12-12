@@ -381,4 +381,12 @@ static KeyController *sharedInstance = nil;
 		[self saveKeysForProduct:[productController currentProduct]];
 }
 
+- (IBAction)copyButtonClick: (id)sender 
+{
+	if ([productController currentProduct]) {
+		[rsaKeyView selectAll:sender];
+		[rsaKeyView copy:sender];
+	}
+}
+
 @end
