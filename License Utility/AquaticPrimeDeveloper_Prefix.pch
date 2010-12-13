@@ -2,8 +2,18 @@
 // Prefix header for all source files of the 'AquaticPrime' target in the 'AquaticPrime' project.
 //
 
+
 #ifdef __OBJC__
 #import <Cocoa/Cocoa.h>
+#import <EDMessage/EDMessage.h>
+#import <EDCommon/EDCommon.h>
+#import "NSApplication_Extensions.h"
+#import "NSArray_Extensions.h"
+#import "NSData_Extensions.h"
+#import "NSString_Extensions.h"
+#import "pmsNSUtility.h"
+#import "pmsCFUtility.h"
+#import "PMMail.h"
 
 #if __LP64__
 typedef long NSInteger;

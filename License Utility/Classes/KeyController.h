@@ -7,12 +7,12 @@
 //
 // Redistribution and use in source and binary forms, with or without modification,
 // are permitted provided that the following conditions are met:
-//	¥Redistributions of source code must retain the above copyright notice,
+//	ï¾¥Redistributions of source code must retain the above copyright notice,
 //	 this list of conditions and the following disclaimer.
-//	¥Redistributions in binary form must reproduce the above copyright notice,
+//	ï¾¥Redistributions in binary form must reproduce the above copyright notice,
 //	 this list of conditions and the following disclaimer in the documentation and/or
 //	 other materials provided with the distribution.
-//	¥Neither the name of the Aquatic nor the names of its contributors may be used to 
+//	ï¾¥Neither the name of the Aquatic nor the names of its contributors may be used to 
 //	 endorse or promote products derived from this software without specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
@@ -35,12 +35,19 @@
 	IBOutlet NSTextView *publicKeyView;
 	IBOutlet NSTextView *privateKeyView;
 	IBOutlet NSTabView *tabView;
+	IBOutlet NSForm *mailFieldsForm;
+	IBOutlet NSForm *mailFilesForm;
+	IBOutlet NSButton *saveButton;
+	IBOutlet NSButton *copyButton;
 	
 	RSA *rsaKey;
 	
 	IBOutlet id productController;
 	IBOutlet id statusController;
+	IBOutlet id LicenseController;
 }
+@property (retain) 	IBOutlet NSForm *mailFieldsForm;
+@property (retain) 	IBOutlet NSForm *mailFilesForm;
 
 + (KeyController *)sharedInstance;
 - (NSString*)publicKey;
@@ -52,5 +59,6 @@
 - (void)viewKeysForCurrentProduct;
 - (BOOL)loadKeysForProduct:(NSString *)productName;
 - (BOOL)saveKeysForProduct:(NSString *)productName;
-
+- (IBAction)saveButtonClick: (id)sender;
+- (IBAction)copyButtonClick: (id)sender;
 @end

@@ -52,11 +52,12 @@ DOWNLOAD_URL="$DOWNLOAD_BASE_URL/$ARCHIVE_FILE"
 
 WD=$PWD
 pushd "$BUILT_PRODUCTS_DIR"
-rm -f "$PRODUCT_NAME"*.zip
-ditto -ck --keepParent "$PRODUCT_NAME.app" "$ARCHIVE_FILE".zip
-#cp "$PRODUCT_NAME".zip "$ARCHIVE_FILE"
+rm -fr ${PROGRAM_FILE}_*.*
+cp -R "${PRODUCT_NAME}".app "$ARCHIVE_FILE".app
+ditto -ck --keepParent "$PRODUCT_NAME".app "$ARCHIVE_FILE".zip
 mv "$ARCHIVE_FILE".zip "$UPDATES_BASE"/archives/
 popd
+
 
 # see if release notes file for this release already exists, may be 2nd or more build so only do it once
 RELEASE_NOTES_PATHNAME="$RELEASE_NOTES_DIR/$RELEASE_NOTES"
@@ -64,10 +65,10 @@ RELEASE_NOTES_PATHNAME="$RELEASE_NOTES_DIR/$RELEASE_NOTES"
 cat <<EOF
 tell application "Feeder"
 	activate
-    set theFeed to folder item "PDFGarden" of root folder
+    set theFeed to folder item "${PRODUCT_NAME}" of root folder
     set feedVersion to "${VERSION_NUMBER}"
     set feedShortVersion to "${BUILD_NUMBER}"
-    set feedTitle to "PDFGarden_${VERSION_NUMBER}_${BUILD_NUMBER}"
+    set feedTitle to "${PRODUCT_NAME}_${VERSION_NUMBER}_${BUILD_NUMBER}"
     set feedFile to POSIX file "${UPDATES_BASE}/archives/${ARCHIVE_FILE}.zip"
 	set feedLink to POSIX file "${RELEASE_NOTES_PATHNAME}"
     make new feed item at theFeed with properties {feed:theFeed, sparkle short version:feedVersion, sparkle version:feedShortVersion, item link:feedLink, enclosure upload file:feedFile, item title:feedTitle} 
@@ -78,10 +79,10 @@ EOF
 cat | osascript <<EOF
 tell application "Feeder"
 	activate
-    set theFeed to folder item "PDFGarden" of root folder
+    set theFeed to folder item "${PRODUCT_NAME}" of root folder
     set feedVersion to "${VERSION_NUMBER}"
     set feedShortVersion to "${BUILD_NUMBER}"
-    set feedTitle to "PDFGarden_${VERSION_NUMBER}_${BUILD_NUMBER}"
+    set feedTitle to "${PRODUCT_NAME}_${VERSION_NUMBER}_${BUILD_NUMBER}"
     set feedFile to POSIX file "${UPDATES_BASE}/archives/${ARCHIVE_FILE}.zip"
 	set feedLink to POSIX file "${RELEASE_NOTES_PATHNAME}"
     make new feed item at theFeed with properties {feed:theFeed, sparkle short version:feedVersion, sparkle version:feedShortVersion, item link:feedLink, enclosure upload file:feedFile, item title:feedTitle} 

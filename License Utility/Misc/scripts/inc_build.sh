@@ -1,30 +1,11 @@
-set -x
-
 # Test for kill prefs file on each build
 echo "BUILD_NUMBER: $BUILD_NUMBER"
 echo "VERSION_NUMBER: $VERSION_NUMBER"
 echo "SU_FEED: $SU_SITE/$SU_PATH/$SU_FEED" | sed -e 's?//?/?'
 
-if [[ "$CONFIGURATION" == 'Debug Prefs' ]]; then
-	if [ -e "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist" ]; then
-		if [ -e "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1" ]; then
-		    logger "Removing prefs"
-		    /bin/rm "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist"
-		else
-		    logger "Moving prefs aside"
-		    /bin/mv "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist" "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1"
-		fi
-	fi
-else
-	# If no longer killing prefs, check for prexisting pref file and restore it
-	if [[ -e "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1" ]]; then
-		logger "restoring old prefs"
-		/bin/mv "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1" "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist"
-	fi
-fi
-
 ### If not releasing increment build number
 if [[ "$CONFIGURATION" == 'Development' ]]; then
+	OLD_BUILD_NUMBER=$BUILD_NUMBER
 	/usr/bin/perl -pe 's/(BUILD_NUMBER = )(\d+)/$1.($2+1)/eg' -i "$SRCROOT/Misc/debug.xcconfig"
 	BUILD_NUMBER=`head -n 1 "$SRCROOT/Misc/debug.xcconfig" | sed -e 's/BUILD_NUMBER = //'`
 	PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
@@ -60,6 +41,8 @@ if [[ "$CONFIGURATION" == 'Development' ]]; then
 
 	# construct file names
 	ARCHIVE_FILE=`echo "${PRODUCT_NAME}_${VERSION_NUMBER}_${RELEASE_BUILD}" | tr "-" "_"`
+#	PROGRAM_FILE=`echo "${PRODUCT_NAME}" | sed -e "s/ /\\\\\ /"`
+	PROGRAM_FILE=`echo "${PRODUCT_NAME}" | tr " -" "_"`
 	RELEASE_NOTES="$ARCHIVE_FILE".html
 
 	#Files
@@ -73,9 +56,10 @@ if [[ "$CONFIGURATION" == 'Development' ]]; then
 	DOWNLOAD_URL="$DOWNLOAD_BASE_URL/$ARCHIVE_FILE"
 
 
-	WD=$PWD
-	pushd "$BUILT_PRODUCTS_DIR"
-	cp -R "$PRODUCT_NAME".app "$ARCHIVE_FILE".app
-	ditto -ck --keepParent "$PRODUCT_NAME".app "$ARCHIVE_FILE".zip
-	popd
+#	WD=$PWD
+#	pushd "$BUILT_PRODUCTS_DIR"
+#	rm -fr ${PROGRAM_FILE}_*.*
+#	cp -R "${PRODUCT_NAME}".app "$ARCHIVE_FILE".app
+#	ditto -ck --keepParent "$PRODUCT_NAME".app "$ARCHIVE_FILE".zip
+#	popd
 fi

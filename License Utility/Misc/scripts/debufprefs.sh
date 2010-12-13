@@ -8,16 +8,16 @@
 
 
 #set -x
-if [[ "$CONFIGURATION" == 'Debug Prefs' ]]; then
-	if [ -e "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist" ]; then
-		if [ -e "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1" ]; then
-		    echo "Removing prefs"
-		    /bin/rm "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist"
-		else
-		    echo "Moving prefs aside"
-		    /bin/mv "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist" "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1"
-		fi
-	fi
-elif [[ -e "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1" ]]; then
-		echo "Old prefs still exists at $HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1"
-fi
+#if [[ "$CONFIGURATION" == 'Debug Prefs' ]]; then
+#	if [ -e "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist" ]; then
+#		if [ -e "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1" ]; then
+#		    echo "Removing prefs"
+#		    /bin/rm "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist"
+#		else
+#		    echo "Moving prefs aside"
+#		    /bin/mv "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist" "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1"
+#		fi
+#	fi
+#elif [[ -e "$HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1" ]]; then
+#		echo "Old prefs still exists at $HOME/Library/Preferences/com.polymicrosystems.pdfgarden.plist.1"
+#fi
