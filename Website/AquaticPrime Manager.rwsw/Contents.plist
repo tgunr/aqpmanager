@@ -52,7 +52,7 @@
 					<key>rw:theme:delta</key>
 					<dict>
 						<key>CreationDate</key>
-						<date>2010-12-09T01:34:55Z</date>
+						<date>2010-12-14T02:55:02Z</date>
 						<key>DigestAlgorithm</key>
 						<string>MD5</string>
 						<key>DocumentGUID</key>
@@ -633,11 +633,11 @@
 							<dict>
 								<key>Digest</key>
 								<data>
-								djQzyau3Js2s
-								irMq9hImgA==
+								/O+5CZnTtSOo
+								8cEOsI8m6Q==
 								</data>
 								<key>Size</key>
-								<integer>14460</integer>
+								<integer>14749</integer>
 							</dict>
 						</dict>
 						<key>PageID</key>
@@ -910,7 +910,7 @@
 							<key>saveInKeychain</key>
 							<false/>
 							<key>server</key>
-							<string>localhost</string>
+							<string>polymicro.net</string>
 							<key>sftp</key>
 							<true/>
 							<key>user</key>
@@ -1126,6 +1126,7 @@
 			<array>
 				<string>DefaultPageAttributes</string>
 				<string>Pages</string>
+				<string>QuickLook</string>
 			</array>
 		</dict>
 	</array>
