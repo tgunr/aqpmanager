@@ -118,7 +118,7 @@ static LicenseController *sharedInstance = nil;
 	return result;
 }
 
-- (NSString *)prodAttachmentsPath: (NSString *)product
+- (NSString *)productAttachmentsPath: (NSString *)product
 {
 	NSString * result = nil;
 	if (product) {
@@ -128,7 +128,7 @@ static LicenseController *sharedInstance = nil;
 	return result;
 }
 
-- (NSString *)prodLicensesPath: (NSString *)product
+- (NSString *)productLicensesPath: (NSString *)product
 {
 	NSString * result = nil;
 	if (product) {
@@ -298,7 +298,7 @@ static LicenseController *sharedInstance = nil;
 	licenseMaker = [AquaticPrime aquaticPrimeWithKey:publicKey privateKey:privateKey];
 	
 	NSString *extension = [licenseExtensionField stringValue];
-	NSURL *pathURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], [valueArray objectAtIndex:0], extension]];
+	NSURL *pathURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], application, [valueArray objectAtIndex:0], extension]];
 	NSString *path = [pathURL path];
 	NSString *backupPath = [NSString stringWithFormat:@"%@/%@.%@", licenseDir, [valueArray objectAtIndex:0], extension];
 	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:path];
@@ -894,8 +894,12 @@ static LicenseController *sharedInstance = nil;
 	if ([mailTo length] != 0) {
 		// Do we have all the pieces
 		NSFileManager *fm = [NSFileManager defaultManager];
-		NSString *licenseFileString;
-		NSURL *licenseFileURL = [NSURL URLWithString:[NSString stringWithFormat: @"%@/%@.%@", [self prodLicensesPath], licenseName, [licenseExtensionField stringValue]]];
+		NSString *licenseFileString = [NSString stringWithFormat: @"%@/%@.%@", 
+									   [self productLicensesPath: application], 
+									   licenseName, 
+									   [licenseExtensionField stringValue]];
+		NSString *fixedURL = [licenseFileString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+		NSURL *licenseFileURL = [NSURL URLWithString:fixedURL];
 		NSString *licenseFilePath = [licenseFileURL path];
 		BOOL licenseFileExists = [fm isReadableFileAtPath: licenseFilePath];
 		if (!licenseFileExists) {

@@ -120,8 +120,8 @@
 
 - (NSString *)productPath: (NSString *)product;
 - (NSString *)productBlackListPath: (NSString *)product;
-- (NSString *)prodAttachmentsPath: (NSString *)product;
-- (NSString *)prodLicensesPath: (NSString *)product;
+- (NSString *)productAttachmentsPath: (NSString *)product;
+- (NSString *)productLicensesPath: (NSString *)product;
   
 @end
 
