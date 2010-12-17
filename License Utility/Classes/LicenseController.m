@@ -964,7 +964,7 @@ static LicenseController *sharedInstance = nil;
     [licenseExtensionSheet orderOut:self];
 }
 
-- (IBAction)addKeyValue:(id)sender
+- (IBAction)addKeyButtonClick:(id)sender
 {
 	[keyArray addObject:@"New Key"];
 	[valueArray addObject:@"Undefined"];
@@ -974,7 +974,7 @@ static LicenseController *sharedInstance = nil;
 	[generateLicenseButton setEnabled:YES];
 }
 
-- (IBAction)removeKeyValue:(id)sender
+- (IBAction)removeKeyButtonClick:(id)sender
 {
 	if ([keyValueTable selectedRow] == -1)
 		return;

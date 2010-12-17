@@ -63,9 +63,11 @@
     IBOutlet NSTableView *licenseTable;
     IBOutlet NSButton *mailButton;
     IBOutlet NSButton *blackListButton;
-    IBOutlet NSButton *revealButton;
 	IBOutlet NSTextField *numberLicenses;
-		
+	IBOutlet NSButton *revealButton;
+	IBOutlet NSButton *addKeyButton;
+    IBOutlet NSButton *removeKeyButton;
+
 	NSMutableArray *keyArray;
 	NSMutableArray *valueArray;
 	NSMutableArray *licenseArray;
@@ -106,10 +108,9 @@
 - (IBAction)searchBtnClick:(id)sender;
 - (IBAction)blacklistBtnCLick:(id)sender;
 - (IBAction)blacklistRadioClick:(id)sender;
-- (IBAction)restoreBtnClick:(id)sender;
 
-- (IBAction)addKeyValue:(id)sender;
-- (IBAction)removeKeyValue:(id)sender;
+- (IBAction)addKeyButtonClick:(id)sender;
+- (IBAction)removeKeyButtonClick:(id)sender;
 
 - (IBAction)extensionSheetOK:(id)sender;
 - (IBAction)extensionSheetCancel:(id)sender;
