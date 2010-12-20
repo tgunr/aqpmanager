@@ -844,6 +844,8 @@ static LicenseController *sharedInstance = nil;
 			NSError *err;
 			NSString *bodyText = [NSString stringWithContentsOfFile:licenseTextFilePath encoding:NSUTF8StringEncoding error:&err];
 			
+			NSString *emailProcess = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailProcess"];
+
 			NSString *emailServer = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailServer"];
 			NSString *emailServerPort = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailServerPort"];
 			

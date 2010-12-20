@@ -21,6 +21,9 @@
 	IBOutlet NSFormCell *hostPort;
 	IBOutlet NSTableView *accountsTable;
 	
+    IBOutlet NSButtonCell *appleMailButton;
+    IBOutlet NSButtonCell *internalMailButton;
+
 	NSMutableArray *emailAccounts;
 }
 @property (retain) 	NSArray *emailAccounts;
