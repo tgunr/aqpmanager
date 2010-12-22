@@ -338,7 +338,6 @@
 		if ([fm fileExistsAtPath:productPath isDirectory:&isDir]) {
 			[fm removeItemAtPath:productPath error:&err];
 		}	
-		NSString *licenseExtension = 
 	[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/Product Keys/%@.plist", product]] handler:nil];
 	[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/License Templates/%@.plist", product]] handler:nil];
 		

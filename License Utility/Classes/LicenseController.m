@@ -511,6 +511,7 @@ static LicenseController *sharedInstance = nil;
 		application = [productController currentProduct];
 	else 
 		application = @"";
+	[tabView selectTabViewItemWithIdentifier: @"2"];
 	[self productSelected];
 }
 
