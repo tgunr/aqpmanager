@@ -60,8 +60,9 @@ static LicenseController *sharedInstance = nil;
 	licenseDir = [[supportDir stringByAppendingString:@"/Generated Licenses"] retain];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductCreated) name:@"NewProductCreated" object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newProductSelected) name:@"ProductSelected" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productSelected) name:@"ProductSelected" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveLicenseTemplate:) name:@"ProductWillBeSelected" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productKeySelected) name:@"ProductKeySelected" object:nil];
 	
 	if (!infoController) {
 		infoController = [InfoController sharedInstance];
@@ -88,14 +89,37 @@ static LicenseController *sharedInstance = nil;
 	[super dealloc];
 }
 
+- (void)disableEverything
+{
+	// Disable everything
+	[removeProductButton setEnabled:NO];
+	[generateLicenseButton setEnabled:NO];
+	[editExtensionButton setEnabled:NO];
+	[editSaveDirectoryButton setEnabled:NO];
+	[emailButton setEnabled:NO];
+	[addKeyButton setEnabled:NO];
+	[removeKeyButton setEnabled:NO];
+	
+	[licenseExtensionField setStringValue:@""];
+	[saveDirectoryPathControl setURL: [[NSURL alloc] init]];
+	[licenseEmailField setStringValue:@""];
+	[[searchLicenseField cell ]setSendsWholeSearchString: YES];
+	
+	keyArray = [[NSMutableArray array] retain];
+	valueArray = [[NSMutableArray array] retain];
+	
+	[licenseTable setEnabled:NO];
+	[self enableLicensesTabButtons:NO];
+	[infoDrawer close];
+	
+	[self reloadLicenses: @"*"];
+}
+
 - (void)awakeFromNib 
 {
 //	builtInKeywords = [NSMutableArray arrayWithCapacity:1];
-	[self reloadLicenses: @"*"];
-	[[searchLicenseField cell ]setSendsWholeSearchString: YES];
-	NSURL *url = [[NSURL alloc] init];
-	[saveDirectoryPathControl setURL:url];
-	[self enableLicensesTabButtons: NO];
+	[self disableEverything];
+	[addProductButton setEnabled:YES];
 }
 
 #pragma mark Variables
@@ -431,9 +455,18 @@ static LicenseController *sharedInstance = nil;
 	return YES;
 }
 
-#pragma mark Product Selection
+#pragma mark Selections
+- (void)productKeySelected
+{
+	NSInteger selection = [keyValueTable selectedRow];
+	if (selection == -1) {
+		[removeKeyButton setEnabled:NO];
+	} else {
+		[removeKeyButton setEnabled:YES];
+	}
+}
 
-- (void)newProductSelected
+- (void)productSelected
 {
 	if (keyArray)
 		[keyArray release];
@@ -442,10 +475,11 @@ static LicenseController *sharedInstance = nil;
 		
 	// Enable everything except the remove button
 	[addProductButton setEnabled:YES];
+	[removeProductButton setEnabled:YES];
 	[generateLicenseButton setEnabled:YES];
 	[editExtensionButton setEnabled:YES];
 	[editSaveDirectoryButton setEnabled:YES];
-		
+	[addKeyButton setEnabled:YES];
 	// No template and a product, i.e. new product
 	if (![self loadLicenseTemplate] && [productController currentProduct]) {
 		// Default values
@@ -455,31 +489,16 @@ static LicenseController *sharedInstance = nil;
 	}
 	// No product
 	else if (![productController currentProduct] ) {
-		// Disable everything
-			[addProductButton setEnabled:NO];
-			[removeProductButton setEnabled:NO];
-		[generateLicenseButton setEnabled:NO];
-		[editExtensionButton setEnabled:NO];
-		[editSaveDirectoryButton setEnabled:NO];
-		[emailButton setEnabled:NO];
-		
-		[licenseExtensionField setStringValue:@""];
-			[saveDirectoryPathControl setURL: [[NSURL alloc] init]];
-		[licenseEmailField setStringValue:@""];
-		
-		keyArray = [[NSMutableArray array] retain];
-		valueArray = [[NSMutableArray array] retain];
-
-			[self reloadLicenses: @"*"];
-		} else {
+		[self disableEverything];
+	} else {
 			if ([application length]) {
 				NSString *productExtension = [licenseExtensionField stringValue];
 				if ([productExtension length]) {
 					[self reloadLicenses: productExtension];
 				} else {
 					[self reloadLicenses: @""];
-	}
-	
+				}
+				[licenseTable setEnabled:YES];
 			}
 		}
 	[keyValueTable reloadData];
@@ -492,7 +511,7 @@ static LicenseController *sharedInstance = nil;
 		application = [productController currentProduct];
 	else 
 		application = @"";
-	[self newProductSelected];
+	[self productSelected];
 }
 
 
@@ -710,13 +729,14 @@ static LicenseController *sharedInstance = nil;
     NSTableView *nTV = [aNotification object];
 	NSInteger tableTag = [nTV tag];
 	switch (tableTag) {
-		case 11:
-	if ([keyValueTable selectedRow] == -1)
-                [removeProductButton setEnabled:NO];
-	else
-                [removeProductButton setEnabled:YES];
+		case 11: {
+			if ([keyValueTable selectedRow] == -1)
+				[removeKeyButton setEnabled:NO];
+			else
+				[removeKeyButton setEnabled:YES];
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"ProductKeySelected" object:aNotification];
 			break;
-			
+		}
 		case 12: {
             NSInteger selectedRow = [licenseTable selectedRow];
             if (selectedRow != -1) {

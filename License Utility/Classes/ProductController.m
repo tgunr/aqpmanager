@@ -211,13 +211,6 @@
 	[productArray sortUsingSelector:@selector(caseInsensitiveCompare:)];
 	[productTable reloadData];
 	
-	if ([productArray count]) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"ProductSelected" object:nil];
-		[removeProductButton setEnabled:YES];
-	} 
-	else {
-		[removeProductButton setEnabled:NO];
-	}
 }
 
 #pragma mark Add Project
