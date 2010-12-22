@@ -21,6 +21,7 @@
 	IBOutlet NSFormCell *hostPort;
 	IBOutlet NSTableView *accountsTable;
 	
+	IBOutlet NSMatrix *mailProcessMatrix;
     IBOutlet NSButtonCell *appleMailButton;
     IBOutlet NSButtonCell *internalMailButton;
 
@@ -32,4 +33,5 @@
 - (IBAction)clickTool:(NSToolbarItem*)sender;
 - (IBAction)refreshUpdateDate:(id)sender;
 - (IBAction)provideFeedback:(id)sender;
+- (IBAction)mailProcessClick:(id)sender;
 @end

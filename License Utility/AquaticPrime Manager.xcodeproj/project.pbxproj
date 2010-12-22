@@ -39,6 +39,10 @@
 		7566AD63129C72F400EF8ADC /* NSString_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5F129C72F400EF8ADC /* NSString_Extensions.m */; };
 		7566ADA3129C780F00EF8ADC /* pmsCFUtility.c in Sources */ = {isa = PBXBuildFile; fileRef = 7566ADA2129C780F00EF8ADC /* pmsCFUtility.c */; };
 		7566ADBC129C79BC00EF8ADC /* pmsNSUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566ADBB129C79BC00EF8ADC /* pmsNSUtility.m */; };
+		7578CD9712C1995F00BBBDDA /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578CD9612C1995F00BBBDDA /* Message.framework */; };
+		7578CDE612C1AA0A00BBBDDA /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578CDE512C1AA0A00BBBDDA /* ScriptingBridge.framework */; };
+		7578CDED12C1AAED00BBBDDA /* Mail.app in Resources */ = {isa = PBXBuildFile; fileRef = 7578CDEC12C1AAED00BBBDDA /* Mail.app */; };
+		7578CDEE12C1AAFD00BBBDDA /* Mail.app in Sources */ = {isa = PBXBuildFile; fileRef = 7578CDEC12C1AAED00BBBDDA /* Mail.app */; };
 		758E42331269FA77008E173A /* advancedpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42281269FA77008E173A /* advancedpref.icns */; };
 		758E42351269FA77008E173A /* generalpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422A1269FA77008E173A /* generalpref.icns */; };
 		758E42361269FA77008E173A /* minus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422B1269FA77008E173A /* minus.icns */; };
@@ -60,6 +64,20 @@
 		A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */; };
 		E804BCA70833AAFD00512005 /* KeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = E804BCA60833AAFD00512005 /* KeyController.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		7578CDE112C1A8B900BBBDDA /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.app";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_BASE).h",
+			);
+			script = "sdef \"$INPUT_FILE_PATH\" | sdp -fh -o \"$DERIVED_FILES_DIR\" --basename \"$INPUT_FILE_BASE\" --bundleid `defaults read \"$INPUT_FILE_PATH/Contents/Info\" CFBundleIdentifier`";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		A0BFCA2509A3F240005C04A5 /* CopyFiles */ = {
@@ -135,6 +153,9 @@
 		7566ADBB129C79BC00EF8ADC /* pmsNSUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = pmsNSUtility.m; path = /Users/davec/Sources/GIT/pmsutility/pmsNSUtility.m; sourceTree = "<absolute>"; };
 		7572A925126B9B1A00B41790 /* libmysql.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysql.dylib; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysql.dylib"; sourceTree = SOURCE_ROOT; };
 		7572A926126B9B1A00B41790 /* libmysqlclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmysqlclient.a; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysqlclient.a"; sourceTree = SOURCE_ROOT; };
+		7578CD9612C1995F00BBBDDA /* Message.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Message.framework; path = System/Library/Frameworks/Message.framework; sourceTree = SDKROOT; };
+		7578CDE512C1AA0A00BBBDDA /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = /System/Library/Frameworks/ScriptingBridge.framework; sourceTree = "<absolute>"; };
+		7578CDEC12C1AAED00BBBDDA /* Mail.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = Mail.app; path = /Applications/Mail.app; sourceTree = "<absolute>"; };
 		758E42281269FA77008E173A /* advancedpref.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = advancedpref.icns; sourceTree = "<group>"; };
 		758E422A1269FA77008E173A /* generalpref.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = generalpref.icns; sourceTree = "<group>"; };
 		758E422B1269FA77008E173A /* minus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = minus.icns; sourceTree = "<group>"; };
@@ -180,6 +201,8 @@
 				7536FBDB12A99D6400597AB9 /* EDCommon.framework in Frameworks */,
 				7536FCDD12A9CBB700597AB9 /* EDMessage.framework in Frameworks */,
 				75E0C0C112B557D5008B7156 /* Sparkle.framework in Frameworks */,
+				7578CD9712C1995F00BBBDDA /* Message.framework in Frameworks */,
+				7578CDE612C1AA0A00BBBDDA /* ScriptingBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +294,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7578CDE512C1AA0A00BBBDDA /* ScriptingBridge.framework */,
 				7536FBDA12A99D6400597AB9 /* EDCommon.framework */,
 				7536FCDC12A9CBB700597AB9 /* EDMessage.framework */,
 				759441AC12A30E2700F04308 /* libcrypto.1.0.0.dylib */,
@@ -283,6 +307,7 @@
 				75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */,
 				A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */,
 				752AFF2E129EE9F90028C23D /* Security.framework */,
+				7578CD9612C1995F00BBBDDA /* Message.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -440,6 +465,7 @@
 		75C6FF571270EE6300A66201 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				7578CDEC12C1AAED00BBBDDA /* Mail.app */,
 				75C6FF5B1270EEA800A66201 /* scripts */,
 				75C6FF581270EE8D00A66201 /* debug.xcconfig */,
 				75C6FF591270EE8D00A66201 /* release.xcconfig */,
@@ -474,6 +500,7 @@
 				75C6FF891270F1C600A66201 /* ShellScript */,
 			);
 			buildRules = (
+				7578CDE112C1A8B900BBBDDA /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -533,6 +560,7 @@
 				75275E39126A0B7900DC2A8D /* mailto.icns in Resources */,
 				75C60018127103E100A66201 /* dsa_pub.pem in Resources */,
 				755B9F0F12A6FA4800D4BEAA /* aqpmanager.icns in Resources */,
+				7578CDED12C1AAED00BBBDDA /* Mail.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +587,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7578CDEE12C1AAFD00BBBDDA /* Mail.app in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				E804BCA70833AAFD00512005 /* KeyController.m in Sources */,
 				3D12D159085208CC0035BA78 /* StatusController.m in Sources */,

@@ -34,6 +34,7 @@
 #import "InfoController.h"
 #import "LicenseFile.h"
 #import "PMMail.h"
+#import "Mail.h"
 
 @implementation LicenseController
 
@@ -770,6 +771,80 @@ static LicenseController *sharedInstance = nil;
 	}
   return subjectHeaderLine;
 	}
+
+- (void)sendMessage:(NSString *)to  
+			   bcc: (NSString *)bccString 
+			   from: (NSString *)fromString 
+			subject: (NSString *)subjectString
+			body: (NSString *)bodyString
+			attachments: (NSArray *)attachmentArray
+
+{
+	
+	/* create a Scripting Bridge object for talking to the Mail application */
+    MailApplication *mail = [SBApplication
+							 applicationWithBundleIdentifier:@"com.apple.Mail"];
+    
+	/* create a new outgoing message object */
+    MailOutgoingMessage *emailMessage =
+	[[[mail classForScriptingClass:@"outgoing message"] alloc]
+	 initWithProperties:
+	 [NSDictionary dictionaryWithObjectsAndKeys:
+	  subjectString, @"subject",
+	  bodyString, @"content",
+	  nil]];
+	
+	/* add the object to the mail app  */
+    [[mail outgoingMessages] addObject: emailMessage];
+    
+	/* set the sender, show the message */
+    emailMessage.sender = fromString;
+    emailMessage.visible = YES;
+	
+	/* create a new recipient and add it to the recipients list */
+    MailToRecipient *theRecipient =
+	[[[mail classForScriptingClass:@"to recipient"] alloc]
+	 initWithProperties:
+	 [NSDictionary dictionaryWithObjectsAndKeys:
+	  to, @"address",
+	  nil]];
+    [emailMessage.toRecipients addObject: theRecipient];
+    
+	if ([bccString length]) {
+		MailToRecipient *theBCCRecipient =
+		[[[mail classForScriptingClass:@"bcc recipient"] alloc]
+		 initWithProperties:
+		 [NSDictionary dictionaryWithObjectsAndKeys:
+		  bccString, @"address",
+		  nil]];
+		[emailMessage.bccRecipients addObject: theBCCRecipient];
+	}
+    
+	
+	NSEnumerator *enumerator = [attachmentArray objectEnumerator];
+	id anObject;
+	
+	while (anObject = [enumerator nextObject]) {
+		/* add an attachment, if one was specified */
+		NSString *attachmentFilePath = anObject;
+		if ( [attachmentFilePath length] > 0 ) {
+			
+			/* create an attachment object */
+			MailAttachment *theAttachment = [[[mail
+											   classForScriptingClass:@"attachment"] alloc]
+											 initWithProperties:
+											 [NSDictionary dictionaryWithObjectsAndKeys:
+											  attachmentFilePath, @"fileName",
+											  nil]];
+			
+			/* add it to the list of attachments */
+			[[emailMessage.content attachments] addObject: theAttachment];
+		}
+	}
+	
+	/* send the message */
+    [emailMessage send];
+}
 	
 - (void) emailLicenseFile: (LicenseFile *) licenseFile
 {
@@ -807,6 +882,8 @@ static LicenseController *sharedInstance = nil;
 	NSString *licenseSupport = [supportDir stringByAppendingFormat:@"/Licenses/%@", licenseProduct];
 	NSString *attachmentsPath = [NSString stringWithFormat: @"%@/Attachments/", licenseSupport, [licenseFile path]];
 
+	NSMutableArray *attachmentArray = [NSMutableArray arrayWithCapacity: 1];
+	
 	@try {
 		NSString *licenseTextFilePath = [attachmentsPath stringByAppendingString:licenseTextFileName];
 		BOOL textFileExists = [fm isReadableFileAtPath: licenseTextFilePath];
@@ -819,18 +896,23 @@ static LicenseController *sharedInstance = nil;
 				if (imageFileExists) {
 					NSData *imageData = [NSData dataWithContentsOfFile: licenseImageFilePath];
 					[attachmentList addObject:[EDObjectPair pairWithObjects:imageData:licenseImageFileName]]; 
+					[attachmentArray addObject:licenseImageFilePath];
 				}
 			}
 			
 			NSData *licenseFileData = [NSData dataWithContentsOfFile: [licenseFile fileNamePath]];
 			[attachmentList addObject:[EDObjectPair pairWithObjects:licenseFileData:[licenseFile fileName]]]; 
 			
+			// Put the license file after any image file
+			[attachmentArray addObject:[licenseFile fileNamePath]];
+
 			if ([licenseOtherFileName length]) {
 				NSString *licenseOtherFilePath = [attachmentsPath stringByAppendingString:licenseOtherFileName];
 				BOOL otherFileExists = [fm isReadableFileAtPath: licenseOtherFilePath];
 				if (otherFileExists) {
 					NSData *otherData = [NSData dataWithContentsOfFile: licenseOtherFilePath];
 					[attachmentList addObject:[EDObjectPair pairWithObjects:otherData:licenseOtherFileName]]; 
+					[attachmentArray addObject:licenseOtherFilePath];
 				}
 			}
 
@@ -844,23 +926,38 @@ static LicenseController *sharedInstance = nil;
 			NSError *err;
 			NSString *bodyText = [NSString stringWithContentsOfFile:licenseTextFilePath encoding:NSUTF8StringEncoding error:&err];
 			
-			NSString *emailProcess = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailProcess"];
+			NSInteger emailProcess = [[NSUserDefaults standardUserDefaults] integerForKey:@"MailProcess"];
 
-			NSString *emailServer = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailServer"];
-			NSString *emailServerPort = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailServerPort"];
-			
-			@try {
-				id mailAgent = [EDMailAgent mailAgentForRelayHostWithName:emailServer port:[emailServerPort intValue]]; 
+			if (emailProcess == 1) {
+				NSString *encodedSubject = [NSString stringWithFormat:@"%@", [subjectHeaderLine stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+				NSString *encodedBody = [NSString stringWithFormat:@"%@", [bodyText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+				NSString *encodedTo = [[licenseFile HTo] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+				NSString *encodedBBC = [NSString stringWithFormat:@"%@", [emailBCC stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+				[self sendMessage: [licenseFile HTo]  
+							  bcc: emailBCC
+							 from: emailFrom 
+						  subject: subjectHeaderLine
+							 body: bodyText
+					  attachments: (NSArray *)attachmentArray];
+				 
+			} else {
+				NSString *emailServer = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailServer"];
+				NSString *emailServerPort = [[NSUserDefaults standardUserDefaults] objectForKey:@"MailServerPort"];
 				
-				[mailAgent sendMailWithHeaders:headerFields body:bodyText andAttachments:attachmentList];
-				[MainController playUISoundForBOOL: YES];
-			}
-			@catch (NSException * e) {
-				[MainController playUISoundForBOOL: NO];
-				NSString * errorString = [NSString stringWithFormat:@"An error has occured try to email the license file, please check all your settings.\n%@", [e reason]];
-				//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
-				NSRunAlertPanel(@"Could not mail license file", errorString, @"OK", nil, nil);
-			}	
+				@try {
+					id mailAgent = [EDMailAgent mailAgentForRelayHostWithName:emailServer port:[emailServerPort intValue]]; 
+					
+					[mailAgent sendMailWithHeaders:headerFields body:bodyText andAttachments:attachmentList];
+					[MainController playUISoundForBOOL: YES];
+				}
+				@catch (NSException * e) {
+					[MainController playUISoundForBOOL: NO];
+					NSString * errorString = [NSString stringWithFormat:@"An error has occured try to email the license file, please check all your settings.\n%@", [e reason]];
+					//				NSBeginAlertSheet(@"Could not create license file", @"OK", NULL, NULL, thisWindow, self, NULL, NULL, NULL, @"Please assign a text file for the eamil body in the preference panel");
+					NSRunAlertPanel(@"Could not mail license file", errorString, @"OK", nil, nil);
+				}	
+  			}
+
 		}
 	}
 	@catch (NSException * e) {
