@@ -5,8 +5,6 @@
 
 @interface InfoDrawerController : NSWindowController
 {
-	IBOutlet NSView *licenseInfoView;
-	IBOutlet NSWindow *licenseWindow;
 	IBOutlet NSTableView *keyValueInfoTable;
 	IBOutlet NSTextField *licenseValidField;
 	IBOutlet NSTextField *hashField;
@@ -20,6 +18,7 @@
 
 @interface InfoWindowController : InfoDrawerController
 {
+	IBOutlet NSView *licenseInfoView;
 }
 
 @end

@@ -67,7 +67,7 @@ static InfoDrawerController *sharedInfoDrawer = nil;
     if (licenseFile)
         [licenseFile release];
     licenseFile = [license retain];
-	[licenseWindow setTitle:[license fileName]];
+	[[self window] setTitle:[license fileName]];
 	NSString *valid = [licenseFile isLicenseValid] ? [NSString stringWithFormat:@"This license is valid for %@", [licenseFile licenseValidForProduct]] 
     : @"This license is invalid";
 	[licenseValidField setStringValue:valid];
@@ -147,7 +147,7 @@ static InfoDrawerController *sharedInfoDrawer = nil;
 	if (![licenseFile readLicenseAtPath:licensePath])
 		return NO;
 	
-	[licenseWindow setTitle:[licensePath lastPathComponent]];
+	[[self window] setTitle:[licensePath lastPathComponent]];
 	NSString *valid = [licenseFile isLicenseValid] ? [NSString stringWithFormat:@"This license is valid for %@", [licenseFile licenseValidForProduct]] 
 	: @"This license is invalid";
 	[licenseValidField setStringValue:valid];

@@ -65,7 +65,7 @@ static LicenseController *sharedInstance = nil;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productKeySelected) name:@"ProductKeySelected" object:nil];
 	
 	if (!infoDrawerController) {
-		infoDrawerController = [InfoDrawerController sharedInstance];
+		infoDrawerController = [InfoDrawerController new];
 	}	
 	
 	return sharedInstance;
@@ -746,7 +746,7 @@ static LicenseController *sharedInstance = nil;
 		case 12: {
             NSInteger selectedRow = [licenseTable selectedRow];
             if (selectedRow != -1) {
-                [[InfoDrawerController sharedInstance] setLicense:[licenseArray objectAtIndex:selectedRow]];
+                [infoDrawerController setLicense:[licenseArray objectAtIndex:selectedRow]];
 				[infoDrawer open];
 				[self enableLicensesTabButtons: YES];
             } else {
