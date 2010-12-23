@@ -281,12 +281,9 @@ static KeyController *sharedInstance = nil;
 
 - (BOOL)saveKeysForProduct:(NSString *)productName
 {
-	NSFileManager *fm = [NSFileManager defaultManager];
-//	NSString *supportDir = [@"~/Library/Application Support/AquaticPrime Manager/" stringByExpandingTildeInPath];
 	NSString *supportDir = [[LicenseController sharedInstance] supportDir];
 	NSString *keyDir = [supportDir stringByAppendingString:@"/Product Keys"];
 	NSString *productPath = [keyDir stringByAppendingString:[NSString stringWithFormat:@"/%@.plist", productName]];
-	BOOL isDir;
 	NSData *pubData;
 	NSData *privData;
 	unsigned char *pubBytes;

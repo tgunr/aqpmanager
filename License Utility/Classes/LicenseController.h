@@ -27,7 +27,7 @@
 #import <Cocoa/Cocoa.h>
 @class AQTableView;
 @class AquaticPrime;
-@class InfoController;
+@class InfoDrawerController;
 @class LicenseFile;
 
 @interface LicenseController : NSObject
@@ -86,7 +86,7 @@
 	IBOutlet id keyController;
 	IBOutlet id statusController;
 	IBOutlet id productController;
-	IBOutlet id infoController;
+	IBOutlet InfoDrawerController *infoDrawerController;
 	IBOutlet NSArrayController *licenseArrayController;
 
 }
@@ -99,7 +99,7 @@
 - (IBAction)generateLicense:(id)sender;
 - (void)saveLicenseTemplate:(id)table;
 - (BOOL)loadLicenseTemplate;
-- (void)newProductSelected;
+- (void)productSelected;
 - (IBAction)editLicenseExtension:(id)sender;
 - (IBAction)editSaveDirectory:(id)sender;
 - (IBAction)emailLicenseClick:(id)sender;

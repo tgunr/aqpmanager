@@ -64,8 +64,8 @@ static LicenseController *sharedInstance = nil;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveLicenseTemplate:) name:@"ProductWillBeSelected" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productKeySelected) name:@"ProductKeySelected" object:nil];
 	
-	if (!infoController) {
-		infoController = [InfoController sharedInstance];
+	if (!infoDrawerController) {
+		infoDrawerController = [InfoDrawerController sharedInstance];
 	}	
 	
 	return sharedInstance;
@@ -83,7 +83,7 @@ static LicenseController *sharedInstance = nil;
 	[licenseArray release];
 	[supportDir release];
 	[licenseDir release];
-	[infoController release];
+	[infoDrawerController release];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
@@ -643,17 +643,22 @@ static LicenseController *sharedInstance = nil;
 {
 	NSInteger tableTag = [tableView tag];
 	switch (tableTag) {
-		case 11:
-	if ([keyArray count] <= [valueArray count])
-		return [keyArray count];
-	else
-		return [valueArray count];
+		case 11: {
+			if ([keyArray count] <= [valueArray count])
+				return [keyArray count];
+			else
+				return [valueArray count];
 			break;
-			
-		case 12:
-			return [licenseArray count];
+		}
+		case 12: {
+			if (licenseArray) {
+				return [licenseArray count];
+			} else {
+				return 0;
+			}
+
 			break;
-			
+		}
 		default:
 			return 0;
 			break;
@@ -664,13 +669,13 @@ static LicenseController *sharedInstance = nil;
 {
 	NSInteger tableTag = [tableView tag];
 	switch (tableTag) {
-		case 11:
-    if ([[tableColumn identifier] isEqualToString:@"keyColumn"])
-		return [keyArray objectAtIndex:row];
-	else
-		return [valueArray objectAtIndex:row];
+		case 11: {
+			if ([[tableColumn identifier] isEqualToString:@"keyColumn"])
+				return [keyArray objectAtIndex:row];
+			else
+				return [valueArray objectAtIndex:row];
 			break;
-			
+		}
 		case 12: {
 			LicenseFile *lFile = [licenseArray objectAtIndex:row];
 			return [lFile fileName];
@@ -741,7 +746,7 @@ static LicenseController *sharedInstance = nil;
 		case 12: {
             NSInteger selectedRow = [licenseTable selectedRow];
             if (selectedRow != -1) {
-                [[InfoController sharedInstance] setLicense:[licenseArray objectAtIndex:selectedRow]];
+                [[InfoDrawerController sharedInstance] setLicense:[licenseArray objectAtIndex:selectedRow]];
 				[infoDrawer open];
 				[self enableLicensesTabButtons: YES];
             } else {
@@ -950,10 +955,10 @@ static LicenseController *sharedInstance = nil;
 			NSInteger emailProcess = [[NSUserDefaults standardUserDefaults] integerForKey:@"MailProcess"];
 
 			if (emailProcess == 1) {
-				NSString *encodedSubject = [NSString stringWithFormat:@"%@", [subjectHeaderLine stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-				NSString *encodedBody = [NSString stringWithFormat:@"%@", [bodyText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-				NSString *encodedTo = [[licenseFile HTo] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-				NSString *encodedBBC = [NSString stringWithFormat:@"%@", [emailBCC stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//				NSString *encodedSubject = [NSString stringWithFormat:@"%@", [subjectHeaderLine stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//				NSString *encodedBody = [NSString stringWithFormat:@"%@", [bodyText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//				NSString *encodedTo = [[licenseFile HTo] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//				NSString *encodedBBC = [NSString stringWithFormat:@"%@", [emailBCC stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 				[self sendMessage: [licenseFile HTo]  
 							  bcc: emailBCC
 							 from: emailFrom 
@@ -1278,7 +1283,6 @@ static LicenseController *sharedInstance = nil;
 			NSInteger selectedRow = [keyValueTable selectedRow];
 			NSInteger selectedCol = [keyValueTable selectedColumn];
 			NSInteger keyCol = [keyValueTable columnWithIdentifier:@"keyColumn"];
-			NSString * c = [n stringValue];
 			switch (tagID) {
 				case 1: {
 	NSString *tvs = [licenseEmailField stringValue];
@@ -1334,7 +1338,6 @@ static LicenseController *sharedInstance = nil;
 		}
 			
 		case 3: {
-			NSTextView* textView = [[aNotification userInfo] objectForKey:@"NSFieldEditor"];
             NSString* searchString = [[aNotification object] stringValue];
             if ([searchString length] == 0)
             {

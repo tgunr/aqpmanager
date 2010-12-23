@@ -1,5 +1,5 @@
 #import "MainController.h"
-#import "InfoController.h"
+#import "InfoWindowController.h"
 #import "AboutController.h"
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -63,10 +63,10 @@ static MainController *shared;
 
 - (IBAction)showLicenseInfoWindow:(id)sender
 {
-	if (!infoController) {
-		infoController = [[InfoController alloc] init];
+	if (!infoWindowController) {
+		infoWindowController = [[InfoWindowController alloc] init];
 	}
-	[infoController showWindow:self];
+	[infoWindowController showWindow:self];
 }
 
 - (IBAction)closeWindow:(id)sender
