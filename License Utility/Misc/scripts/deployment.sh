@@ -1,6 +1,6 @@
 set -o errexit
 set -x
-if [[ "$CONFIGURATION" == 'Deployment' || "$CONFIGURATION" == 'Release' ]]; then
+if [[ "$CONFIGURATION" == 'Deployment' ]]; then
 
 # Naming conventions
 #NAME		= trailing file name
@@ -23,7 +23,7 @@ UPDATES_BASE="$SRCROOT"/updates
 # Get the build number from the debug.xcconfig and set the stage.xccofig file
 # This way, we stay at a constant build number until we go back to debugging
 BUILD_NUMBER=`head -n 1 "$SRCROOT/Misc/debug.xcconfig" | sed -e 's/BUILD_NUMBER = //'`
-sed -e "s/BUILD_NUMBER = .*/BUILD_NUMBER = $BUILD_NUMBER/" -i ""  "$SRCROOT/Misc/stage.xcconfig"
+sed -e "s/BUILD_NUMBER = .*/BUILD_NUMBER = $BUILD_NUMBER/" -i ""  "$SRCROOT/Misc/deployment.xcconfig"
 
 # Have to update the application Info.plist so it knows we are on this build
 PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"

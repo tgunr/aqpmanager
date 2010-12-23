@@ -90,7 +90,5 @@ tell application "Feeder"
 end tell
 EOF
 
-bbedit "$RELEASE_NOTES_PATHNAME" 
-
-echo rsync -auv "$UPDATES_DIR"/ polymicrosystems.com:sites/pdfgarden.com/updates/
+#echo rsync -auv "$UPDATES_DIR"/ polymicrosystems.com:sites/pdfgarden.com/updates/
 fi
