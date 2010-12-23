@@ -1,6 +1,14 @@
+#!/bin/sh
+
+# release.sh
+#
+# Created by Dave Carlton on 10/11/10.
+# Copyright 2010 PolyMicro Systems. All rights reserved.
+
 set -o errexit
-set -x
 if [[ "$CONFIGURATION" == 'Release' ]]; then
+set -x
+
 exit 0
 # Variables
 
@@ -91,4 +99,7 @@ end tell
 EOF
 
 #echo rsync -auv "$UPDATES_DIR"/ polymicrosystems.com:sites/pdfgarden.com/updates/
+
+echo "release.sh finished"
+
 fi

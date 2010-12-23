@@ -1,6 +1,13 @@
+#!/bin/sh
+
+# deployment.sh
+#
+# Created by Dave Carlton on 10/11/10.
+# Copyright 2010 PolyMicro Systems. All rights reserved.
+
 set -o errexit
-set -x
 if [[ "$CONFIGURATION" == 'Deployment' ]]; then
+set -x
 
 # Naming conventions
 #NAME		= trailing file name
@@ -138,5 +145,7 @@ bbedit "$RELEASE_NOTES_PATHNAME"
 
 #sed -e 's/http:\/\/updates.pdfgarden.com\//http:\/\/staging.pdfgarden.com\/updates\//' -i .bak $XML_UPDATE_FILE $XML_CONFIG_FILE
 #rsync -auv $UPDATES_BASE/ polymicrosystems.com:sites/staging/pdfgarden.com/updates/
+
+echo "deployment.sh finished"
 
 fi

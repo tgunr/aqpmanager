@@ -444,8 +444,6 @@ static LicenseController *sharedInstance = nil;
 
 	[licenseEmailField setStringValue:emailKey];
 	
-	
-	
 	if (![keyArray count])
 		[generateLicenseButton setEnabled:NO];
 	if ([emailAddress length])

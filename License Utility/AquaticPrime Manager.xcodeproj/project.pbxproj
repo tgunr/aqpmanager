@@ -172,10 +172,9 @@
 		75C6FF581270EE8D00A66201 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
 		75C6FF591270EE8D00A66201 /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		75C6FF5A1270EE8D00A66201 /* deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = deployment.xcconfig; sourceTree = "<group>"; };
-		75C6FF5C1270EEA800A66201 /* inc_build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = inc_build.sh; sourceTree = "<group>"; };
 		75C6FF5D1270EEA800A66201 /* release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = release.sh; sourceTree = "<group>"; };
 		75C6FF5E1270EEA800A66201 /* deployment.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = deployment.sh; sourceTree = "<group>"; };
-		75C6FF5F1270EEA800A66201 /* debufprefs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = debufprefs.sh; sourceTree = "<group>"; };
+		75C6FF5F1270EEA800A66201 /* development.sh */ = {isa = PBXFileReference; fileEncoding = 4; path = development.sh; sourceTree = "<group>"; };
 		75CFDB95126A10B5002BA6E7 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		75CFDB96126A10B5002BA6E7 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -217,8 +216,7 @@
 				3DB12D8E088046A600160861 /* Main Controller */,
 				3DB12C2808803BE900160861 /* Key Controller */,
 				3DB12C2708803BDC00160861 /* Product Controller */,
-				3DB12C2608803BD300160861 /* License Creation */,
-				3DB12C2508803BBC00160861 /* License Info */,
+				3DB12C2608803BD300160861 /* License Controller */,
 				3DB12C2908803BF100160861 /* Status */,
 				3DD108FA0881727400C4C6B4 /* About */,
 				3DD108B8088170A100C4C6B4 /* AQAppKit */,
@@ -322,20 +320,13 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		3DB12C2508803BBC00160861 /* License Info */ = {
+		3DB12C2608803BD300160861 /* License Controller */ = {
 			isa = PBXGroup;
 			children = (
 				3DB12D050880427F00160861 /* InfoController.h */,
 				3DB12D060880427F00160861 /* InfoController.m */,
 				752D9F391297B25300448E37 /* LicenseFile.h */,
 				752D9F3A1297B25300448E37 /* LicenseFile.m */,
-			);
-			name = "License Info";
-			sourceTree = "<group>";
-		};
-		3DB12C2608803BD300160861 /* License Creation */ = {
-			isa = PBXGroup;
-			children = (
 				75FFE7E912A455B7008FCE20 /* LicenseArrayController.h */,
 				75FFE7EA12A455B7008FCE20 /* LicenseArrayController.m */,
 				25C22E74108E664700D1D72F /* AquaticPrime.h */,
@@ -343,7 +334,7 @@
 				3D9364010856724F006F1864 /* LicenseController.h */,
 				3D9364020856724F006F1864 /* LicenseController.m */,
 			);
-			name = "License Creation";
+			name = "License Controller";
 			sourceTree = "<group>";
 		};
 		3DB12C2708803BDC00160861 /* Product Controller */ = {
@@ -478,10 +469,9 @@
 		75C6FF5B1270EEA800A66201 /* scripts */ = {
 			isa = PBXGroup;
 			children = (
-				75C6FF5C1270EEA800A66201 /* inc_build.sh */,
 				75C6FF5D1270EEA800A66201 /* release.sh */,
 				75C6FF5E1270EEA800A66201 /* deployment.sh */,
-				75C6FF5F1270EEA800A66201 /* debufprefs.sh */,
+				75C6FF5F1270EEA800A66201 /* development.sh */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
@@ -578,7 +568,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"$SRCROOT/Misc/scripts/debufprefs.sh\"\nsource \"$SRCROOT/Misc/scripts/debufprefs.sh\"\n\necho \"$SRCROOT/Misc/scripts/inc_build.sh\"\nsource \"$SRCROOT/Misc/scripts/inc_build.sh\"\n\necho \"$SRCROOT/Misc/scripts/stage.sh\"\nsource \"$SRCROOT/Misc/scripts/stage.sh\"\n";
+			shellScript = "echo \"$SRCROOT/Misc/scripts/development.sh\"\nsource \"$SRCROOT/Misc/scripts/development.sh\"\n\necho \"$SRCROOT/Misc/scripts/deployment.sh\"\nsource \"$SRCROOT/Misc/scripts/deployment.sh\"\n\necho \"$SRCROOT/Misc/scripts/release.sh\"\nsource \"$SRCROOT/Misc/scripts/release.sh\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
