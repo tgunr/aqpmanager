@@ -31,27 +31,30 @@
 
 @implementation InfoDrawerController
 
-static InfoDrawerController *sharedInstance = nil;
+static InfoDrawerController *sharedInfoDrawer = nil;
 
 - (id)init
 {
-	if (sharedInstance) {
-        [self dealloc];
-    } else {
-        sharedInstance = [super init];
-    }	
-	self = [super initWithWindowNibName:@"LicenseInfo"];
-	return sharedInstance;
+	self = [super init];
+    if (self) {
+		if (!sharedInfoDrawer) {
+			sharedInfoDrawer = self;
+		}
+    }
+    return self;
 }
 
 + (InfoDrawerController *)sharedInstance
 {
-    return sharedInstance ? sharedInstance : [[[self alloc] init] autorelease];
+	if (sharedInfoDrawer == nil) {
+		[[self alloc] init];
+	}
+    return sharedInfoDrawer;
 }
 
 - (void)awakeFromNib
 {
-	licenseFile = [[LicenseFile alloc] init];
+	licenseFile = [LicenseFile new];
 }
 
 - (IBAction)closeLicenseInfoWindow:(id)sender
@@ -96,6 +99,15 @@ static InfoDrawerController *sharedInstance = nil;
 
 @implementation InfoWindowController
 
+- (id)init
+{
+	self = [super init];
+    if (self) {
+		self = [super initWithWindowNibName:@"LicenseInfo"];
+    }
+    return self;
+}
+
 - (void)awakeFromNib
 {
 	[super awakeFromNib];
@@ -104,6 +116,11 @@ static InfoDrawerController *sharedInstance = nil;
 
 - (void)concludeDragOperation:(id <NSDraggingInfo>)sender
 {
+}
+
+- (NSDragOperation)draggingEntered:(id < NSDraggingInfo >)sender
+{
+	return NSDragOperationLink;
 }
 
 - (void)draggingEnded:(id <NSDraggingInfo>)sender
