@@ -323,8 +323,8 @@ static KeyController *sharedInstance = nil;
 							 mailFileData, @"MailFiles",
 							 nil];
 	
-	[keyDict writeToFile:productPath atomically:YES];
-	return YES;
+	BOOL result = [keyDict writeToFile:productPath atomically:YES];
+	return result;
 }
 
 - (IBAction)exportKeys:(id)sender

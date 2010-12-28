@@ -12,9 +12,9 @@ set -x
 exit 0
 # Variables
 
-# Get the build number from the debug.xcconfig and set the release.xccofig file
+# Get the build number from the development.xcconfig and set the release.xccofig file
 # This way, we stay at a constant build number until we go back to debugging
-BUILD_NUMBER=`head -n 1 "$SRCROOT/Misc/debug.xcconfig" | sed -e 's/BUILD_NUMBER = //'`
+BUILD_NUMBER=`head -n 1 "$SRCROOT/Misc/development.xcconfig" | sed -e 's/BUILD_NUMBER = //'`
 sed -e "s/BUILD_NUMBER = .*/BUILD_NUMBER = $BUILD_NUMBER/" -i ""  "$SRCROOT/Misc/release.xcconfig"
 
 # Have to update the application Info.plist so it knows we are on this build

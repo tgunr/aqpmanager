@@ -26,6 +26,61 @@
 		75275E39126A0B7900DC2A8D /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
 		752AFF2F129EE9F90028C23D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFF2E129EE9F90028C23D /* Security.framework */; };
 		752D9F3B1297B25300448E37 /* LicenseFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 752D9F3A1297B25300448E37 /* LicenseFile.m */; };
+		7535217C12C92775000D49B9 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
+		7535217D12C92775000D49B9 /* add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3D12D14A085206240035BA78 /* add.tiff */; };
+		7535217E12C92775000D49B9 /* remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DF60B9D085CE0BD004C50F2 /* remove.tiff */; };
+		7535217F12C92775000D49B9 /* LicenseInfo.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB12CFB0880423A00160861 /* LicenseInfo.nib */; };
+		7535218012C92775000D49B9 /* About.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD108F30881725A00C4C6B4 /* About.nib */; };
+		7535218112C92775000D49B9 /* advancedpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42281269FA77008E173A /* advancedpref.icns */; };
+		7535218212C92775000D49B9 /* generalpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422A1269FA77008E173A /* generalpref.icns */; };
+		7535218312C92775000D49B9 /* minus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422B1269FA77008E173A /* minus.icns */; };
+		7535218412C92775000D49B9 /* plus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422D1269FA77008E173A /* plus.icns */; };
+		7535218512C92775000D49B9 /* sidebarpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422E1269FA77008E173A /* sidebarpref.icns */; };
+		7535218612C92775000D49B9 /* SmartFolder.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422F1269FA77008E173A /* SmartFolder.icns */; };
+		7535218712C92775000D49B9 /* success.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42301269FA77008E173A /* success.icns */; };
+		7535218812C92775000D49B9 /* ToolbarInfo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42311269FA77008E173A /* ToolbarInfo.icns */; };
+		7535218912C92775000D49B9 /* update.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42321269FA77008E173A /* update.icns */; };
+		7535218A12C92775000D49B9 /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E36126A0B7900DC2A8D /* Database.icns */; };
+		7535218B12C92775000D49B9 /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
+		7535218C12C92775000D49B9 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 75C60016127103E100A66201 /* dsa_pub.pem */; };
+		7535218D12C92775000D49B9 /* aqpmanager.icns in Resources */ = {isa = PBXBuildFile; fileRef = 755B9F0E12A6FA4800D4BEAA /* aqpmanager.icns */; };
+		7535218E12C92775000D49B9 /* Mail.app in Resources */ = {isa = PBXBuildFile; fileRef = 7578CDEC12C1AAED00BBBDDA /* Mail.app */; };
+		7535219512C92775000D49B9 /* Mail.app in Sources */ = {isa = PBXBuildFile; fileRef = 7578CDEC12C1AAED00BBBDDA /* Mail.app */; };
+		7535219612C92775000D49B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		7535219712C92775000D49B9 /* KeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = E804BCA60833AAFD00512005 /* KeyController.m */; };
+		7535219812C92775000D49B9 /* StatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D12D158085208CC0035BA78 /* StatusController.m */; };
+		7535219912C92775000D49B9 /* ProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D12D1BF08520D0E0035BA78 /* ProductController.m */; };
+		7535219A12C92775000D49B9 /* LicenseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9364020856724F006F1864 /* LicenseController.m */; };
+		7535219B12C92775000D49B9 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB12C9F08803F0300160861 /* MainController.m */; };
+		7535219C12C92775000D49B9 /* InfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB12D060880427F00160861 /* InfoController.m */; };
+		7535219D12C92775000D49B9 /* AQAboutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BA088170A100C4C6B4 /* AQAboutView.m */; };
+		7535219E12C92775000D49B9 /* AQAboutWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BC088170A100C4C6B4 /* AQAboutWindow.m */; };
+		7535219F12C92775000D49B9 /* AQTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BE088170A100C4C6B4 /* AQTableView.m */; };
+		753521A012C92775000D49B9 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108F60881726E00C4C6B4 /* AboutController.m */; };
+		753521A112C92775000D49B9 /* OAGradientTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1605FE089D3DBC00526ED8 /* OAGradientTableView.m */; };
+		753521A212C92775000D49B9 /* AQTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1606A2089D41C100526ED8 /* AQTextFieldCell.m */; };
+		753521A312C92775000D49B9 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDB96126A10B5002BA6E7 /* PreferencesController.m */; };
+		753521A412C92775000D49B9 /* LicenseFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 752D9F3A1297B25300448E37 /* LicenseFile.m */; };
+		753521A512C92775000D49B9 /* PMMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD19129C54F700EF8ADC /* PMMail.m */; };
+		753521A612C92775000D49B9 /* NSApplication_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD59129C72F400EF8ADC /* NSApplication_Extensions.m */; };
+		753521A712C92775000D49B9 /* NSArray_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5B129C72F400EF8ADC /* NSArray_Extensions.m */; };
+		753521A812C92775000D49B9 /* NSData_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5D129C72F400EF8ADC /* NSData_Extensions.m */; };
+		753521A912C92775000D49B9 /* NSString_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5F129C72F400EF8ADC /* NSString_Extensions.m */; };
+		753521AA12C92775000D49B9 /* pmsCFUtility.c in Sources */ = {isa = PBXBuildFile; fileRef = 7566ADA2129C780F00EF8ADC /* pmsCFUtility.c */; };
+		753521AB12C92775000D49B9 /* pmsNSUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566ADBB129C79BC00EF8ADC /* pmsNSUtility.m */; };
+		753521AC12C92775000D49B9 /* AquaticPrime.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C22E75108E664700D1D72F /* AquaticPrime.m */; };
+		753521AD12C92775000D49B9 /* LicenseArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FFE7EA12A455B7008FCE20 /* LicenseArrayController.m */; };
+		753521AE12C92775000D49B9 /* aqpmanager.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */; };
+		753521B012C92775000D49B9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */; };
+		753521B112C92775000D49B9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */; };
+		753521B212C92775000D49B9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFF2E129EE9F90028C23D /* Security.framework */; };
+		753521B312C92775000D49B9 /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
+		753521B412C92775000D49B9 /* EDMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536FCDC12A9CBB700597AB9 /* EDMessage.framework */; };
+		753521B612C92775000D49B9 /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578CD9612C1995F00BBBDDA /* Message.framework */; };
+		753521B712C92775000D49B9 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578CDE512C1AA0A00BBBDDA /* ScriptingBridge.framework */; };
+		753521BA12C92775000D49B9 /* EDMessage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FCDC12A9CBB700597AB9 /* EDMessage.framework */; };
+		753521BB12C92775000D49B9 /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
+		7535221412C94206000D49B9 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7535221312C94206000D49B9 /* AppKit.framework */; };
 		7536FA3112A9151400597AB9 /* aqpmanager.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */; };
 		7536FBDB12A99D6400597AB9 /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
 		7536FC3A12A9BDAF00597AB9 /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
@@ -66,6 +121,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
+		753521BD12C92775000D49B9 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.app";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_BASE).h",
+			);
+			script = "sdef \"$INPUT_FILE_PATH\" | sdp -fh -o \"$DERIVED_FILES_DIR\" --basename \"$INPUT_FILE_BASE\" --bundleid `defaults read \"$INPUT_FILE_PATH/Contents/Info\" CFBundleIdentifier`";
+		};
 		7578CDE112C1A8B900BBBDDA /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
@@ -80,6 +146,17 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		753521B812C92775000D49B9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				753521BA12C92775000D49B9 /* EDMessage.framework in CopyFiles */,
+				753521BB12C92775000D49B9 /* EDCommon.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A0BFCA2509A3F240005C04A5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -99,7 +176,7 @@
 		25C22E75108E664700D1D72F /* AquaticPrime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AquaticPrime.m; path = ../../Source/Cocoa/AquaticPrime.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* AquaticPrimeDeveloper_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AquaticPrimeDeveloper_Prefix.pch; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* AquaticPrimeManager.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AquaticPrimeManager.pch; sourceTree = "<group>"; };
 		3D12D14A085206240035BA78 /* add.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = add.tiff; sourceTree = "<group>"; };
 		3D12D157085208CC0035BA78 /* StatusController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StatusController.h; sourceTree = "<group>"; };
 		3D12D158085208CC0035BA78 /* StatusController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = StatusController.m; sourceTree = "<group>"; };
@@ -133,6 +210,12 @@
 		752AFF2E129EE9F90028C23D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		752D9F391297B25300448E37 /* LicenseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseFile.h; sourceTree = "<group>"; };
 		752D9F3A1297B25300448E37 /* LicenseFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseFile.m; sourceTree = "<group>"; };
+		7535210112C906DC000D49B9 /* prerun.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = prerun.sh; sourceTree = "<group>"; };
+		7535214412C92090000D49B9 /* set_plist.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = set_plist.sh; sourceTree = "<group>"; };
+		7535214E12C9244B000D49B9 /* postrun.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postrun.sh; sourceTree = "<group>"; };
+		7535217712C9271C000D49B9 /* InfoMAS.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = InfoMAS.plist; sourceTree = "<group>"; };
+		753521C212C92775000D49B9 /* AquaticPrime Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AquaticPrime Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7535221312C94206000D49B9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = aqpmanager.xcdatamodel; sourceTree = SOURCE_ROOT; };
 		7536FBDA12A99D6400597AB9 /* EDCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EDCommon.framework; path = "../../../Sources/GIT/EdCommon/build/Release (embedded)/EDCommon.framework"; sourceTree = SOURCE_ROOT; };
 		7536FCDC12A9CBB700597AB9 /* EDMessage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EDMessage.framework; path = "../../../Sources/GIT/EdMessage/build/Deployment (embedded)/EDMessage.framework"; sourceTree = SOURCE_ROOT; };
@@ -169,16 +252,15 @@
 		75ACA575126B9C580046F460 /* libmysql.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysql.16.dylib; path = "../../../../GIT/mysql-cocoa-framework/mysqlc/libmysql.16.dylib"; sourceTree = SOURCE_ROOT; };
 		75C600111271036300A66201 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		75C60016127103E100A66201 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
-		75C6FF581270EE8D00A66201 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
-		75C6FF591270EE8D00A66201 /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
-		75C6FF5A1270EE8D00A66201 /* deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = deployment.xcconfig; sourceTree = "<group>"; };
-		75C6FF5D1270EEA800A66201 /* release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = release.sh; sourceTree = "<group>"; };
-		75C6FF5E1270EEA800A66201 /* deployment.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = deployment.sh; sourceTree = "<group>"; };
-		75C6FF5F1270EEA800A66201 /* development.sh */ = {isa = PBXFileReference; fileEncoding = 4; path = development.sh; sourceTree = "<group>"; };
+		75C6FF581270EE8D00A66201 /* development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = development.xcconfig; sourceTree = "<group>"; };
+		75C6FF5D1270EEA800A66201 /* release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; lineEnding = 0; path = release.sh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
+		75C6FF5E1270EEA800A66201 /* deployment.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; lineEnding = 0; path = deployment.sh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
+		75C6FF5F1270EEA800A66201 /* development.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; lineEnding = 0; path = development.sh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		75CFDB95126A10B5002BA6E7 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		75CFDB96126A10B5002BA6E7 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		75D4CD37126B908B00E60EF9 /* SMySQL_bundled.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SMySQL_bundled.framework; path = "/Volumes/leopard/Sources/GIT/mysql-cocoa-framework/build/Deployment/SMySQL_bundled.framework"; sourceTree = "<absolute>"; };
+		75D8C5ED12C3FD3B00E837FA /* asrelease.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; lineEnding = 0; path = asrelease.sh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		75E0C0C012B557D5008B7156 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		75FFE7E912A455B7008FCE20 /* LicenseArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseArrayController.h; sourceTree = "<group>"; };
 		75FFE7EA12A455B7008FCE20 /* LicenseArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseArrayController.m; sourceTree = "<group>"; };
@@ -190,6 +272,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		753521AF12C92775000D49B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				753521B012C92775000D49B9 /* Cocoa.framework in Frameworks */,
+				753521B112C92775000D49B9 /* AudioToolbox.framework in Frameworks */,
+				753521B212C92775000D49B9 /* Security.framework in Frameworks */,
+				753521B312C92775000D49B9 /* EDCommon.framework in Frameworks */,
+				753521B412C92775000D49B9 /* EDMessage.framework in Frameworks */,
+				753521B612C92775000D49B9 /* Message.framework in Frameworks */,
+				753521B712C92775000D49B9 /* ScriptingBridge.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -202,6 +298,7 @@
 				75E0C0C112B557D5008B7156 /* Sparkle.framework in Frameworks */,
 				7578CD9712C1995F00BBBDDA /* Message.framework in Frameworks */,
 				7578CDE612C1AA0A00BBBDDA /* ScriptingBridge.framework in Frameworks */,
+				7535221412C94206000D49B9 /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* AquaticPrime Manager.app */,
+				753521C212C92775000D49B9 /* AquaticPrime Manager.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -270,7 +368,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32CA4F630368D1EE00C91783 /* AquaticPrimeDeveloper_Prefix.pch */,
+				32CA4F630368D1EE00C91783 /* AquaticPrimeManager.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -284,6 +382,7 @@
 				758E42271269FA77008E173A /* Icons */,
 				3D12D149085206240035BA78 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				7535217712C9271C000D49B9 /* InfoMAS.plist */,
 				3DB12D280880431600160861 /* Nibs */,
 			);
 			name = Resources;
@@ -306,6 +405,7 @@
 				A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */,
 				752AFF2E129EE9F90028C23D /* Security.framework */,
 				7578CD9612C1995F00BBBDDA /* Message.framework */,
+				7535221312C94206000D49B9 /* AppKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -458,9 +558,7 @@
 			children = (
 				7578CDEC12C1AAED00BBBDDA /* Mail.app */,
 				75C6FF5B1270EEA800A66201 /* scripts */,
-				75C6FF581270EE8D00A66201 /* debug.xcconfig */,
-				75C6FF591270EE8D00A66201 /* release.xcconfig */,
-				75C6FF5A1270EE8D00A66201 /* deployment.xcconfig */,
+				75C6FF581270EE8D00A66201 /* development.xcconfig */,
 				7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */,
 			);
 			path = Misc;
@@ -469,9 +567,13 @@
 		75C6FF5B1270EEA800A66201 /* scripts */ = {
 			isa = PBXGroup;
 			children = (
-				75C6FF5D1270EEA800A66201 /* release.sh */,
-				75C6FF5E1270EEA800A66201 /* deployment.sh */,
+				7535210112C906DC000D49B9 /* prerun.sh */,
+				7535214412C92090000D49B9 /* set_plist.sh */,
 				75C6FF5F1270EEA800A66201 /* development.sh */,
+				75C6FF5E1270EEA800A66201 /* deployment.sh */,
+				75D8C5ED12C3FD3B00E837FA /* asrelease.sh */,
+				7535214E12C9244B000D49B9 /* postrun.sh */,
+				75C6FF5D1270EEA800A66201 /* release.sh */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
@@ -479,10 +581,33 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7535217912C92775000D49B9 /* AquaticPrime Manager MAS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 753521BE12C92775000D49B9 /* Build configuration list for PBXNativeTarget "AquaticPrime Manager MAS" */;
+			buildPhases = (
+				7535217A12C92775000D49B9 /* ShellScript */,
+				7535217B12C92775000D49B9 /* Resources */,
+				7535219412C92775000D49B9 /* Sources */,
+				753521AF12C92775000D49B9 /* Frameworks */,
+				753521B812C92775000D49B9 /* CopyFiles */,
+				753521BC12C92775000D49B9 /* ShellScript */,
+			);
+			buildRules = (
+				753521BD12C92775000D49B9 /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = "AquaticPrime Manager MAS";
+			productInstallPath = "$(HOME)/Applications";
+			productName = AquaticPrimeDeveloper;
+			productReference = 753521C212C92775000D49B9 /* AquaticPrime Manager.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8D1107260486CEB800E47090 /* AquaticPrime Manager */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3D9363D208565C58006F1864 /* Build configuration list for PBXNativeTarget "AquaticPrime Manager" */;
 			buildPhases = (
+				7535210012C90662000D49B9 /* ShellScript */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
@@ -523,11 +648,38 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* AquaticPrime Manager */,
+				7535217912C92775000D49B9 /* AquaticPrime Manager MAS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7535217B12C92775000D49B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7535217C12C92775000D49B9 /* MainMenu.nib in Resources */,
+				7535217D12C92775000D49B9 /* add.tiff in Resources */,
+				7535217E12C92775000D49B9 /* remove.tiff in Resources */,
+				7535217F12C92775000D49B9 /* LicenseInfo.nib in Resources */,
+				7535218012C92775000D49B9 /* About.nib in Resources */,
+				7535218112C92775000D49B9 /* advancedpref.icns in Resources */,
+				7535218212C92775000D49B9 /* generalpref.icns in Resources */,
+				7535218312C92775000D49B9 /* minus.icns in Resources */,
+				7535218412C92775000D49B9 /* plus.icns in Resources */,
+				7535218512C92775000D49B9 /* sidebarpref.icns in Resources */,
+				7535218612C92775000D49B9 /* SmartFolder.icns in Resources */,
+				7535218712C92775000D49B9 /* success.icns in Resources */,
+				7535218812C92775000D49B9 /* ToolbarInfo.icns in Resources */,
+				7535218912C92775000D49B9 /* update.icns in Resources */,
+				7535218A12C92775000D49B9 /* Database.icns in Resources */,
+				7535218B12C92775000D49B9 /* mailto.icns in Resources */,
+				7535218C12C92775000D49B9 /* dsa_pub.pem in Resources */,
+				7535218D12C92775000D49B9 /* aqpmanager.icns in Resources */,
+				7535218E12C92775000D49B9 /* Mail.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -557,6 +709,46 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7535210012C90662000D49B9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"$SRCROOT/Misc/scripts/prerun.sh\"\nsource \"$SRCROOT/Misc/scripts/prerun.sh\"";
+			showEnvVarsInLog = 0;
+		};
+		7535217A12C92775000D49B9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"$SRCROOT/Misc/scripts/prerun.sh\"\nsource \"$SRCROOT/Misc/scripts/prerun.sh\"";
+		};
+		753521BC12C92775000D49B9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"$SRCROOT/Misc/scripts/postrun.sh\"\nsource \"$SRCROOT/Misc/scripts/postrun.sh\"\n\n";
+		};
 		75C6FF891270F1C600A66201 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -568,11 +760,45 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"$SRCROOT/Misc/scripts/development.sh\"\nsource \"$SRCROOT/Misc/scripts/development.sh\"\n\necho \"$SRCROOT/Misc/scripts/deployment.sh\"\nsource \"$SRCROOT/Misc/scripts/deployment.sh\"\n\necho \"$SRCROOT/Misc/scripts/release.sh\"\nsource \"$SRCROOT/Misc/scripts/release.sh\"\n\n";
+			shellScript = "echo \"$SRCROOT/Misc/scripts/postrun.sh\"\nsource \"$SRCROOT/Misc/scripts/postrun.sh\"\n\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7535219412C92775000D49B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7535219512C92775000D49B9 /* Mail.app in Sources */,
+				7535219612C92775000D49B9 /* main.m in Sources */,
+				7535219712C92775000D49B9 /* KeyController.m in Sources */,
+				7535219812C92775000D49B9 /* StatusController.m in Sources */,
+				7535219912C92775000D49B9 /* ProductController.m in Sources */,
+				7535219A12C92775000D49B9 /* LicenseController.m in Sources */,
+				7535219B12C92775000D49B9 /* MainController.m in Sources */,
+				7535219C12C92775000D49B9 /* InfoController.m in Sources */,
+				7535219D12C92775000D49B9 /* AQAboutView.m in Sources */,
+				7535219E12C92775000D49B9 /* AQAboutWindow.m in Sources */,
+				7535219F12C92775000D49B9 /* AQTableView.m in Sources */,
+				753521A012C92775000D49B9 /* AboutController.m in Sources */,
+				753521A112C92775000D49B9 /* OAGradientTableView.m in Sources */,
+				753521A212C92775000D49B9 /* AQTextFieldCell.m in Sources */,
+				753521A312C92775000D49B9 /* PreferencesController.m in Sources */,
+				753521A412C92775000D49B9 /* LicenseFile.m in Sources */,
+				753521A512C92775000D49B9 /* PMMail.m in Sources */,
+				753521A612C92775000D49B9 /* NSApplication_Extensions.m in Sources */,
+				753521A712C92775000D49B9 /* NSArray_Extensions.m in Sources */,
+				753521A812C92775000D49B9 /* NSData_Extensions.m in Sources */,
+				753521A912C92775000D49B9 /* NSString_Extensions.m in Sources */,
+				753521AA12C92775000D49B9 /* pmsCFUtility.c in Sources */,
+				753521AB12C92775000D49B9 /* pmsNSUtility.m in Sources */,
+				753521AC12C92775000D49B9 /* AquaticPrime.m in Sources */,
+				753521AD12C92775000D49B9 /* LicenseArrayController.m in Sources */,
+				753521AE12C92775000D49B9 /* aqpmanager.xcdatamodel in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -622,8 +848,18 @@
 /* Begin XCBuildConfiguration section */
 		3D9363D308565C58006F1864 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
 			buildSettings = {
+			};
+			name = Development;
+		};
+		3D9363D708565C58006F1864 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Sources/GIT/EdCommon/build/Release (embedded)\"",
@@ -632,30 +868,11 @@
 					"\"$(SRCROOT)/../../../Sources/GIT/Sparkle/build/Release\"",
 					"\"$(SRCROOT)\"",
 				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = AquaticPrimeDeveloper_Prefix.pch;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = Info.plist;
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		3D9363D708565C58006F1864 /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_ENABLE_OBJC_GC = supported;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = AquaticPrimeManager.pch;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				LD_OPENMP_FLAGS = "-fopenmp";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
@@ -666,29 +883,38 @@
 			};
 			name = Development;
 		};
-		752E076C12A5B696002C05B8 /* Release */ = {
+		753521BF12C92775000D49B9 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = InfoMAS.plist;
+			};
+			name = Development;
+		};
+		753521C012C92775000D49B9 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = InfoMAS.plist;
+			};
+			name = Deployment;
+		};
+		753521C112C92775000D49B9 /* ASRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = InfoMAS.plist;
+			};
+			name = ASRelease;
+		};
+		7536FCE112A9CD2900597AB9 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_OBJC_GC = supported;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				LD_OPENMP_FLAGS = "-fopenmp";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-lcrypto";
-				PRODUCT_NAME = "AquaticPrime Manager";
-				SDKROOT = macosx10.5;
-			};
-			name = Release;
-		};
-		752E076D12A5B696002C05B8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
-			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Sources/GIT/EdCommon/build/Release (embedded)\"",
@@ -697,31 +923,10 @@
 					"\"$(SRCROOT)/../../../Sources/GIT/Sparkle/build/Release\"",
 					"\"$(SRCROOT)\"",
 				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = AquaticPrimeDeveloper_Prefix.pch;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
-		7536FCE112A9CD2900597AB9 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_GC = supported;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = AquaticPrimeManager.pch;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				LD_OPENMP_FLAGS = "-fopenmp";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
@@ -734,8 +939,22 @@
 		};
 		7536FCE212A9CD2900597AB9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* debug.xcconfig */;
 			buildSettings = {
+			};
+			name = Deployment;
+		};
+		759C520B12C476FD00CA8B7F /* ASRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					x86_64,
+					i386,
+				);
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: polyMicro Systems";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Sources/GIT/EdCommon/build/Release (embedded)\"",
@@ -744,20 +963,26 @@
 					"\"$(SRCROOT)/../../../Sources/GIT/Sparkle/build/Release\"",
 					"\"$(SRCROOT)\"",
 				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = AquaticPrimeDeveloper_Prefix.pch;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = Info.plist;
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
+				GCC_PREFIX_HEADER = AquaticPrimeManager.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				LD_OPENMP_FLAGS = "-fopenmp";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-DMACAPPSTORE";
+				OTHER_LDFLAGS = "-lcrypto";
+				PRODUCT_NAME = "AquaticPrime Manager";
+				SDKROOT = macosx10.5;
 			};
-			name = Deployment;
+			name = ASRelease;
+		};
+		759C520C12C476FD00CA8B7F /* ASRelease */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = ASRelease;
 		};
 /* End XCBuildConfiguration section */
 
@@ -767,7 +992,7 @@
 			buildConfigurations = (
 				3D9363D308565C58006F1864 /* Development */,
 				7536FCE212A9CD2900597AB9 /* Deployment */,
-				752E076D12A5B696002C05B8 /* Release */,
+				759C520C12C476FD00CA8B7F /* ASRelease */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
@@ -777,7 +1002,17 @@
 			buildConfigurations = (
 				3D9363D708565C58006F1864 /* Development */,
 				7536FCE112A9CD2900597AB9 /* Deployment */,
-				752E076C12A5B696002C05B8 /* Release */,
+				759C520B12C476FD00CA8B7F /* ASRelease */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		753521BE12C92775000D49B9 /* Build configuration list for PBXNativeTarget "AquaticPrime Manager MAS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				753521BF12C92775000D49B9 /* Development */,
+				753521C012C92775000D49B9 /* Deployment */,
+				753521C112C92775000D49B9 /* ASRelease */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

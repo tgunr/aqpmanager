@@ -14,6 +14,7 @@
 	IBOutlet NSPanel *prefsWindow;
 	IBOutlet NSTabView *tabView;
 	IBOutlet NSToolbar *tabToolBar;
+	IBOutlet NSToolbarItem *toolbarItemUpdate;
 
 	IBOutlet NSTextField *updateText;
 	IBOutlet NSForm *mailServer;

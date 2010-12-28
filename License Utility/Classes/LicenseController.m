@@ -67,7 +67,11 @@ static LicenseController *sharedInstance = nil;
 	if (!infoDrawerController) {
 		infoDrawerController = [InfoDrawerController new];
 	}	
-	
+
+    if (!keyController) {
+		keyController = [KeyController new];
+	}	
+
 	return sharedInstance;
 }
 
@@ -323,7 +327,8 @@ static LicenseController *sharedInstance = nil;
 	licenseMaker = [AquaticPrime aquaticPrimeWithKey:publicKey privateKey:privateKey];
 	
 	NSString *extension = [licenseExtensionField stringValue];
-	NSURL *pathURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], application, [valueArray objectAtIndex:0], extension]];
+    NSInteger keyIndex = [keyArray indexOfObject:@"Email"];
+	NSURL *pathURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/Licenses/%@.%@", [[saveDirectoryPathControl URL] absoluteString], application, [valueArray objectAtIndex:keyIndex], extension]];
 	NSString *path = [pathURL path];
 	NSString *backupPath = [NSString stringWithFormat:@"%@/%@.%@", licenseDir, [valueArray objectAtIndex:0], extension];
 	[licenseMaker writeLicenseFileForDictionary:licenseDictionary toPath:path];
@@ -637,7 +642,7 @@ static LicenseController *sharedInstance = nil;
 		[generateLicenseButton setEnabled:NO];
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
 	NSInteger tableTag = [tableView tag];
 	switch (tableTag) {
@@ -663,7 +668,7 @@ static LicenseController *sharedInstance = nil;
 	}
 }
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
 	NSInteger tableTag = [tableView tag];
 	switch (tableTag) {
@@ -688,7 +693,7 @@ static LicenseController *sharedInstance = nil;
 	return nil;
 }
 
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     if (!object)
 		return;
@@ -1011,7 +1016,7 @@ static LicenseController *sharedInstance = nil;
 			} 
 		} else {
 			mailTo = tvs;
-			licenseName = [valueArray objectAtIndex:0];
+			licenseName = [valueArray objectAtIndex:[keyArray indexOfObject:@"Email"]];
 		}
 	}
 	if ([mailTo length] != 0) {

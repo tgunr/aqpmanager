@@ -63,6 +63,21 @@ static PreferencesController *shared;
 		[mailServer setEnabled:YES];
 		[accountsTable setEnabled:YES];	
 	}
+
+#ifdef MACAPPSTORE
+	NSArray *tbItems = [tabToolBar items];
+	NSEnumerator *enumerator = [tbItems objectEnumerator];
+	
+	id anItem;
+	NSInteger i =0;
+	while (anItem = [enumerator nextObject]) {
+		if ([anItem itemIdentifier] == [toolbarItemUpdate itemIdentifier]) {
+			[tabToolBar removeItemAtIndex:i];
+			break;
+		}
+		i++;
+	}
+#endif
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -122,13 +137,20 @@ static PreferencesController *shared;
 - (IBAction)clickTool:(NSToolbarItem*)sender
 {
 	NSLog(@"Clicked Tool Label:%@ ID:%@", [sender label], [sender itemIdentifier]);
-	if( tabView ) 
-		[tabView selectTabViewItemWithIdentifier: [sender label]];
-	if( tabToolBar ) 
-		[tabToolBar setSelectedItemIdentifier: [sender itemIdentifier]];
-	
-	[[NSUserDefaults standardUserDefaults] setObject:[sender itemIdentifier] forKey:@"PrefToolSelected"];
-		
+	if (sender) {
+		if( tabView ) 
+			[tabView selectTabViewItemWithIdentifier: [sender label]];
+		if( tabToolBar ) 
+			[tabToolBar setSelectedItemIdentifier: [sender itemIdentifier]];
+		[[NSUserDefaults standardUserDefaults] setObject:[sender itemIdentifier] forKey:@"PrefToolSelected"];
+	} else {
+		NSArray *tbItems = [tabToolBar items];
+		NSString *id = [[tbItems objectAtIndex:0] itemIdentifier];
+		[tabToolBar setSelectedItemIdentifier:id];
+		[tabView selectTabViewItemWithIdentifier: @"General"];
+		[[NSUserDefaults standardUserDefaults] setObject:id forKey:@"PrefToolSelected"];
+	}
+			
 	[self refreshUpdateDate:sender];
 	
 	NSView*		theTabView = [[tabView selectedTabViewItem] view]; 
@@ -201,18 +223,18 @@ static PreferencesController *shared;
 }
 
 #pragma mark Table Delegates
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
 	return [emailAccounts count];
 }
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
 	NSString *account = [[emailAccounts objectAtIndex:row] valueForKey:@"Hostname"];
 	return account;
 }
 
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
 
 	

@@ -82,12 +82,12 @@ static InfoDrawerController *sharedInfoDrawer = nil;
     [keyValueInfoTable reloadData];
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
 	return [[licenseFile keyInfoArray] count];
 }
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     if ([[tableColumn identifier] isEqualToString:@"keyInfoColumn"])
 		return [[licenseFile keyInfoArray] objectAtIndex:row];

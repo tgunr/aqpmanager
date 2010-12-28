@@ -29,6 +29,7 @@
 @class AquaticPrime;
 @class InfoDrawerController;
 @class LicenseFile;
+@class KeyController;
 
 @interface LicenseController : NSObject
 {
@@ -83,7 +84,7 @@
 	NSString *licenseDir;
 	NSString *saveDirectory;
 	
-	IBOutlet id keyController;
+	KeyController *keyController;
 	IBOutlet id statusController;
 	IBOutlet id productController;
 	IBOutlet InfoDrawerController *infoDrawerController;

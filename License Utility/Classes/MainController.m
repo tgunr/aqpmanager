@@ -2,6 +2,7 @@
 #import "InfoController.h"
 #import "AboutController.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import <AppKit/AppKit.h>
 
 #define PREFS_VERSION	(const char*)"0.1"
 
@@ -33,11 +34,40 @@ static MainController *shared;
 		[self initPreferences];
 		
 	}
-    return self; 
+
+	return self; 
+
 }
 
 - (void)awakeFromNib
 {
+	NSUInteger flags = [NSEvent modifierFlags];
+	if (flags && (NSCommandKeyMask | NSAlternateKeyMask| NSControlKeyMask)) {
+		NSBundle *bundle = [NSBundle mainBundle];
+		NSString *bID = [bundle bundleIdentifier];
+		NSString *prefPath = [[NSString stringWithString:@"~/Library/Preferences"] stringByExpandingTildeInPath];
+		prefPath = [[[prefPath stringByAppendingString:@"/"] stringByAppendingString: bID] stringByAppendingString:@".plist" ];
+		
+		NSFileManager *fm = [NSFileManager defaultManager];
+		NSError *err;
+		BOOL result;
+		result = [fm fileExistsAtPath:prefPath];
+		if (result) {
+			[fm removeItemAtPath: prefPath error:&err];
+		}
+		
+		[NSUserDefaults resetStandardUserDefaults];
+		[NSUserDefaults standardUserDefaults];
+		[self initPreferences];
+	}
+		
+#ifdef MACAPPSTORE
+	// Remove the Update menu item
+	NSInteger item = [productMenu indexOfItemWithTag: 99];
+	if (item != -1) {
+		[productMenu removeItemAtIndex:item];
+	}
+#endif
 	[mainWindow makeKeyAndOrderFront:self];
 }
 
@@ -129,8 +159,10 @@ static MainController *shared;
 	
 	[defaultPrefs setObject:prefsVersion forKey:@"PrefsVersion"];
 	[defaultPrefs setObject:boolTRUE forKey:@"PlaySounds"];
+#ifndef MACAPPSTORE
 	[defaultPrefs setObject:boolTRUE forKey:@"SUAutoUpdate"];
 	[defaultPrefs setObject:boolTRUE forKey:@"SUSendInfo"];
+#endif
 	
 	[defaultPrefs setObject:@"915FC355-A57B-43AB-A8CE-CC039D82A446" forKey:@"PrefToolSelected"];
 	

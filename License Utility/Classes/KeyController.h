@@ -44,7 +44,7 @@
 	
 	IBOutlet id productController;
 	IBOutlet id statusController;
-	IBOutlet id LicenseController;
+	IBOutlet id licenseController;
 }
 @property (retain) 	IBOutlet NSForm *mailFieldsForm;
 @property (retain) 	IBOutlet NSForm *mailFilesForm;

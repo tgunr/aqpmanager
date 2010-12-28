@@ -7,6 +7,7 @@
 @interface MainController : NSObject
 {
 	IBOutlet NSWindow *mainWindow;
+	IBOutlet NSMenu *productMenu;
 	IBOutlet InfoWindowController *infoWindowController;
 	AboutController *aboutController;
 }
