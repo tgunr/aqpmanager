@@ -888,6 +888,7 @@
 			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = InfoMAS.plist;
+				OTHER_CFLAGS = "-DMACAPPSTORE";
 			};
 			name = Development;
 		};
@@ -896,6 +897,7 @@
 			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = InfoMAS.plist;
+				OTHER_CFLAGS = "-DMACAPPSTORE";
 			};
 			name = Deployment;
 		};
@@ -904,6 +906,7 @@
 			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = InfoMAS.plist;
+				OTHER_CFLAGS = "-DMACAPPSTORE";
 			};
 			name = ASRelease;
 		};

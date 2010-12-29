@@ -89,7 +89,7 @@ static InfoDrawerController *sharedInfoDrawer = nil;
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    if ([[tableColumn identifier] isEqualToString:@"keyInfoColumn"])
+    if ([[tableColumn identifier] isEqualToString:@"keyColumn"])
 		return [[licenseFile keyInfoArray] objectAtIndex:row];
 	else
 		return [[licenseFile valueInfoArray] objectAtIndex:row];
