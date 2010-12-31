@@ -7,25 +7,61 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D12D14B085206240035BA78 /* add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3D12D14A085206240035BA78 /* add.tiff */; };
-		3D12D159085208CC0035BA78 /* StatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D12D158085208CC0035BA78 /* StatusController.m */; };
-		3D12D1C008520D0E0035BA78 /* ProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D12D1BF08520D0E0035BA78 /* ProductController.m */; };
-		3D160600089D3DBC00526ED8 /* OAGradientTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1605FE089D3DBC00526ED8 /* OAGradientTableView.m */; };
-		3D1606A4089D41C100526ED8 /* AQTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1606A2089D41C100526ED8 /* AQTextFieldCell.m */; };
-		3D9364030856724F006F1864 /* LicenseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9364020856724F006F1864 /* LicenseController.m */; };
-		3DB12CA108803F0300160861 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB12C9F08803F0300160861 /* MainController.m */; };
-		3DB12CFC0880423A00160861 /* LicenseInfo.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB12CFB0880423A00160861 /* LicenseInfo.nib */; };
-		3DB12D080880427F00160861 /* InfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB12D060880427F00160861 /* InfoController.m */; };
-		3DD108C0088170A100C4C6B4 /* AQAboutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BA088170A100C4C6B4 /* AQAboutView.m */; };
-		3DD108C2088170A100C4C6B4 /* AQAboutWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BC088170A100C4C6B4 /* AQAboutWindow.m */; };
-		3DD108C4088170A100C4C6B4 /* AQTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BE088170A100C4C6B4 /* AQTableView.m */; };
-		3DD108F40881725A00C4C6B4 /* About.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD108F30881725A00C4C6B4 /* About.nib */; };
-		3DD108F80881726E00C4C6B4 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108F60881726E00C4C6B4 /* AboutController.m */; };
-		3DF60B9E085CE0BD004C50F2 /* remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DF60B9D085CE0BD004C50F2 /* remove.tiff */; };
-		75275E38126A0B7900DC2A8D /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E36126A0B7900DC2A8D /* Database.icns */; };
-		75275E39126A0B7900DC2A8D /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
-		752AFF2F129EE9F90028C23D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFF2E129EE9F90028C23D /* Security.framework */; };
-		752D9F3B1297B25300448E37 /* LicenseFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 752D9F3A1297B25300448E37 /* LicenseFile.m */; };
+		7507E60212CD025D0072A88C /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
+		7507E60312CD025D0072A88C /* add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3D12D14A085206240035BA78 /* add.tiff */; };
+		7507E60412CD025D0072A88C /* remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DF60B9D085CE0BD004C50F2 /* remove.tiff */; };
+		7507E60512CD025D0072A88C /* LicenseInfo.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB12CFB0880423A00160861 /* LicenseInfo.nib */; };
+		7507E60612CD025D0072A88C /* About.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD108F30881725A00C4C6B4 /* About.nib */; };
+		7507E60712CD025D0072A88C /* advancedpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42281269FA77008E173A /* advancedpref.icns */; };
+		7507E60812CD025D0072A88C /* generalpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422A1269FA77008E173A /* generalpref.icns */; };
+		7507E60912CD025D0072A88C /* minus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422B1269FA77008E173A /* minus.icns */; };
+		7507E60A12CD025D0072A88C /* plus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422D1269FA77008E173A /* plus.icns */; };
+		7507E60B12CD025D0072A88C /* sidebarpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422E1269FA77008E173A /* sidebarpref.icns */; };
+		7507E60C12CD025D0072A88C /* SmartFolder.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422F1269FA77008E173A /* SmartFolder.icns */; };
+		7507E60D12CD025D0072A88C /* success.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42301269FA77008E173A /* success.icns */; };
+		7507E60E12CD025D0072A88C /* ToolbarInfo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42311269FA77008E173A /* ToolbarInfo.icns */; };
+		7507E60F12CD025D0072A88C /* update.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42321269FA77008E173A /* update.icns */; };
+		7507E61012CD025D0072A88C /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E36126A0B7900DC2A8D /* Database.icns */; };
+		7507E61112CD025D0072A88C /* mailto.icns in Resources */ = {isa = PBXBuildFile; fileRef = 75275E37126A0B7900DC2A8D /* mailto.icns */; };
+		7507E61212CD025D0072A88C /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 75C60016127103E100A66201 /* dsa_pub.pem */; };
+		7507E61312CD025D0072A88C /* aqpmanager.icns in Resources */ = {isa = PBXBuildFile; fileRef = 755B9F0E12A6FA4800D4BEAA /* aqpmanager.icns */; };
+		7507E61412CD025D0072A88C /* Mail.app in Resources */ = {isa = PBXBuildFile; fileRef = 7578CDEC12C1AAED00BBBDDA /* Mail.app */; };
+		7507E61612CD025D0072A88C /* Mail.app in Sources */ = {isa = PBXBuildFile; fileRef = 7578CDEC12C1AAED00BBBDDA /* Mail.app */; };
+		7507E61712CD025D0072A88C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		7507E61812CD025D0072A88C /* KeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = E804BCA60833AAFD00512005 /* KeyController.m */; };
+		7507E61912CD025D0072A88C /* StatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D12D158085208CC0035BA78 /* StatusController.m */; };
+		7507E61A12CD025D0072A88C /* ProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D12D1BF08520D0E0035BA78 /* ProductController.m */; };
+		7507E61B12CD025D0072A88C /* LicenseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9364020856724F006F1864 /* LicenseController.m */; };
+		7507E61C12CD025D0072A88C /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB12C9F08803F0300160861 /* MainController.m */; };
+		7507E61D12CD025D0072A88C /* InfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB12D060880427F00160861 /* InfoController.m */; };
+		7507E61E12CD025D0072A88C /* AQAboutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BA088170A100C4C6B4 /* AQAboutView.m */; };
+		7507E61F12CD025D0072A88C /* AQAboutWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BC088170A100C4C6B4 /* AQAboutWindow.m */; };
+		7507E62012CD025D0072A88C /* AQTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108BE088170A100C4C6B4 /* AQTableView.m */; };
+		7507E62112CD025D0072A88C /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108F60881726E00C4C6B4 /* AboutController.m */; };
+		7507E62212CD025D0072A88C /* OAGradientTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1605FE089D3DBC00526ED8 /* OAGradientTableView.m */; };
+		7507E62312CD025D0072A88C /* AQTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1606A2089D41C100526ED8 /* AQTextFieldCell.m */; };
+		7507E62412CD025D0072A88C /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDB96126A10B5002BA6E7 /* PreferencesController.m */; };
+		7507E62512CD025D0072A88C /* LicenseFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 752D9F3A1297B25300448E37 /* LicenseFile.m */; };
+		7507E62612CD025D0072A88C /* PMMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD19129C54F700EF8ADC /* PMMail.m */; };
+		7507E62712CD025D0072A88C /* NSApplication_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD59129C72F400EF8ADC /* NSApplication_Extensions.m */; };
+		7507E62812CD025D0072A88C /* NSArray_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5B129C72F400EF8ADC /* NSArray_Extensions.m */; };
+		7507E62912CD025D0072A88C /* NSData_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5D129C72F400EF8ADC /* NSData_Extensions.m */; };
+		7507E62A12CD025D0072A88C /* NSString_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5F129C72F400EF8ADC /* NSString_Extensions.m */; };
+		7507E62B12CD025D0072A88C /* pmsCFUtility.c in Sources */ = {isa = PBXBuildFile; fileRef = 7566ADA2129C780F00EF8ADC /* pmsCFUtility.c */; };
+		7507E62C12CD025D0072A88C /* pmsNSUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566ADBB129C79BC00EF8ADC /* pmsNSUtility.m */; };
+		7507E62D12CD025D0072A88C /* AquaticPrime.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C22E75108E664700D1D72F /* AquaticPrime.m */; };
+		7507E62E12CD025D0072A88C /* LicenseArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FFE7EA12A455B7008FCE20 /* LicenseArrayController.m */; };
+		7507E62F12CD025D0072A88C /* aqpmanager.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */; };
+		7507E63112CD025D0072A88C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */; };
+		7507E63212CD025D0072A88C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */; };
+		7507E63312CD025D0072A88C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752AFF2E129EE9F90028C23D /* Security.framework */; };
+		7507E63412CD025D0072A88C /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
+		7507E63512CD025D0072A88C /* EDMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536FCDC12A9CBB700597AB9 /* EDMessage.framework */; };
+		7507E63612CD025D0072A88C /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578CD9612C1995F00BBBDDA /* Message.framework */; };
+		7507E63712CD025D0072A88C /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578CDE512C1AA0A00BBBDDA /* ScriptingBridge.framework */; };
+		7507E63912CD025D0072A88C /* EDMessage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FCDC12A9CBB700597AB9 /* EDMessage.framework */; };
+		7507E63A12CD025D0072A88C /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
+		7507E64412CD03060072A88C /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7507E64312CD03060072A88C /* Sparkle.framework */; };
 		7535217C12C92775000D49B9 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		7535217D12C92775000D49B9 /* add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3D12D14A085206240035BA78 /* add.tiff */; };
 		7535217E12C92775000D49B9 /* remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DF60B9D085CE0BD004C50F2 /* remove.tiff */; };
@@ -80,48 +116,10 @@
 		753521B712C92775000D49B9 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578CDE512C1AA0A00BBBDDA /* ScriptingBridge.framework */; };
 		753521BA12C92775000D49B9 /* EDMessage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FCDC12A9CBB700597AB9 /* EDMessage.framework */; };
 		753521BB12C92775000D49B9 /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
-		7535221412C94206000D49B9 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7535221312C94206000D49B9 /* AppKit.framework */; };
-		7536FA3112A9151400597AB9 /* aqpmanager.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 7536FA3012A9151400597AB9 /* aqpmanager.xcdatamodel */; };
-		7536FBDB12A99D6400597AB9 /* EDCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
-		7536FC3A12A9BDAF00597AB9 /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
-		7536FCDD12A9CBB700597AB9 /* EDMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7536FCDC12A9CBB700597AB9 /* EDMessage.framework */; };
-		7536FD5F12A9D9FF00597AB9 /* EDMessage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FCDC12A9CBB700597AB9 /* EDMessage.framework */; };
-		755B9F0F12A6FA4800D4BEAA /* aqpmanager.icns in Resources */ = {isa = PBXBuildFile; fileRef = 755B9F0E12A6FA4800D4BEAA /* aqpmanager.icns */; };
-		7566AD1A129C54F700EF8ADC /* PMMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD19129C54F700EF8ADC /* PMMail.m */; };
-		7566AD60129C72F400EF8ADC /* NSApplication_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD59129C72F400EF8ADC /* NSApplication_Extensions.m */; };
-		7566AD61129C72F400EF8ADC /* NSArray_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5B129C72F400EF8ADC /* NSArray_Extensions.m */; };
-		7566AD62129C72F400EF8ADC /* NSData_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5D129C72F400EF8ADC /* NSData_Extensions.m */; };
-		7566AD63129C72F400EF8ADC /* NSString_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566AD5F129C72F400EF8ADC /* NSString_Extensions.m */; };
-		7566ADA3129C780F00EF8ADC /* pmsCFUtility.c in Sources */ = {isa = PBXBuildFile; fileRef = 7566ADA2129C780F00EF8ADC /* pmsCFUtility.c */; };
-		7566ADBC129C79BC00EF8ADC /* pmsNSUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 7566ADBB129C79BC00EF8ADC /* pmsNSUtility.m */; };
-		7578CD9712C1995F00BBBDDA /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578CD9612C1995F00BBBDDA /* Message.framework */; };
-		7578CDE612C1AA0A00BBBDDA /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578CDE512C1AA0A00BBBDDA /* ScriptingBridge.framework */; };
-		7578CDED12C1AAED00BBBDDA /* Mail.app in Resources */ = {isa = PBXBuildFile; fileRef = 7578CDEC12C1AAED00BBBDDA /* Mail.app */; };
-		7578CDEE12C1AAFD00BBBDDA /* Mail.app in Sources */ = {isa = PBXBuildFile; fileRef = 7578CDEC12C1AAED00BBBDDA /* Mail.app */; };
-		758E42331269FA77008E173A /* advancedpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42281269FA77008E173A /* advancedpref.icns */; };
-		758E42351269FA77008E173A /* generalpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422A1269FA77008E173A /* generalpref.icns */; };
-		758E42361269FA77008E173A /* minus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422B1269FA77008E173A /* minus.icns */; };
-		758E42381269FA77008E173A /* plus.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422D1269FA77008E173A /* plus.icns */; };
-		758E42391269FA77008E173A /* sidebarpref.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422E1269FA77008E173A /* sidebarpref.icns */; };
-		758E423A1269FA77008E173A /* SmartFolder.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E422F1269FA77008E173A /* SmartFolder.icns */; };
-		758E423B1269FA77008E173A /* success.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42301269FA77008E173A /* success.icns */; };
-		758E423C1269FA77008E173A /* ToolbarInfo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42311269FA77008E173A /* ToolbarInfo.icns */; };
-		758E423D1269FA77008E173A /* update.icns in Resources */ = {isa = PBXBuildFile; fileRef = 758E42321269FA77008E173A /* update.icns */; };
-		7594426E12A440CE00F04308 /* AquaticPrime.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C22E75108E664700D1D72F /* AquaticPrime.m */; };
-		75C60018127103E100A66201 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 75C60016127103E100A66201 /* dsa_pub.pem */; };
-		75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDB96126A10B5002BA6E7 /* PreferencesController.m */; };
-		75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CFDBD0126A3094002BA6E7 /* AudioToolbox.framework */; };
-		75E0C0C112B557D5008B7156 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E0C0C012B557D5008B7156 /* Sparkle.framework */; };
-		75E0C0CF12B557F7008B7156 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75E0C0C012B557D5008B7156 /* Sparkle.framework */; };
-		75FFE7EB12A455B7008FCE20 /* LicenseArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FFE7EA12A455B7008FCE20 /* LicenseArrayController.m */; };
-		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
-		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
-		A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */; };
-		E804BCA70833AAFD00512005 /* KeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = E804BCA60833AAFD00512005 /* KeyController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
-		753521BD12C92775000D49B9 /* PBXBuildRule */ = {
+		7507E63C12CD025D0072A88C /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
 			filePatterns = "*.app";
@@ -132,7 +130,7 @@
 			);
 			script = "sdef \"$INPUT_FILE_PATH\" | sdp -fh -o \"$DERIVED_FILES_DIR\" --basename \"$INPUT_FILE_BASE\" --bundleid `defaults read \"$INPUT_FILE_PATH/Contents/Info\" CFBundleIdentifier`";
 		};
-		7578CDE112C1A8B900BBBDDA /* PBXBuildRule */ = {
+		753521BD12C92775000D49B9 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
 			filePatterns = "*.app";
@@ -146,6 +144,17 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7507E63812CD025D0072A88C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7507E63912CD025D0072A88C /* EDMessage.framework in CopyFiles */,
+				7507E63A12CD025D0072A88C /* EDCommon.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		753521B812C92775000D49B9 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,18 +163,6 @@
 			files = (
 				753521BA12C92775000D49B9 /* EDMessage.framework in CopyFiles */,
 				753521BB12C92775000D49B9 /* EDCommon.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A0BFCA2509A3F240005C04A5 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				75E0C0CF12B557F7008B7156 /* Sparkle.framework in CopyFiles */,
-				7536FD5F12A9D9FF00597AB9 /* EDMessage.framework in CopyFiles */,
-				7536FC3A12A9BDAF00597AB9 /* EDCommon.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +201,8 @@
 		3DD108F50881726E00C4C6B4 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		3DD108F60881726E00C4C6B4 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		3DF60B9D085CE0BD004C50F2 /* remove.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = remove.tiff; sourceTree = "<group>"; };
+		7507E64112CD025D0072A88C /* AquaticPrime Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AquaticPrime Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7507E64312CD03060072A88C /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Library/Frameworks/Sparkle.framework; sourceTree = SDKROOT; };
 		75275E36126A0B7900DC2A8D /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
 		75275E37126A0B7900DC2A8D /* mailto.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = mailto.icns; sourceTree = "<group>"; };
 		752AFF2A129EE9B70028C23D /* libAquaticPrime.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAquaticPrime.a; path = ../Source/Cocoa/build/Development/libAquaticPrime.a; sourceTree = SOURCE_ROOT; };
@@ -211,8 +210,8 @@
 		752D9F391297B25300448E37 /* LicenseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseFile.h; sourceTree = "<group>"; };
 		752D9F3A1297B25300448E37 /* LicenseFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseFile.m; sourceTree = "<group>"; };
 		7535210112C906DC000D49B9 /* prerun.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = prerun.sh; sourceTree = "<group>"; };
-		7535214412C92090000D49B9 /* set_plist.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = set_plist.sh; sourceTree = "<group>"; };
-		7535214E12C9244B000D49B9 /* postrun.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postrun.sh; sourceTree = "<group>"; };
+		7535214412C92090000D49B9 /* set_plist.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; lineEnding = 0; path = set_plist.sh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
+		7535214E12C9244B000D49B9 /* postrun.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; lineEnding = 0; path = postrun.sh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		7535217712C9271C000D49B9 /* InfoMAS.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = InfoMAS.plist; sourceTree = "<group>"; };
 		753521C212C92775000D49B9 /* AquaticPrime Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AquaticPrime Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7535221312C94206000D49B9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -265,13 +264,27 @@
 		75FFE7E912A455B7008FCE20 /* LicenseArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseArrayController.h; sourceTree = "<group>"; };
 		75FFE7EA12A455B7008FCE20 /* LicenseArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseArrayController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* AquaticPrime Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AquaticPrime Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		E804BCA50833AAFD00512005 /* KeyController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeyController.h; sourceTree = "<group>"; };
 		E804BCA60833AAFD00512005 /* KeyController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = KeyController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7507E63012CD025D0072A88C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7507E64412CD03060072A88C /* Sparkle.framework in Frameworks */,
+				7507E63112CD025D0072A88C /* Cocoa.framework in Frameworks */,
+				7507E63212CD025D0072A88C /* AudioToolbox.framework in Frameworks */,
+				7507E63312CD025D0072A88C /* Security.framework in Frameworks */,
+				7507E63412CD025D0072A88C /* EDCommon.framework in Frameworks */,
+				7507E63512CD025D0072A88C /* EDMessage.framework in Frameworks */,
+				7507E63612CD025D0072A88C /* Message.framework in Frameworks */,
+				7507E63712CD025D0072A88C /* ScriptingBridge.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		753521AF12C92775000D49B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -283,22 +296,6 @@
 				753521B412C92775000D49B9 /* EDMessage.framework in Frameworks */,
 				753521B612C92775000D49B9 /* Message.framework in Frameworks */,
 				753521B712C92775000D49B9 /* ScriptingBridge.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8D11072E0486CEB800E47090 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */,
-				75CFDBD1126A3094002BA6E7 /* AudioToolbox.framework in Frameworks */,
-				752AFF2F129EE9F90028C23D /* Security.framework in Frameworks */,
-				7536FBDB12A99D6400597AB9 /* EDCommon.framework in Frameworks */,
-				7536FCDD12A9CBB700597AB9 /* EDMessage.framework in Frameworks */,
-				75E0C0C112B557D5008B7156 /* Sparkle.framework in Frameworks */,
-				7578CD9712C1995F00BBBDDA /* Message.framework in Frameworks */,
-				7578CDE612C1AA0A00BBBDDA /* ScriptingBridge.framework in Frameworks */,
-				7535221412C94206000D49B9 /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,8 +321,8 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* AquaticPrime Manager.app */,
 				753521C212C92775000D49B9 /* AquaticPrime Manager.app */,
+				7507E64112CD025D0072A88C /* AquaticPrime Manager.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -355,6 +352,7 @@
 		29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */ = {
 			isa = PBXGroup;
 			children = (
+				7507E64312CD03060072A88C /* Sparkle.framework */,
 				75C6FF571270EE6300A66201 /* Misc */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -581,6 +579,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7507E5FF12CD025D0072A88C /* AquaticPrime Manager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7507E63D12CD025D0072A88C /* Build configuration list for PBXNativeTarget "AquaticPrime Manager" */;
+			buildPhases = (
+				7507E60012CD025D0072A88C /* ShellScript */,
+				7507E60112CD025D0072A88C /* Resources */,
+				7507E61512CD025D0072A88C /* Sources */,
+				7507E63012CD025D0072A88C /* Frameworks */,
+				7507E63812CD025D0072A88C /* CopyFiles */,
+				7507E63B12CD025D0072A88C /* ShellScript */,
+			);
+			buildRules = (
+				7507E63C12CD025D0072A88C /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = "AquaticPrime Manager";
+			productInstallPath = "$(HOME)/Applications";
+			productName = AquaticPrimeDeveloper;
+			productReference = 7507E64112CD025D0072A88C /* AquaticPrime Manager.app */;
+			productType = "com.apple.product-type.application";
+		};
 		7535217912C92775000D49B9 /* AquaticPrime Manager MAS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 753521BE12C92775000D49B9 /* Build configuration list for PBXNativeTarget "AquaticPrime Manager MAS" */;
@@ -601,28 +621,6 @@
 			productInstallPath = "$(HOME)/Applications";
 			productName = AquaticPrimeDeveloper;
 			productReference = 753521C212C92775000D49B9 /* AquaticPrime Manager.app */;
-			productType = "com.apple.product-type.application";
-		};
-		8D1107260486CEB800E47090 /* AquaticPrime Manager */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3D9363D208565C58006F1864 /* Build configuration list for PBXNativeTarget "AquaticPrime Manager" */;
-			buildPhases = (
-				7535210012C90662000D49B9 /* ShellScript */,
-				8D1107290486CEB800E47090 /* Resources */,
-				8D11072C0486CEB800E47090 /* Sources */,
-				8D11072E0486CEB800E47090 /* Frameworks */,
-				A0BFCA2509A3F240005C04A5 /* CopyFiles */,
-				75C6FF891270F1C600A66201 /* ShellScript */,
-			);
-			buildRules = (
-				7578CDE112C1A8B900BBBDDA /* PBXBuildRule */,
-			);
-			dependencies = (
-			);
-			name = "AquaticPrime Manager";
-			productInstallPath = "$(HOME)/Applications";
-			productName = AquaticPrimeDeveloper;
-			productReference = 8D1107320486CEB800E47090 /* AquaticPrime Manager.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -647,13 +645,39 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* AquaticPrime Manager */,
+				7507E5FF12CD025D0072A88C /* AquaticPrime Manager */,
 				7535217912C92775000D49B9 /* AquaticPrime Manager MAS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7507E60112CD025D0072A88C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7507E60212CD025D0072A88C /* MainMenu.nib in Resources */,
+				7507E60312CD025D0072A88C /* add.tiff in Resources */,
+				7507E60412CD025D0072A88C /* remove.tiff in Resources */,
+				7507E60512CD025D0072A88C /* LicenseInfo.nib in Resources */,
+				7507E60612CD025D0072A88C /* About.nib in Resources */,
+				7507E60712CD025D0072A88C /* advancedpref.icns in Resources */,
+				7507E60812CD025D0072A88C /* generalpref.icns in Resources */,
+				7507E60912CD025D0072A88C /* minus.icns in Resources */,
+				7507E60A12CD025D0072A88C /* plus.icns in Resources */,
+				7507E60B12CD025D0072A88C /* sidebarpref.icns in Resources */,
+				7507E60C12CD025D0072A88C /* SmartFolder.icns in Resources */,
+				7507E60D12CD025D0072A88C /* success.icns in Resources */,
+				7507E60E12CD025D0072A88C /* ToolbarInfo.icns in Resources */,
+				7507E60F12CD025D0072A88C /* update.icns in Resources */,
+				7507E61012CD025D0072A88C /* Database.icns in Resources */,
+				7507E61112CD025D0072A88C /* mailto.icns in Resources */,
+				7507E61212CD025D0072A88C /* dsa_pub.pem in Resources */,
+				7507E61312CD025D0072A88C /* aqpmanager.icns in Resources */,
+				7507E61412CD025D0072A88C /* Mail.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7535217B12C92775000D49B9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -680,36 +704,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D1107290486CEB800E47090 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
-				3D12D14B085206240035BA78 /* add.tiff in Resources */,
-				3DF60B9E085CE0BD004C50F2 /* remove.tiff in Resources */,
-				3DB12CFC0880423A00160861 /* LicenseInfo.nib in Resources */,
-				3DD108F40881725A00C4C6B4 /* About.nib in Resources */,
-				758E42331269FA77008E173A /* advancedpref.icns in Resources */,
-				758E42351269FA77008E173A /* generalpref.icns in Resources */,
-				758E42361269FA77008E173A /* minus.icns in Resources */,
-				758E42381269FA77008E173A /* plus.icns in Resources */,
-				758E42391269FA77008E173A /* sidebarpref.icns in Resources */,
-				758E423A1269FA77008E173A /* SmartFolder.icns in Resources */,
-				758E423B1269FA77008E173A /* success.icns in Resources */,
-				758E423C1269FA77008E173A /* ToolbarInfo.icns in Resources */,
-				758E423D1269FA77008E173A /* update.icns in Resources */,
-				75275E38126A0B7900DC2A8D /* Database.icns in Resources */,
-				75275E39126A0B7900DC2A8D /* mailto.icns in Resources */,
-				75C60018127103E100A66201 /* dsa_pub.pem in Resources */,
-				755B9F0F12A6FA4800D4BEAA /* aqpmanager.icns in Resources */,
-				7578CDED12C1AAED00BBBDDA /* Mail.app in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7535210012C90662000D49B9 /* ShellScript */ = {
+		7507E60012CD025D0072A88C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -721,6 +719,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"$SRCROOT/Misc/scripts/prerun.sh\"\nsource \"$SRCROOT/Misc/scripts/prerun.sh\"";
+		};
+		7507E63B12CD025D0072A88C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"$SRCROOT/Misc/scripts/postrun.sh\"\nsource \"$SRCROOT/Misc/scripts/postrun.sh\"\n\n";
 			showEnvVarsInLog = 0;
 		};
 		7535217A12C92775000D49B9 /* ShellScript */ = {
@@ -749,23 +760,42 @@
 			shellPath = /bin/sh;
 			shellScript = "echo \"$SRCROOT/Misc/scripts/postrun.sh\"\nsource \"$SRCROOT/Misc/scripts/postrun.sh\"\n\n";
 		};
-		75C6FF891270F1C600A66201 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"$SRCROOT/Misc/scripts/postrun.sh\"\nsource \"$SRCROOT/Misc/scripts/postrun.sh\"\n\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7507E61512CD025D0072A88C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7507E61612CD025D0072A88C /* Mail.app in Sources */,
+				7507E61712CD025D0072A88C /* main.m in Sources */,
+				7507E61812CD025D0072A88C /* KeyController.m in Sources */,
+				7507E61912CD025D0072A88C /* StatusController.m in Sources */,
+				7507E61A12CD025D0072A88C /* ProductController.m in Sources */,
+				7507E61B12CD025D0072A88C /* LicenseController.m in Sources */,
+				7507E61C12CD025D0072A88C /* MainController.m in Sources */,
+				7507E61D12CD025D0072A88C /* InfoController.m in Sources */,
+				7507E61E12CD025D0072A88C /* AQAboutView.m in Sources */,
+				7507E61F12CD025D0072A88C /* AQAboutWindow.m in Sources */,
+				7507E62012CD025D0072A88C /* AQTableView.m in Sources */,
+				7507E62112CD025D0072A88C /* AboutController.m in Sources */,
+				7507E62212CD025D0072A88C /* OAGradientTableView.m in Sources */,
+				7507E62312CD025D0072A88C /* AQTextFieldCell.m in Sources */,
+				7507E62412CD025D0072A88C /* PreferencesController.m in Sources */,
+				7507E62512CD025D0072A88C /* LicenseFile.m in Sources */,
+				7507E62612CD025D0072A88C /* PMMail.m in Sources */,
+				7507E62712CD025D0072A88C /* NSApplication_Extensions.m in Sources */,
+				7507E62812CD025D0072A88C /* NSArray_Extensions.m in Sources */,
+				7507E62912CD025D0072A88C /* NSData_Extensions.m in Sources */,
+				7507E62A12CD025D0072A88C /* NSString_Extensions.m in Sources */,
+				7507E62B12CD025D0072A88C /* pmsCFUtility.c in Sources */,
+				7507E62C12CD025D0072A88C /* pmsNSUtility.m in Sources */,
+				7507E62D12CD025D0072A88C /* AquaticPrime.m in Sources */,
+				7507E62E12CD025D0072A88C /* LicenseArrayController.m in Sources */,
+				7507E62F12CD025D0072A88C /* aqpmanager.xcdatamodel in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7535219412C92775000D49B9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -799,39 +829,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D11072C0486CEB800E47090 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7578CDEE12C1AAFD00BBBDDA /* Mail.app in Sources */,
-				8D11072D0486CEB800E47090 /* main.m in Sources */,
-				E804BCA70833AAFD00512005 /* KeyController.m in Sources */,
-				3D12D159085208CC0035BA78 /* StatusController.m in Sources */,
-				3D12D1C008520D0E0035BA78 /* ProductController.m in Sources */,
-				3D9364030856724F006F1864 /* LicenseController.m in Sources */,
-				3DB12CA108803F0300160861 /* MainController.m in Sources */,
-				3DB12D080880427F00160861 /* InfoController.m in Sources */,
-				3DD108C0088170A100C4C6B4 /* AQAboutView.m in Sources */,
-				3DD108C2088170A100C4C6B4 /* AQAboutWindow.m in Sources */,
-				3DD108C4088170A100C4C6B4 /* AQTableView.m in Sources */,
-				3DD108F80881726E00C4C6B4 /* AboutController.m in Sources */,
-				3D160600089D3DBC00526ED8 /* OAGradientTableView.m in Sources */,
-				3D1606A4089D41C100526ED8 /* AQTextFieldCell.m in Sources */,
-				75CFDB97126A10B5002BA6E7 /* PreferencesController.m in Sources */,
-				752D9F3B1297B25300448E37 /* LicenseFile.m in Sources */,
-				7566AD1A129C54F700EF8ADC /* PMMail.m in Sources */,
-				7566AD60129C72F400EF8ADC /* NSApplication_Extensions.m in Sources */,
-				7566AD61129C72F400EF8ADC /* NSArray_Extensions.m in Sources */,
-				7566AD62129C72F400EF8ADC /* NSData_Extensions.m in Sources */,
-				7566AD63129C72F400EF8ADC /* NSString_Extensions.m in Sources */,
-				7566ADA3129C780F00EF8ADC /* pmsCFUtility.c in Sources */,
-				7566ADBC129C79BC00EF8ADC /* pmsNSUtility.m in Sources */,
-				7594426E12A440CE00F04308 /* AquaticPrime.m in Sources */,
-				75FFE7EB12A455B7008FCE20 /* LicenseArrayController.m in Sources */,
-				7536FA3112A9151400597AB9 /* aqpmanager.xcdatamodel in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -846,13 +843,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		3D9363D308565C58006F1864 /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
-			buildSettings = {
-			};
-			name = Development;
-		};
 		3D9363D708565C58006F1864 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
@@ -874,14 +864,38 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AquaticPrimeManager.pch;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INSTALL_PATH = /Applications;
 				LD_OPENMP_FLAGS = "-fopenmp";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = "AquaticPrime Manager";
 				SDKROOT = macosx10.5;
 			};
 			name = Development;
+		};
+		7507E63E12CD025D0072A88C /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		7507E63F12CD025D0072A88C /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		7507E64012CD025D0072A88C /* ASRelease */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = "AquaticPrime Manager";
+			};
+			name = ASRelease;
 		};
 		753521BF12C92775000D49B9 /* Development */ = {
 			isa = XCBuildConfiguration;
@@ -915,7 +929,6 @@
 			baseConfigurationReference = 75C6FF581270EE8D00A66201 /* development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -931,18 +944,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AquaticPrimeManager.pch;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /Applications;
 				LD_OPENMP_FLAGS = "-fopenmp";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = "AquaticPrime Manager";
 				SDKROOT = macosx10.5;
-			};
-			name = Deployment;
-		};
-		7536FCE212A9CD2900597AB9 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
 			};
 			name = Deployment;
 		};
@@ -971,8 +980,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AquaticPrimeManager.pch;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /Applications;
 				LD_OPENMP_FLAGS = "-fopenmp";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DMACAPPSTORE";
 				OTHER_LDFLAGS = "-lcrypto";
@@ -981,31 +992,25 @@
 			};
 			name = ASRelease;
 		};
-		759C520C12C476FD00CA8B7F /* ASRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = ASRelease;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3D9363D208565C58006F1864 /* Build configuration list for PBXNativeTarget "AquaticPrime Manager" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3D9363D308565C58006F1864 /* Development */,
-				7536FCE212A9CD2900597AB9 /* Deployment */,
-				759C520C12C476FD00CA8B7F /* ASRelease */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
 		3D9363D608565C58006F1864 /* Build configuration list for PBXProject "AquaticPrime Manager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D9363D708565C58006F1864 /* Development */,
 				7536FCE112A9CD2900597AB9 /* Deployment */,
 				759C520B12C476FD00CA8B7F /* ASRelease */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		7507E63D12CD025D0072A88C /* Build configuration list for PBXNativeTarget "AquaticPrime Manager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7507E63E12CD025D0072A88C /* Development */,
+				7507E63F12CD025D0072A88C /* Deployment */,
+				7507E64012CD025D0072A88C /* ASRelease */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

@@ -7,7 +7,7 @@
 
 set -o errexit
 if [[ "$CONFIGURATION" == 'Release' ]]; then
-set -x
+#set -x
 
 exit 0
 # Variables

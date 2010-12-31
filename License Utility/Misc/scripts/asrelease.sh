@@ -13,7 +13,7 @@
 #PATHNAME	= full path to a file $DIR/$PATH/$FILE
 
 set -o errexit
-set -x
+#set -x
 
 if [[ "$CONFIGURATION" == 'ASRelease' ]]; then
 echo "asrelease.sh started"
@@ -43,9 +43,13 @@ DOWNLOAD_URL="$DOWNLOAD_BASE_URL/$ARCHIVE_FILE"
 
 WD=$PWD
 PRODUCT_PLIST_NAME=`echo ${PRODUCT_NAME:identifier}|tr " " "_"`
-PlistBuddy -c "Set :CFBundleIdentifier com.polymicrosystems.mas.$PRODUCT_PLIST_NAME" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
 
 set +o errexit
+PlistBuddy -c "Print :CFBundleIdentifier" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH" &> /dev/null
+if [[ $? == 0 ]] ; then 
+    PlistBuddy -c "Set :CFBundleIdentifier com.polymicrosystems.mas.$PRODUCT_PLIST_NAME" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
+fi
+
 PlistBuddy -c "Print :SUCheckAtStartup" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH" &> /dev/null
 if [[ $? == 0 ]] ; then 
 	PlistBuddy -c "Delete :SUCheckAtStartup bool YES" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"

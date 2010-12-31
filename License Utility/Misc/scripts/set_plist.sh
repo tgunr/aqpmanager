@@ -8,8 +8,10 @@
 set -o errexit
 #set -x
 
-### If not releasing increment build number
-if [[ "$CONFIGURATION" == 'Development' ]]; then
+echo "Starting set_plist.sh"
+
+### If not releasing, increment build number
+if [[ "$CONFIGURATION" == "Development" ]]; then
 
 	echo "BUILD_NUMBER: $BUILD_NUMBER"
 	echo "VERSION_NUMBER: $VERSION_NUMBER"
@@ -20,6 +22,8 @@ if [[ "$CONFIGURATION" == 'Development' ]]; then
 
 fi
 
+#open "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
+
 PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
 PlistBuddy -c "Set :CFBundleShortVersionString $VERSION_NUMBER" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
 
@@ -29,3 +33,5 @@ RELEASE_VERSION=$(defaults read "$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/
 
 echo "RELEASE_BUILD: $RELEASE_BUILD"
 echo "RELEASE_VERSION: $RELEASE_VERSION"
+
+echo "Finished set_plist.sh"
