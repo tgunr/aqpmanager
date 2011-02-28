@@ -6,7 +6,7 @@
 # Copyright 2010 PolyMicro Systems. All rights reserved.
 
 set -o errexit
-#set -x
+set -x
 
 echo "Starting set_plist.sh"
 
@@ -24,12 +24,12 @@ fi
 
 #open "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
 
-PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
-PlistBuddy -c "Set :CFBundleShortVersionString $VERSION_NUMBER" "$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
+#PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$CONFIGURATION_BUILD_DIR/$INFOPLIST_PATH"
+#PlistBuddy -c "Set :CFBundleShortVersionString $VERSION_NUMBER" "$CONFIGURATION_BUILD_DIR/$INFOPLIST_PATH"
 
 # Read back values to make sure they were set
-RELEASE_BUILD=$(defaults read "$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/Info" CFBundleVersion)
-RELEASE_VERSION=$(defaults read "$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/Info" CFBundleShortVersionString)
+#RELEASE_BUILD=$(defaults read "$CONFIGURATION_BUILD_DIR/$PRODUCT_NAME.app/Contents/Info" CFBundleVersion)
+#RELEASE_VERSION=$(defaults read "$CONFIGURATION_BUILD_DIR/$PRODUCT_NAME.app/Contents/Info" CFBundleShortVersionString)
 
 echo "RELEASE_BUILD: $RELEASE_BUILD"
 echo "RELEASE_VERSION: $RELEASE_VERSION"

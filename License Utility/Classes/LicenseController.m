@@ -124,6 +124,7 @@ static LicenseController *sharedInstance = nil;
 //	builtInKeywords = [NSMutableArray arrayWithCapacity:1];
 	[self disableEverything];
 	[addProductButton setEnabled:YES];
+	[keyValueTable registerForDraggedTypes:[NSArray arrayWithObjects:NSStringPboardType, NSFilenamesPboardType, NSFileContentsPboardType,nil]];
 }
 
 #pragma mark Variables
@@ -781,6 +782,28 @@ static LicenseController *sharedInstance = nil;
 		default:
 			break;
 	}
+}
+
+#pragma mark Drag Delegates
+
+- (BOOL)prepareForDragOperation:(id < NSDraggingInfo >)sender
+{
+	
+}
+
+- (NSDragOperation)draggingEntered:(id < NSDraggingInfo >)sender
+{
+	
+}
+
+- (void)draggingExited:(id < NSDraggingInfo >)sender
+{
+	
+}
+
+- (BOOL)performDragOperation:(id < NSDraggingInfo >)sender
+{
+	
 }
 
 #pragma mark Emailing

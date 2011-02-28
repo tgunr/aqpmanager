@@ -1,4 +1,4 @@
-BUILD_NUMBER = 1002
+BUILD_NUMBER = 1024
 VERSION_NUMBER = 0.1b8
 SU_SITE = polymicro.net
 SU_PATH = products/aqpmanager/updates

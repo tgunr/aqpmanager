@@ -61,7 +61,7 @@
 		7507E63712CD025D0072A88C /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7578CDE512C1AA0A00BBBDDA /* ScriptingBridge.framework */; };
 		7507E63912CD025D0072A88C /* EDMessage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FCDC12A9CBB700597AB9 /* EDMessage.framework */; };
 		7507E63A12CD025D0072A88C /* EDCommon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7536FBDA12A99D6400597AB9 /* EDCommon.framework */; };
-		7507E64412CD03060072A88C /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7507E64312CD03060072A88C /* Sparkle.framework */; };
+		75139F3713186356004BAE31 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75139F3613186356004BAE31 /* Sparkle.framework */; };
 		7535217C12C92775000D49B9 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		7535217D12C92775000D49B9 /* add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3D12D14A085206240035BA78 /* add.tiff */; };
 		7535217E12C92775000D49B9 /* remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DF60B9D085CE0BD004C50F2 /* remove.tiff */; };
@@ -143,6 +143,51 @@
 		};
 /* End PBXBuildRule section */
 
+/* Begin PBXContainerItemProxy section */
+		75139F2A13186256004BAE31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75139F1F13186253004BAE31 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Sparkle;
+		};
+		75139F2C13186256004BAE31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75139F1F13186253004BAE31 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 61B5F90209C4CEE200B25A18;
+			remoteInfo = "Sparkle Test App";
+		};
+		75139F2E13186256004BAE31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75139F1F13186253004BAE31 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DAAEFC960DA571DF0051E0D0;
+			remoteInfo = "relaunch tool";
+		};
+		75139F3013186256004BAE31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75139F1F13186253004BAE31 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 612279D90DB5470200AB99EA;
+			remoteInfo = "Sparkle Unit Tests";
+		};
+		75139F3213186256004BAE31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75139F1F13186253004BAE31 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D06E8D00FD68C7C005AE3F6;
+			remoteInfo = BinaryDelta;
+		};
+		75139F341318629E004BAE31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75139F1F13186253004BAE31 /* Sparkle.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = Sparkle;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		7507E63812CD025D0072A88C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -152,6 +197,7 @@
 			files = (
 				7507E63912CD025D0072A88C /* EDMessage.framework in CopyFiles */,
 				7507E63A12CD025D0072A88C /* EDCommon.framework in CopyFiles */,
+				75139F3713186356004BAE31 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,7 +248,8 @@
 		3DD108F60881726E00C4C6B4 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		3DF60B9D085CE0BD004C50F2 /* remove.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = remove.tiff; sourceTree = "<group>"; };
 		7507E64112CD025D0072A88C /* AquaticPrime Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AquaticPrime Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7507E64312CD03060072A88C /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Library/Frameworks/Sparkle.framework; sourceTree = SDKROOT; };
+		75139F1F13186253004BAE31 /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = ../../../Sources/GIT/Sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
+		75139F3613186356004BAE31 /* Sparkle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Sparkle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75275E36126A0B7900DC2A8D /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
 		75275E37126A0B7900DC2A8D /* mailto.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = mailto.icns; sourceTree = "<group>"; };
 		752AFF2A129EE9B70028C23D /* libAquaticPrime.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAquaticPrime.a; path = ../Source/Cocoa/build/Development/libAquaticPrime.a; sourceTree = SOURCE_ROOT; };
@@ -274,7 +321,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7507E64412CD03060072A88C /* Sparkle.framework in Frameworks */,
 				7507E63112CD025D0072A88C /* Cocoa.framework in Frameworks */,
 				7507E63212CD025D0072A88C /* AudioToolbox.framework in Frameworks */,
 				7507E63312CD025D0072A88C /* Security.framework in Frameworks */,
@@ -352,8 +398,9 @@
 		29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */ = {
 			isa = PBXGroup;
 			children = (
-				7507E64312CD03060072A88C /* Sparkle.framework */,
+				75139F1F13186253004BAE31 /* Sparkle.xcodeproj */,
 				75C6FF571270EE6300A66201 /* Misc */,
+				75139F3613186356004BAE31 /* Sparkle.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -523,6 +570,18 @@
 			name = About;
 			sourceTree = "<group>";
 		};
+		75139F2013186253004BAE31 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				75139F2B13186256004BAE31 /* Sparkle.framework */,
+				75139F2D13186256004BAE31 /* Sparkle Test App.app */,
+				75139F2F13186256004BAE31 /* relaunch */,
+				75139F3113186256004BAE31 /* Sparkle Unit Tests.octest */,
+				75139F3313186256004BAE31 /* BinaryDelta */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		75275E57126A101B00DC2A8D /* Perferences Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -594,6 +653,7 @@
 				7507E63C12CD025D0072A88C /* PBXBuildRule */,
 			);
 			dependencies = (
+				75139F351318629E004BAE31 /* PBXTargetDependency */,
 			);
 			name = "AquaticPrime Manager";
 			productInstallPath = "$(HOME)/Applications";
@@ -643,6 +703,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* AquaticPrimeDeveloper */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 75139F2013186253004BAE31 /* Products */;
+					ProjectRef = 75139F1F13186253004BAE31 /* Sparkle.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7507E5FF12CD025D0072A88C /* AquaticPrime Manager */,
@@ -650,6 +716,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		75139F2B13186256004BAE31 /* Sparkle.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Sparkle.framework;
+			remoteRef = 75139F2A13186256004BAE31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75139F2D13186256004BAE31 /* Sparkle Test App.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Sparkle Test App.app";
+			remoteRef = 75139F2C13186256004BAE31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75139F2F13186256004BAE31 /* relaunch */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = relaunch;
+			remoteRef = 75139F2E13186256004BAE31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75139F3113186256004BAE31 /* Sparkle Unit Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Sparkle Unit Tests.octest";
+			remoteRef = 75139F3013186256004BAE31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75139F3313186256004BAE31 /* BinaryDelta */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = BinaryDelta;
+			remoteRef = 75139F3213186256004BAE31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7507E60112CD025D0072A88C /* Resources */ = {
@@ -719,6 +823,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"$SRCROOT/Misc/scripts/prerun.sh\"\nsource \"$SRCROOT/Misc/scripts/prerun.sh\"";
+			showEnvVarsInLog = 0;
 		};
 		7507E63B12CD025D0072A88C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -732,7 +837,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"$SRCROOT/Misc/scripts/postrun.sh\"\nsource \"$SRCROOT/Misc/scripts/postrun.sh\"\n\n";
-			showEnvVarsInLog = 0;
 		};
 		7535217A12C92775000D49B9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -830,6 +934,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		75139F351318629E004BAE31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sparkle;
+			targetProxy = 75139F341318629E004BAE31 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
@@ -983,7 +1095,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /Applications;
 				LD_OPENMP_FLAGS = "-fopenmp";
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DMACAPPSTORE";
 				OTHER_LDFLAGS = "-lcrypto";
