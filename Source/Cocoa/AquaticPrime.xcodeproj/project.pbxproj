@@ -211,13 +211,9 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		3D9364630856794A006F1864 /* Development */ = {
+		3D9364630856794A006F1864 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -248,15 +244,11 @@
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = YES;
 			};
-			name = Development;
+			name = Debug;
 		};
 		3D9364640856794A006F1864 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
 				COPY_PHASE_STRIP = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -290,10 +282,6 @@
 		3D9364650856794A006F1864 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
 				COPY_PHASE_STRIP = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -322,46 +310,34 @@
 			};
 			name = Default;
 		};
-		3D9364670856794A006F1864 /* Development */ = {
+		3D9364670856794A006F1864 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				GCC_VERSION = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				SDKROOT = macosx10.7;
 			};
-			name = Development;
+			name = Debug;
 		};
 		3D9364680856794A006F1864 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				GCC_VERSION = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				SDKROOT = macosx10.7;
 			};
 			name = Deployment;
 		};
 		3D9364690856794A006F1864 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				GCC_VERSION = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				SDKROOT = macosx10.7;
 			};
 			name = Default;
 		};
-		3D9B64DD086DCB83006322F1 /* Development */ = {
+		3D9B64DD086DCB83006322F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = (
@@ -394,7 +370,7 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Development;
+			name = Debug;
 		};
 		3D9B64DE086DCB83006322F1 /* Deployment */ = {
 			isa = XCBuildConfiguration;
@@ -471,7 +447,7 @@
 		3D9364620856794A006F1864 /* Build configuration list for PBXNativeTarget "AquaticPrime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3D9364630856794A006F1864 /* Development */,
+				3D9364630856794A006F1864 /* Debug */,
 				3D9364640856794A006F1864 /* Deployment */,
 				3D9364650856794A006F1864 /* Default */,
 			);
@@ -481,7 +457,7 @@
 		3D9364660856794A006F1864 /* Build configuration list for PBXProject "AquaticPrime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3D9364670856794A006F1864 /* Development */,
+				3D9364670856794A006F1864 /* Debug */,
 				3D9364680856794A006F1864 /* Deployment */,
 				3D9364690856794A006F1864 /* Default */,
 			);
@@ -491,7 +467,7 @@
 		3D9B64DC086DCB83006322F1 /* Build configuration list for PBXNativeTarget "libAquaticPrime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3D9B64DD086DCB83006322F1 /* Development */,
+				3D9B64DD086DCB83006322F1 /* Debug */,
 				3D9B64DE086DCB83006322F1 /* Deployment */,
 				3D9B64DF086DCB83006322F1 /* Default */,
 			);
