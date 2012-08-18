@@ -25,6 +25,12 @@
 	return newInstance;
 }
 
+-(void)dealloc {
+	[super dealloc];
+	[emailAddress release];
+	[recipient release];
+}
+
 -(void) clean
 {
 	if (emailAddress) {
