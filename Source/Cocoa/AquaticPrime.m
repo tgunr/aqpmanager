@@ -277,9 +277,16 @@
 	
 	// Decrypt the signature - should get 20 bytes back
 	unsigned char checkDigest[20];
-	if (RSA_public_decrypt([signature length], [signature bytes], checkDigest, rsaKey, RSA_PKCS1_PADDING) != 20)
+    int resultCode = RSA_public_decrypt([signature length], [signature bytes], checkDigest, rsaKey, RSA_PKCS1_PADDING);
+	if (resultCode != 20) {
+        const char *file;
+        int line;
+        const char data;
+        int flags;
+        unsigned long err = ERR_peek_last_error_line_data(&file, &line, &data, &flags);
 		return nil;
-	
+	}
+    
 	// Make sure the license hash isn't on the blacklist
 	NSMutableString *hashCheck = [NSMutableString string];
 	int hashIndex;
