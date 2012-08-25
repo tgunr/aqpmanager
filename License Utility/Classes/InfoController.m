@@ -7,12 +7,12 @@
 //
 // Redistribution and use in source and binary forms, with or without modification,
 // are permitted provided that the following conditions are met:
-//	�Redistributions of source code must retain the above copyright notice,
+//	Ôæ•Redistributions of source code must retain the above copyright notice,
 //	 this list of conditions and the following disclaimer.
-//	�Redistributions in binary form must reproduce the above copyright notice,
+//	Ôæ•Redistributions in binary form must reproduce the above copyright notice,
 //	 this list of conditions and the following disclaimer in the documentation and/or
 //	 other materials provided with the distribution.
-//	�Neither the name of Aquatic nor the names of its contributors may be used to 
+//	Ôæ•Neither the name of Aquatic nor the names of its contributors may be used to 
 //	 endorse or promote products derived from this software without specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
@@ -29,31 +29,32 @@
 #import "AquaticPrime.h"
 #import "LicenseFile.h"
 
-@implementation InfoController
+@implementation InfoDrawerController
 
-static InfoController *sharedInstance = nil;
+static InfoDrawerController *sharedInfoDrawer = nil;
 
 - (id)init
 {
-	if (sharedInstance) {
-        [self dealloc];
-    } else {
-        sharedInstance = [super init];
-    }	
-	self = [super initWithWindowNibName:@"LicenseInfo"];
-	return sharedInstance;
+	self = [super init];
+    if (self) {
+		if (!sharedInfoDrawer) {
+			sharedInfoDrawer = self;
+		}
+    }
+    return self;
 }
 
-+ (InfoController *)sharedInstance
++ (InfoDrawerController *)sharedInstance
 {
-    return sharedInstance ? sharedInstance : [[[self alloc] init] autorelease];
+	if (sharedInfoDrawer == nil) {
+		[[self alloc] init];
+	}
+    return sharedInfoDrawer;
 }
-
 
 - (void)awakeFromNib
 {
-	licenseFile = [[LicenseFile alloc] init];
-	[[self window] registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
+	licenseFile = [LicenseFile new];
 }
 
 - (IBAction)closeLicenseInfoWindow:(id)sender
@@ -61,8 +62,65 @@ static InfoController *sharedInstance = nil;
 	[[self window] orderOut:self];
 }
 
+- (void)setLicense:(LicenseFile *)license
+{
+    if (licenseFile)
+        [licenseFile release];
+    licenseFile = [license retain];
+	[[self window] setTitle:[license fileName]];
+	NSString *valid = [licenseFile isLicenseValid] ? [NSString stringWithFormat:@"This license is valid for %@", [licenseFile licenseValidForProduct]] 
+    : @"This license is invalid";
+	[licenseValidField setStringValue:valid];
+	if (![licenseFile isLicenseValid]) {
+		[licenseValidField setTextColor: [NSColor redColor]];
+	} else {
+		NSColor *aColor = [NSColor colorWithCalibratedRed:0.165 green:0.502 blue:0.216 alpha:1.000];
+		[licenseValidField setTextColor: aColor];
+	}
+	
+	[hashField setStringValue:[NSString stringWithFormat:@"License Hash: %@", [licenseFile hash]]]; 
+    [keyValueInfoTable reloadData];
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+	return [[licenseFile keyInfoArray] count];
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    if ([[tableColumn identifier] isEqualToString:@"keyColumn"])
+		return [[licenseFile keyInfoArray] objectAtIndex:row];
+	else
+		return [[licenseFile valueInfoArray] objectAtIndex:row];
+}
+
+@end
+
+@implementation InfoWindowController
+
+- (id)init
+{
+	self = [super init];
+    if (self) {
+		self = [super initWithWindowNibName:@"LicenseInfo"];
+    }
+    return self;
+}
+
+- (void)awakeFromNib
+{
+	[super awakeFromNib];
+	[[self window] registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
+}
+
 - (void)concludeDragOperation:(id <NSDraggingInfo>)sender
 {
+}
+
+- (NSDragOperation)draggingEntered:(id < NSDraggingInfo >)sender
+{
+	return NSDragOperationLink;
 }
 
 - (void)draggingEnded:(id <NSDraggingInfo>)sender
@@ -78,26 +136,6 @@ static InfoController *sharedInstance = nil;
 	return YES;
 }
 
-- (void)setLicense:(LicenseFile *)license
-{
-    if (licenseFile)
-        [licenseFile release];
-    licenseFile = [license retain];
-	[licenseWindow setTitle:[license fileName]];
-	NSString *valid = [licenseFile isLicenseValid] ? [NSString stringWithFormat:@"This license is valid for %@", [licenseFile licenseValidForProduct]] 
-    : @"This license is invalid";
-	[licenseValidField setStringValue:valid];
-	if (![licenseFile isLicenseValid]) {
-		[licenseValidField setTextColor: [NSColor redColor]];
-	} else {
-		NSColor *aColor = [NSColor colorWithCalibratedRed:0.165 green:0.502 blue:0.216 alpha:1.000];
-		[licenseValidField setTextColor: aColor];
-	}
-
-	[hashField setStringValue:[NSString stringWithFormat:@"License Hash: %@", [licenseFile hash]]]; 
-    [keyValueInfoTable reloadData];
-}
-
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
 	NSArray *filenames = [[sender draggingPasteboard] propertyListForType:NSFilenamesPboardType];
@@ -109,28 +147,14 @@ static InfoController *sharedInstance = nil;
 	if (![licenseFile readLicenseAtPath:licensePath])
 		return NO;
 	
-	[licenseWindow setTitle:[licensePath lastPathComponent]];
+	[[self window] setTitle:[licensePath lastPathComponent]];
 	NSString *valid = [licenseFile isLicenseValid] ? [NSString stringWithFormat:@"This license is valid for %@", [licenseFile licenseValidForProduct]] 
-									 : @"This license is invalid";
+	: @"This license is invalid";
 	[licenseValidField setStringValue:valid];
 	[hashField setStringValue:[NSString stringWithFormat:@"License Hash: %@", [licenseFile hash]]]; 
 	[[self window] setContentView:licenseInfoView];
 	
 	return YES;
-}
-
-
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
-{
-	return [[licenseFile keyInfoArray] count];
-}
-
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
-{
-    if ([[tableColumn identifier] isEqualToString:@"keyInfoColumn"])
-		return [[licenseFile keyInfoArray] objectAtIndex:row];
-	else
-		return [[licenseFile valueInfoArray] objectAtIndex:row];
 }
 
 @end

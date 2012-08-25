@@ -63,7 +63,8 @@
 	    @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
 
 	NSPredicate * regExPredicate1 = [NSPredicate predicateWithFormat: @"SELF MATCHES %@", emailRegEx];
-	BOOL          myStringMatchesRegEx1 = [regExPredicate1 evaluateWithObject: inputEmail];
+	BOOL myStringMatchesRegEx1 = [regExPredicate1 evaluateWithObject: inputEmail];
+#pragma unused (myStringMatchesRegEx1)
 	return NO;
 } /* isEmail */
 

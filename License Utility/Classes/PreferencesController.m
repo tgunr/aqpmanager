@@ -48,6 +48,36 @@ static PreferencesController *shared;
 	NSString *mailPrefsPath = [[libraryPath stringByAppendingPathComponent:@"Preferences"] stringByAppendingPathComponent:@"com.apple.mail.plist"];
 	NSDictionary *mailPreferences = [NSDictionary dictionaryWithContentsOfFile:mailPrefsPath];
 	emailAccounts = [mailPreferences valueForKey:@"DeliveryAccounts"];
+
+	NSInteger emailProcess = [[NSUserDefaults standardUserDefaults] integerForKey:@"MailProcess"];
+	if (emailProcess == 1) {
+		[mailProcessMatrix selectCellAtRow:0 column: 0];
+		[appleMailButton setIntValue:1];
+		[internalMailButton setIntValue:0];
+		[mailServer setEnabled:NO];
+		[accountsTable setEnabled:NO];
+	} else {
+		[mailProcessMatrix selectCellAtRow:1 column: 0];
+		[appleMailButton setIntValue:0];
+		[internalMailButton setIntValue:1];
+		[mailServer setEnabled:YES];
+		[accountsTable setEnabled:YES];	
+	}
+
+#ifdef MACAPPSTORE
+	NSArray *tbItems = [tabToolBar items];
+	NSEnumerator *enumerator = [tbItems objectEnumerator];
+	
+	id anItem;
+	NSInteger i =0;
+	while (anItem = [enumerator nextObject]) {
+		if ([anItem itemIdentifier] == [toolbarItemUpdate itemIdentifier]) {
+			[tabToolBar removeItemAtIndex:i];
+			break;
+		}
+		i++;
+	}
+#endif
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -107,13 +137,20 @@ static PreferencesController *shared;
 - (IBAction)clickTool:(NSToolbarItem*)sender
 {
 	NSLog(@"Clicked Tool Label:%@ ID:%@", [sender label], [sender itemIdentifier]);
-	if( tabView ) 
-		[tabView selectTabViewItemWithIdentifier: [sender label]];
-	if( tabToolBar ) 
-		[tabToolBar setSelectedItemIdentifier: [sender itemIdentifier]];
-	
-	[[NSUserDefaults standardUserDefaults] setObject:[sender itemIdentifier] forKey:@"PrefToolSelected"];
-		
+	if (sender) {
+		if( tabView ) 
+			[tabView selectTabViewItemWithIdentifier: [sender label]];
+		if( tabToolBar ) 
+			[tabToolBar setSelectedItemIdentifier: [sender itemIdentifier]];
+		[[NSUserDefaults standardUserDefaults] setObject:[sender itemIdentifier] forKey:@"PrefToolSelected"];
+	} else {
+		NSArray *tbItems = [tabToolBar items];
+		NSString *id = [[tbItems objectAtIndex:0] itemIdentifier];
+		[tabToolBar setSelectedItemIdentifier:id];
+		[tabView selectTabViewItemWithIdentifier: @"General"];
+		[[NSUserDefaults standardUserDefaults] setObject:id forKey:@"PrefToolSelected"];
+	}
+			
 	[self refreshUpdateDate:sender];
 	
 	NSView*		theTabView = [[tabView selectedTabViewItem] view]; 
@@ -171,19 +208,33 @@ static PreferencesController *shared;
     CFRelease(feedbackURL);
 }
 
+- (IBAction)mailProcessClick:(id)sender
+{
+	NSButtonCell *selCell = [sender selectedCell];
+	if(selCell == appleMailButton) {
+		[[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"MailProcess"];
+		[mailServer setEnabled:NO];
+		[accountsTable setEnabled:NO];
+	} else {
+		[[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"MailProcess"];
+		[mailServer setEnabled:YES];
+		[accountsTable setEnabled:YES];	
+	}
+}
+
 #pragma mark Table Delegates
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
 	return [emailAccounts count];
 }
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
 	NSString *account = [[emailAccounts objectAtIndex:row] valueForKey:@"Hostname"];
 	return account;
 }
 
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
 
 	

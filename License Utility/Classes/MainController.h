@@ -1,13 +1,14 @@
 /* MainController */
 
 #import <Cocoa/Cocoa.h>
-@class InfoController;
+@class InfoWindowController;
 @class AboutController;
 
 @interface MainController : NSObject
 {
 	IBOutlet NSWindow *mainWindow;
-	InfoController *infoController;
+	IBOutlet NSMenu *productMenu;
+	IBOutlet InfoWindowController *infoWindowController;
 	AboutController *aboutController;
 }
 

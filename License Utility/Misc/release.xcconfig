@@ -1,5 +1,0 @@
-BUILD_NUMBER = 1
-VERSION_NUMBER = 0.1b3
-SU_SITE = polymicro.net
-SU_PATH = products/aqpmanager/updates
-SU_FEED = updates.xml

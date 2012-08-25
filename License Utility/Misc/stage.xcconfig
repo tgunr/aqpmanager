@@ -1,5 +1,0 @@
-BUILD_NUMBER = 812
-VERSION_NUMBER = 0.1
-SU_SITE = mp.polymicro.net
-SU_PATH = products/aqprime/updates
-SU_FEED = updates.xml

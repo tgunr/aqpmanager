@@ -27,8 +27,9 @@
 #import <Cocoa/Cocoa.h>
 @class AQTableView;
 @class AquaticPrime;
-@class InfoController;
+@class InfoDrawerController;
 @class LicenseFile;
+@class KeyController;
 
 @interface LicenseController : NSObject
 {
@@ -48,7 +49,7 @@
 	IBOutlet NSPanel *licenseExtensionSheet;
 	IBOutlet NSTextField *licenseEmailField;
 	IBOutlet NSButton *emailButton;
-
+	
     // Licenses Tab
 	BOOL					completePosting;
     BOOL					commandHandling;
@@ -63,9 +64,11 @@
     IBOutlet NSTableView *licenseTable;
     IBOutlet NSButton *mailButton;
     IBOutlet NSButton *blackListButton;
-    IBOutlet NSButton *revealButton;
 	IBOutlet NSTextField *numberLicenses;
-		
+	IBOutlet NSButton *revealButton;
+	IBOutlet NSButton *addKeyButton;
+    IBOutlet NSButton *removeKeyButton;
+
 	NSMutableArray *keyArray;
 	NSMutableArray *valueArray;
 	NSMutableArray *licenseArray;
@@ -79,11 +82,12 @@
 	
 	NSString *supportDir;
 	NSString *licenseDir;
+	NSString *saveDirectory;
 	
-	IBOutlet id keyController;
+	KeyController *keyController;
 	IBOutlet id statusController;
 	IBOutlet id productController;
-	IBOutlet id infoController;
+	IBOutlet InfoDrawerController *infoDrawerController;
 	IBOutlet NSArrayController *licenseArrayController;
 
 }
@@ -96,7 +100,7 @@
 - (IBAction)generateLicense:(id)sender;
 - (void)saveLicenseTemplate:(id)table;
 - (BOOL)loadLicenseTemplate;
-- (void)newProductSelected;
+- (void)productSelected;
 - (IBAction)editLicenseExtension:(id)sender;
 - (IBAction)editSaveDirectory:(id)sender;
 - (IBAction)emailLicenseClick:(id)sender;
@@ -105,10 +109,9 @@
 - (IBAction)searchBtnClick:(id)sender;
 - (IBAction)blacklistBtnCLick:(id)sender;
 - (IBAction)blacklistRadioClick:(id)sender;
-- (IBAction)restoreBtnClick:(id)sender;
 
-- (IBAction)addKeyValue:(id)sender;
-- (IBAction)removeKeyValue:(id)sender;
+- (IBAction)addKeyButtonClick:(id)sender;
+- (IBAction)removeKeyButtonClick:(id)sender;
 
 - (IBAction)extensionSheetOK:(id)sender;
 - (IBAction)extensionSheetCancel:(id)sender;
@@ -119,8 +122,8 @@
 
 - (NSString *)productPath: (NSString *)product;
 - (NSString *)productBlackListPath: (NSString *)product;
-- (NSString *)prodAttachmentsPath: (NSString *)product;
-- (NSString *)prodLicensesPath: (NSString *)product;
-
+- (NSString *)productAttachmentsPath: (NSString *)product;
+- (NSString *)productLicensesPath: (NSString *)product;
+  
 @end
 
