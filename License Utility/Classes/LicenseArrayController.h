@@ -6,7 +6,7 @@
 //  Copyright 2010 PolyMicro Systems. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 @interface LicenseArrayController : NSArrayController
 {    NSString *searchString;
