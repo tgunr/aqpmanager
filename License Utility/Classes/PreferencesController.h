@@ -14,6 +14,7 @@
 	IBOutlet NSPanel *prefsWindow;
 	IBOutlet NSTabView *tabView;
 	IBOutlet NSToolbar *tabToolBar;
+	IBOutlet NSToolbarItem *toolbarItemUpdate;
 
 	IBOutlet NSTextField *updateText;
 	IBOutlet NSForm *mailServer;
@@ -21,6 +22,10 @@
 	IBOutlet NSFormCell *hostPort;
 	IBOutlet NSTableView *accountsTable;
 	
+	IBOutlet NSMatrix *mailProcessMatrix;
+    IBOutlet NSButtonCell *appleMailButton;
+    IBOutlet NSButtonCell *internalMailButton;
+
 	NSMutableArray *emailAccounts;
 }
 @property (retain) 	NSArray *emailAccounts;
@@ -29,4 +34,5 @@
 - (IBAction)clickTool:(NSToolbarItem*)sender;
 - (IBAction)refreshUpdateDate:(id)sender;
 - (IBAction)provideFeedback:(id)sender;
+- (IBAction)mailProcessClick:(id)sender;
 @end

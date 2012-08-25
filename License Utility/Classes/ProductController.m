@@ -7,12 +7,12 @@
 //
 // Redistribution and use in source and binary forms, with or without modification,
 // are permitted provided that the following conditions are met:
-//	¥Redistributions of source code must retain the above copyright notice,
+//	ï¾¥Redistributions of source code must retain the above copyright notice,
 //	 this list of conditions and the following disclaimer.
-//	¥Redistributions in binary form must reproduce the above copyright notice,
+//	ï¾¥Redistributions in binary form must reproduce the above copyright notice,
 //	 this list of conditions and the following disclaimer in the documentation and/or
 //	 other materials provided with the distribution.
-//	¥Neither the name of the Aquatic nor the names of its contributors may be used to 
+//	ï¾¥Neither the name of the Aquatic nor the names of its contributors may be used to 
 //	 endorse or promote products derived from this software without specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
@@ -211,13 +211,6 @@
 	[productArray sortUsingSelector:@selector(caseInsensitiveCompare:)];
 	[productTable reloadData];
 	
-	if ([productArray count]) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"ProductSelected" object:nil];
-		[removeProductButton setEnabled:YES];
-	} 
-	else {
-		[removeProductButton setEnabled:NO];
-	}
 }
 
 #pragma mark Add Project
@@ -334,25 +327,24 @@
 {
 
 	int index = [productArray indexOfObject:product];
-	
+
 	if (returnCode == NSAlertDefaultReturn) {
-		NSFileManager *fm = [NSFileManager defaultManager];
+	NSFileManager *fm = [NSFileManager defaultManager];
 		NSString *supportDir = [licenseController supportDir];
 		NSError *err;
 		BOOL isDir;
-		
+	
 		NSString *productPath = [licenseController productPath: product];
 		if ([fm fileExistsAtPath:productPath isDirectory:&isDir]) {
 			[fm removeItemAtPath:productPath error:&err];
 		}	
-		NSString *licenseExtension = 
-		[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/Product Keys/%@.plist", product]] handler:nil];
-		[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/License Templates/%@.plist", product]] handler:nil];
+	[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/Product Keys/%@.plist", product]] handler:nil];
+	[fm removeFileAtPath:[supportDir stringByAppendingString:[NSString stringWithFormat:@"/License Templates/%@.plist", product]] handler:nil];
 		
-		[productArray removeObjectAtIndex:index];
+	[productArray removeObjectAtIndex:index];
 		
-		[productTable reloadData];
-		[productTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index-1] byExtendingSelection:NO];
+	[productTable reloadData];
+	[productTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index-1] byExtendingSelection:NO];
 	}
 }
 
@@ -376,12 +368,12 @@
 	//[[NSNotificationCenter defaultCenter] postNotificationName:@"ProductSelected" object:productTable];
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
 	return [productArray count];
 }
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
 	return [productArray objectAtIndex:row];
 }
@@ -397,7 +389,7 @@
 	return YES;
 }
 
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     // Don't allow "" as a name
 	if (!object || [object isEqualToString:@""])

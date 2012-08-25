@@ -1,12 +1,20 @@
+#!/bin/sh
+
+# release.sh
+#
+# Created by Dave Carlton on 10/11/10.
+# Copyright 2010 PolyMicro Systems. All rights reserved.
+
 set -o errexit
-set -x
 if [[ "$CONFIGURATION" == 'Release' ]]; then
+#set -x
+
 exit 0
 # Variables
 
-# Get the build number from the debug.xcconfig and set the release.xccofig file
+# Get the build number from the development.xcconfig and set the release.xccofig file
 # This way, we stay at a constant build number until we go back to debugging
-BUILD_NUMBER=`head -n 1 "$SRCROOT/Misc/debug.xcconfig" | sed -e 's/BUILD_NUMBER = //'`
+BUILD_NUMBER=`head -n 1 "$SRCROOT/Misc/development.xcconfig" | sed -e 's/BUILD_NUMBER = //'`
 sed -e "s/BUILD_NUMBER = .*/BUILD_NUMBER = $BUILD_NUMBER/" -i ""  "$SRCROOT/Misc/release.xcconfig"
 
 # Have to update the application Info.plist so it knows we are on this build
@@ -90,7 +98,8 @@ tell application "Feeder"
 end tell
 EOF
 
-bbedit "$RELEASE_NOTES_PATHNAME" 
+#echo rsync -auv "$UPDATES_DIR"/ polymicrosystems.com:sites/pdfgarden.com/updates/
 
-echo rsync -auv "$UPDATES_DIR"/ polymicrosystems.com:sites/pdfgarden.com/updates/
+echo "release.sh finished"
+
 fi
